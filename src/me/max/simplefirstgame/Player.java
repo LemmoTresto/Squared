@@ -57,6 +57,20 @@ public class Player extends GameObject{
                 }
 
             }
+            else if (tempObject.getId() == ID.EnemyBoss){
+
+                if (getBounds().intersects(tempObject.getBounds())){
+                    HUD.HEALTH -= 10;
+                }
+
+            }
+            else if (tempObject.getId() == ID.EnemyBossBullet){
+
+                if (getBounds().intersects(tempObject.getBounds())){
+                    HUD.HEALTH -= 3;
+                }
+
+            }
         }
     }
 

@@ -9,6 +9,8 @@ public enum ID {
     BasicEnemy(),
     Trial(),
     FastEnemy(),
-    SmartEnemy()
+    SmartEnemy(),
+    EnemyBoss(),
+    EnemyBossBullet()
 
 }
