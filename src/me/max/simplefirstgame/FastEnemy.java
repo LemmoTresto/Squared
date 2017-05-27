@@ -5,17 +5,17 @@ import java.awt.*;
 /**
  * Created by max on 25-5-2017.
  */
-public class BasicEnemy extends GameObject{
+public class FastEnemy extends GameObject{
 
     private Handler handler;
 
-    public BasicEnemy(float x, float y, ID id, Handler handler) {
+    public FastEnemy(float x, float y, ID id, Handler handler) {
         super(x, y, id);
 
         this.handler = handler;
 
-        velX = 5;
-        velY = 5;
+        velX = 2;
+        velY = 8;
     }
 
     public void tick() {
@@ -26,11 +26,11 @@ public class BasicEnemy extends GameObject{
 
         if (x <= 0 || x >= Game.WIDTH - 20) { velX *= -1; }
 
-        handler.addObject(new Trial(x, y, ID.Trial, Color.red, 16, 16, 0.05f, handler));
+        handler.addObject(new Trial(x, y, ID.Trial, Color.cyan, 16, 16, 0.05f, handler));
     }
 
     public void render(Graphics g) {
-        g.setColor(Color.red);
+        g.setColor(Color.cyan);
         g.fillRect((int) x, (int) y, 16, 16);
     }
 

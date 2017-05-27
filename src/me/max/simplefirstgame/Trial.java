@@ -13,7 +13,7 @@ public class Trial extends GameObject{
     private int width, height;
     private float life;
 
-    public Trial(int x, int y, ID id, Color color, int width, int height, float life, Handler handler) {
+    public Trial(float x, float y, ID id, Color color, int width, int height, float life, Handler handler) {
         super(x, y, id);
         this.handler = handler;
         this.color = color;
@@ -36,14 +36,14 @@ public class Trial extends GameObject{
         g2d.setComposite(makeTranspaant(alpha));
 
         g.setColor(color);
-        g.fillRect(x, y, width, height);
+        g.fillRect((int) x, (int) y, width, height);
 
         g2d.setComposite(makeTranspaant(1));
     }
 
     private AlphaComposite makeTranspaant(float alpha){
-        int type = AlphaComposite.SRC_OVER;
-        return(AlphaComposite.getInstance(type, alpha));
+        float type = AlphaComposite.SRC_OVER;
+        return(AlphaComposite.getInstance((int) type, alpha));
     }
 
     public Rectangle getBounds() {

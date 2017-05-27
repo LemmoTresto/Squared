@@ -10,6 +10,7 @@ import java.security.Key;
 public class KeyInput extends KeyAdapter{
 
     private Handler handler;
+    private int xp, xm, yp, ym;
 
     public KeyInput(Handler handler){
         this.handler = handler;
@@ -23,10 +24,13 @@ public class KeyInput extends KeyAdapter{
 
             if (tempObject.getId() == ID.Player){
 
-                if (key == KeyEvent.VK_W) { tempObject.setVelY(-5); }
-                if (key == KeyEvent.VK_S) { tempObject.setVelY(5); }
-                if (key == KeyEvent.VK_D) { tempObject.setVelX(5); }
-                if (key == KeyEvent.VK_A) { tempObject.setVelX(-5); }
+                if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP) ym = 5;
+                if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) xm = 5;
+                if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) yp = 5;
+                if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) xp = 5;
+
+                tempObject.setVelX(xp - xm);
+                tempObject.setVelY(yp - ym);
 
             }
         }
@@ -43,10 +47,13 @@ public class KeyInput extends KeyAdapter{
 
             if (tempObject.getId() == ID.Player){
 
-                if (key == KeyEvent.VK_W) { tempObject.setVelY(0); }
-                if (key == KeyEvent.VK_S) { tempObject.setVelY(0); }
-                if (key == KeyEvent.VK_D) { tempObject.setVelX(0); }
-                if (key == KeyEvent.VK_A) { tempObject.setVelX(0); }
+                if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP) ym = 0;
+                if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) xm = 0;
+                if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) yp = 0;
+                if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) xp = 0;
+
+                tempObject.setVelX(xp - xm);
+                tempObject.setVelY(yp - ym);
 
             }
         }

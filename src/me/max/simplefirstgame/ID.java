@@ -7,6 +7,8 @@ public enum ID {
 
     Player(),
     BasicEnemy(),
-    Trial();
+    Trial(),
+    FastEnemy(),
+    SmartEnemy()
 
 }
