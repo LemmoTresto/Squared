@@ -22,7 +22,7 @@ public class HUD {
         score ++;
     }
 
-    public void render(Graphics g, boolean ComesFromFPS, int FPS){
+    public void render(Graphics g){
         g.setColor(Color.gray);
         g.fillRect(15, 15, 200, 32);
         g.setColor(new Color(75, (int) greenValue, 0));
@@ -32,12 +32,6 @@ public class HUD {
 
         g.drawString("Score: " + score, 15, 64);
         g.drawString("Level: " + level, 15, 78);
-        g.drawString("FPS: " + FPS, 15, 120);
-        if (ComesFromFPS){
-            System.out.println("RECEIVED!");
-            g.drawString("FPS: " + FPS, 15, 92);
-
-        }
 
     }
 

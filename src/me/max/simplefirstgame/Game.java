@@ -16,7 +16,7 @@ public class Game extends Canvas implements Runnable{
     private Random r;
     private HUD hud;
     private Spawn spawner;
-    private int frames;
+    private int fps;
 
 
     public Game() {
@@ -70,7 +70,7 @@ public class Game extends Canvas implements Runnable{
                 delta--;
             }
             if(running) {
-                render(false, frames);
+                render();
             }
             frames++;
 
@@ -78,7 +78,7 @@ public class Game extends Canvas implements Runnable{
             if(System.currentTimeMillis() - timer > 1000){
                 timer += 1000;
                 System.out.println("FPS: " + frames);
-                render(true, frames);
+                fps = frames;
                 frames = 0;
             }
 
@@ -95,7 +95,7 @@ public class Game extends Canvas implements Runnable{
 
     }
 
-    private void render(boolean comesFromFPS, int FPS){
+    private void render(){
         BufferStrategy bs = this.getBufferStrategy();
         if (bs == null){
             this.createBufferStrategy(3);
@@ -106,13 +106,12 @@ public class Game extends Canvas implements Runnable{
 
         g.setColor(Color.black);
         g.fillRect(0,0,WIDTH,HEIGHT);
-        if (comesFromFPS){
-            hud.render(g, true, frames);
-        }
+        g.setColor(Color.white);
+        g.drawString("FPS: " + fps, 15, 92);
 
         handler.render(g);
 
-        hud.render(g, false, frames);
+        hud.render(g);
 
         g.dispose();
         bs.show();
