@@ -16,13 +16,36 @@ public class Game extends Canvas implements Runnable{
     private Random r;
     private HUD hud;
     private Spawn spawner;
+    private Menu menu;
+    private LevelChooser lvlchooser;
+    private Died died;
     private int fps;
+
+    public enum STATE {
+        Menu,
+        LevelChooser,
+        Died,
+        Level1,
+        Level2,
+        Level3,
+        Level4,
+        Level5,
+        Level6,
+        Level7,
+        Level8,
+        Level9,
+        Level10
+    }
+
+    public static STATE gameState = STATE.Died;
 
 
     public Game() {
         handler = new Handler();
 
         this.addKeyListener(new KeyInput(handler));
+        this.addMouseListener(new Menu());
+        this.addMouseListener(new LevelChooser());
 
         new Window(WIDTH, HEIGHT, "Simple first game!", this);
 
@@ -30,12 +53,15 @@ public class Game extends Canvas implements Runnable{
 
         spawner = new Spawn(handler, hud);
 
+        menu = new Menu();
+
+        lvlchooser = new LevelChooser();
+
+        died = new Died(handler);
+
         r = new Random();
-
-        handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));
-        handler.addObject(new BasicEnemy(r.nextInt(WIDTH - 32), r.nextInt(HEIGHT - 32), ID.BasicEnemy, handler));
-
     }
+
 
 
     public synchronized void start(){
@@ -87,12 +113,12 @@ public class Game extends Canvas implements Runnable{
     }
 
     private void tick(){
-        handler.tick();;
-
+        handler.tick();
         hud.tick();
-
         spawner.tick();
-
+        menu.tick();
+        lvlchooser.tick();
+        died.tick();
     }
 
     private void render(){
@@ -106,16 +132,25 @@ public class Game extends Canvas implements Runnable{
 
         g.setColor(Color.black);
         g.fillRect(0,0,WIDTH,HEIGHT);
-        g.setColor(Color.white);
-        g.drawString("FPS: " + fps, 15, 92);
 
         handler.render(g);
 
+        g.setColor(Color.yellow);
+        g.drawString("FPS: " + fps, Game.WIDTH - 65, 15);
         hud.render(g);
+
+        menu.render(g);
+        lvlchooser.render(g);
+        died.render(g);
+
 
         g.dispose();
         bs.show();
     }
+
+
+
+
 
     public static float clamp(float var, float min, float max){
         if (var >= max){
