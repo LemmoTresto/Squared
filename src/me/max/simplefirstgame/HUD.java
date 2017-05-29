@@ -15,7 +15,7 @@ public class HUD {
     private int level = 1;
 
     public void tick() {
-        if (!(Game.gameState == Game.STATE.Menu) && !(Game.gameState == Game.STATE.LevelChooser) && !(Game.gameState == Game.STATE.Died)) {
+        if (!(Game.gameState == Game.STATE.Menu) && !(Game.gameState == Game.STATE.LevelChooser) && !(Game.gameState == Game.STATE.Died) && !(Game.gameState == Game.STATE.WonLevel1) && !(Game.gameState == Game.STATE.WonLevel2) && !(Game.gameState == Game.STATE.WonLevel3) && !(Game.gameState == Game.STATE.WonLevel4) && !(Game.gameState == Game.STATE.WonLevel5) && !(Game.gameState == Game.STATE.WonLevel6) && !(Game.gameState == Game.STATE.WonLevel7) && !(Game.gameState == Game.STATE.WonLevel8) && !(Game.gameState == Game.STATE.WonLevel9)) {
             HEALTH = Game.clamp((int) HEALTH, 0, 100);
             greenValue = Game.clamp(greenValue, 0, 255);
 
@@ -28,7 +28,7 @@ public class HUD {
     }
 
     public void render(Graphics g){
-        if (!(Game.gameState == Game.STATE.Menu) && !(Game.gameState == Game.STATE.LevelChooser) && !(Game.gameState == Game.STATE.Died)) {
+        if (!(Game.gameState == Game.STATE.Menu) && !(Game.gameState == Game.STATE.LevelChooser) && !(Game.gameState == Game.STATE.Died) && !(Game.gameState == Game.STATE.WonLevel1) && !(Game.gameState == Game.STATE.WonLevel2) && !(Game.gameState == Game.STATE.WonLevel3) && !(Game.gameState == Game.STATE.WonLevel4) && !(Game.gameState == Game.STATE.WonLevel5) && !(Game.gameState == Game.STATE.WonLevel6) && !(Game.gameState == Game.STATE.WonLevel7) && !(Game.gameState == Game.STATE.WonLevel8) && !(Game.gameState == Game.STATE.WonLevel9)) {
             g.setColor(Color.gray);
             g.fillRect(15, 15, 200, 32);
             g.setColor(new Color(75, (int) greenValue, 0));

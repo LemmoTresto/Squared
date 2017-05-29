@@ -10,10 +10,8 @@ public class Spawn {
     private Handler handler;
     private HUD hud;
     private boolean done = false;
-    private boolean done2 = false;
-    private boolean done3 = false;
-    private boolean waiter = false;
-    private int timer = 1000;
+    public boolean done2 = false;
+    public boolean done3 = false;
 
     private Random r = new Random();
 
@@ -25,9 +23,6 @@ public class Spawn {
     }
 
     public void tick() {
-        if (waiter){
-            timer--;
-        }
 
         if (Game.gameState == Game.STATE.Menu) {
             if (!(done2)) {
@@ -82,9 +77,14 @@ public class Spawn {
                 } else if (hud.getLevel() == 10) {
                     handler.clearEnemies();
                     handler.addObject(new EnemyBoss((Game.WIDTH / 2) - 48, -120, ID.EnemyBoss, handler));
-                } else if (hud.getLevel() == 12) {
-                    handler.clearEnemies();
-                    Game.gameState = Game.STATE.Menu;
+                } else if (hud.getLevel() == 15) {
+                    handler.object.clear();
+                    handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
+                    handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.FastEnemy, handler));
+                    handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
+                    handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.FastEnemy, handler));
+                    handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
+                    Game.gameState = Game.STATE.WonLevel1;
 
                 }
             }

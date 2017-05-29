@@ -19,6 +19,7 @@ public class Game extends Canvas implements Runnable{
     private Menu menu;
     private LevelChooser lvlchooser;
     private Died died;
+    private onWin onWin;
     private int fps;
 
     public enum STATE {
@@ -34,10 +35,20 @@ public class Game extends Canvas implements Runnable{
         Level7,
         Level8,
         Level9,
-        Level10
+        Level10,
+        WonLevel1,
+        WonLevel2,
+        WonLevel3,
+        WonLevel4,
+        WonLevel5,
+        WonLevel6,
+        WonLevel7,
+        WonLevel8,
+        WonLevel9,
+        WonLevel10
     }
 
-    public static STATE gameState = STATE.Died;
+    public static STATE gameState = STATE.WonLevel3;
 
 
     public Game() {
@@ -46,6 +57,8 @@ public class Game extends Canvas implements Runnable{
         this.addKeyListener(new KeyInput(handler));
         this.addMouseListener(new Menu());
         this.addMouseListener(new LevelChooser());
+        this.addMouseListener(new Died(handler, hud, spawner));
+        this.addMouseListener(new onWin(handler, hud));
 
         new Window(WIDTH, HEIGHT, "Simple first game!", this);
 
@@ -57,7 +70,9 @@ public class Game extends Canvas implements Runnable{
 
         lvlchooser = new LevelChooser();
 
-        died = new Died(handler);
+        died = new Died(handler, hud, spawner);
+
+        onWin = new onWin(handler, hud);
 
         r = new Random();
     }
@@ -119,6 +134,7 @@ public class Game extends Canvas implements Runnable{
         menu.tick();
         lvlchooser.tick();
         died.tick();
+        onWin.tick();
     }
 
     private void render(){
@@ -142,6 +158,7 @@ public class Game extends Canvas implements Runnable{
         menu.render(g);
         lvlchooser.render(g);
         died.render(g);
+        onWin.render(g);
 
 
         g.dispose();
