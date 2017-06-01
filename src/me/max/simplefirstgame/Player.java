@@ -25,7 +25,7 @@ public class Player extends GameObject{
         x = Game.clamp((int) x, 0, Game.WIDTH - 39);
         y = Game.clamp((int) y, 0, Game.HEIGHT - 62);
 
-        collision();
+        //collision();
 
         handler.addObject(new Trial(x, y, ID.Trial, Color.white, 32, 32, 0.09f, handler));
 

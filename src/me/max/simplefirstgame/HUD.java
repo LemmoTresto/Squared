@@ -11,8 +11,13 @@ public class HUD {
     public static float HEALTH = 100;
 
     private float greenValue = 255;
-    private int score = 0;
+    public int score = 0;
     private int level = 1;
+    private Handler handler;
+
+    public HUD(Handler handler){
+        this.handler = handler;
+    }
 
     public void tick() {
         if (!(Game.gameState == Game.STATE.Menu) && !(Game.gameState == Game.STATE.LevelChooser) && !(Game.gameState == Game.STATE.Died) && !(Game.gameState == Game.STATE.WonLevel1) && !(Game.gameState == Game.STATE.WonLevel2) && !(Game.gameState == Game.STATE.WonLevel3) && !(Game.gameState == Game.STATE.WonLevel4) && !(Game.gameState == Game.STATE.WonLevel5) && !(Game.gameState == Game.STATE.WonLevel6) && !(Game.gameState == Game.STATE.WonLevel7) && !(Game.gameState == Game.STATE.WonLevel8) && !(Game.gameState == Game.STATE.WonLevel9)) {
@@ -23,6 +28,14 @@ public class HUD {
             score++;
             if (HEALTH <= 0){
                 Game.gameState = Game.STATE.Died;
+                for (int i = 0; i < handler.object.size(); i++){
+                    GameObject tempObject = handler.object.get(i);
+                    HEALTH = 100;
+                    if (tempObject.getId() == ID.Player){
+                        handler.object.remove(i);
+                        break;
+                    }
+                }
             }
         }
     }

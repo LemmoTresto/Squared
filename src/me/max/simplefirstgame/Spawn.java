@@ -15,7 +15,7 @@ public class Spawn {
 
     private Random r = new Random();
 
-    private float scoreKeep = 0;
+    public float scoreKeep = 0;
 
     public Spawn(Handler handler, HUD hud) {
         this.handler = handler;
@@ -35,7 +35,7 @@ public class Spawn {
             }
         }
 
-        if (Game.gameState == Game.STATE.LevelChooser) {
+        else if (Game.gameState == Game.STATE.LevelChooser) {
             if (!(done3)) {
                 handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
                 handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.FastEnemy, handler));
@@ -44,15 +44,8 @@ public class Spawn {
         }
 
 
-        if (Game.gameState == Game.STATE.Level1) {
+        else if (Game.gameState == Game.STATE.Level1) {
             scoreKeep++;
-
-            if (!(done)) {
-                handler.clearEnemies();
-                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
-                handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
-                done = true;
-            }
 
             if (scoreKeep >= 350) {
                 scoreKeep = 0;
@@ -90,16 +83,8 @@ public class Spawn {
             }
         }
 
-        if (Game.gameState == Game.STATE.Level2) {
+        else if (Game.gameState == Game.STATE.Level2) {
             scoreKeep++;
-
-            if (!(done)) {
-                handler.clearEnemies();
-                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
-                handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
-                handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
-                done = true;
-            }
 
             if (scoreKeep >= 100) {
                 scoreKeep = 0;

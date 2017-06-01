@@ -48,33 +48,30 @@ public class Game extends Canvas implements Runnable{
         WonLevel10
     }
 
-    public static STATE gameState = STATE.WonLevel3;
+    public static STATE gameState = STATE.Menu;
 
 
     public Game() {
+
         handler = new Handler();
 
-        this.addKeyListener(new KeyInput(handler));
-        this.addMouseListener(new Menu());
-        this.addMouseListener(new LevelChooser());
-        this.addMouseListener(new Died(handler, hud, spawner));
-        this.addMouseListener(new onWin(handler, hud));
+        menu = new Menu();
+        hud = new HUD(handler);
+        spawner = new Spawn(handler, hud);
+        lvlchooser = new LevelChooser(handler, spawner);
+        died = new Died(handler, hud, spawner);
+        onWin = new onWin(handler, hud, spawner);
+
+        r = new Random();
 
         new Window(WIDTH, HEIGHT, "Simple first game!", this);
 
-        hud = new HUD();
+        this.addKeyListener(new KeyInput(handler));
+        this.addMouseListener(new Menu());
+        this.addMouseListener(new LevelChooser(handler, spawner));
+        this.addMouseListener(new Died(handler, hud, spawner));
+        this.addMouseListener(new onWin(handler, hud, spawner));
 
-        spawner = new Spawn(handler, hud);
-
-        menu = new Menu();
-
-        lvlchooser = new LevelChooser();
-
-        died = new Died(handler, hud, spawner);
-
-        onWin = new onWin(handler, hud);
-
-        r = new Random();
     }
 
 

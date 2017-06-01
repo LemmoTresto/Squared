@@ -3,13 +3,22 @@ package me.max.simplefirstgame;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Random;
 
 /**
  * Created by max on 28-5-2017.
  */
 public class LevelChooser extends MouseAdapter{
 
+    private Handler handler;
+    private Spawn spawner;
     private boolean level1pressed, level2pressed, level3pressed, level4pressed, level5pressed, level6pressed, level7pressed, level8pressed, level9pressed, level10pressed;
+    private Random r = new Random();
+
+    public LevelChooser(Handler handler, Spawn spawner){
+        this.handler = handler;
+        this.spawner = spawner;
+    }
 
     public void mousePressed(MouseEvent e){
         if (Game.gameState == Game.STATE.LevelChooser) {
@@ -164,60 +173,75 @@ public class LevelChooser extends MouseAdapter{
             int my = e.getY();
             //level1
             if ((mouseOver(mx, my, 50, 100, 45, 45)) && (level1pressed)) {
+                handler.object.clear();
                 Game.gameState = Game.STATE.Level1;
                 level1pressed = false;
+                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
+                handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
             }
 
             //level2
-            else if ((mouseOver(mx, my, 100, 100, 45, 45)) && (level1pressed)) {
+            else if ((mouseOver(mx, my, 100, 100, 45, 45)) && (level2pressed)) {
+                handler.object.clear();
                 Game.gameState = Game.STATE.Level2;
                 level2pressed = false;
+                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
+                handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
+                handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
             }
 
             //level3
-            else if ((mouseOver(mx, my, 150, 100, 45, 45)) && (level1pressed)) {
+            else if ((mouseOver(mx, my, 150, 100, 45, 45)) && (level3pressed)) {
+                handler.object.clear();
                 Game.gameState = Game.STATE.Level3;
                 level3pressed = false;
             }
 
             //level4
-            else if ((mouseOver(mx, my, 200, 100, 45, 45)) && (level1pressed)) {
+            else if ((mouseOver(mx, my, 200, 100, 45, 45)) && (level4pressed)) {
+                handler.object.clear();
                 Game.gameState = Game.STATE.Level4;
                 level4pressed = false;
             }
 
             //level5
-            else if ((mouseOver(mx, my, 250, 100, 45, 45)) && (level1pressed)) {
+            else if ((mouseOver(mx, my, 250, 100, 45, 45)) && (level5pressed)) {
+                handler.object.clear();
                 Game.gameState = Game.STATE.Level5;
                 level5pressed = false;
             }
 
             //level6
-            else if ((mouseOver(mx, my, 300, 100, 45, 45)) && (level1pressed)) {
+            else if ((mouseOver(mx, my, 300, 100, 45, 45)) && (level6pressed)) {
+                handler.object.clear();
                 Game.gameState = Game.STATE.Level6;
                 level6pressed = false;
             }
 
             //level7
-            else if ((mouseOver(mx, my, 350, 100, 45, 45)) && (level1pressed)) {
+            else if ((mouseOver(mx, my, 350, 100, 45, 45)) && (level7pressed)) {
+                handler.object.clear();
                 Game.gameState = Game.STATE.Level7;
                 level7pressed = false;
             }
 
             //level8
-            else if ((mouseOver(mx, my, 400, 100, 45, 45)) && (level1pressed)) {
+            else if ((mouseOver(mx, my, 400, 100, 45, 45)) && (level8pressed)) {
+                handler.object.clear();
                 Game.gameState = Game.STATE.Level8;
                 level8pressed = false;
             }
 
             //level9
-            else if ((mouseOver(mx, my, 450, 100, 45, 45)) && (level1pressed)) {
+            else if ((mouseOver(mx, my, 450, 100, 45, 45)) && (level9pressed)) {
+                handler.object.clear();
                 Game.gameState = Game.STATE.Level9;
                 level9pressed = false;
             }
 
             //level10
-            else if ((mouseOver(mx, my, 500, 100, 45, 45)) && (level1pressed)) {
+            else if ((mouseOver(mx, my, 500, 100, 45, 45)) && (level10pressed)) {
+                handler.object.clear();
                 Game.gameState = Game.STATE.Level10;
                 level10pressed = false;
             }

@@ -3,6 +3,7 @@ package me.max.simplefirstgame;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Random;
 
 /**
  * Created by max on 28-5-2017.
@@ -11,12 +12,15 @@ public class onWin extends MouseAdapter{
 
     private Handler handler;
     private HUD hud;
+    private Spawn spawner;
+    private Random r = new Random();
     private boolean nextLevelPressed = false;
     private boolean menuPressed = false;
 
-    public onWin(Handler handler, HUD hud){
+    public onWin(Handler handler, HUD hud, Spawn spawner){
         this.handler = handler;
         this.hud = hud;
+        this.spawner = spawner;
     }
 
     public void mousePressed(MouseEvent e) {
@@ -36,7 +40,7 @@ public class onWin extends MouseAdapter{
                 }
             }
 
-        } else if (!(Game.gameState == Game.STATE.WonLevel1) && !(Game.gameState == Game.STATE.WonLevel2) && !(Game.gameState == Game.STATE.WonLevel3) && !(Game.gameState == Game.STATE.WonLevel4) && !(Game.gameState == Game.STATE.WonLevel5) && !(Game.gameState == Game.STATE.WonLevel6) && !(Game.gameState == Game.STATE.WonLevel7) && !(Game.gameState == Game.STATE.WonLevel8) && !(Game.gameState == Game.STATE.WonLevel9)) {
+        } else if (Game.gameState == Game.STATE.WonLevel10) {
             int mx = e.getX();
             int my = e.getY();
             if (e.getButton() == 1){
@@ -63,23 +67,63 @@ public class onWin extends MouseAdapter{
                 if ((mouseOver(mx, my, Game.WIDTH / 2 - 90, 152, 200, 60)) && (nextLevelPressed)) {
                     nextLevelPressed = false;
                     menuPressed = false;
-                    if (Game.gameState == Game.STATE.WonLevel1){
+                    handler.object.clear();
+                    if (Game.gameState == Game.STATE.WonLevel1) {
+                        handler.object.clear();
+                        hud.score = 0;
+                        spawner.scoreKeep = 0;
+                        hud.setLevel(1);
                         Game.gameState = Game.STATE.Level2;
+                        handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
+                        handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
+                        handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
                     } else if (Game.gameState == Game.STATE.WonLevel2){
+                        handler.object.clear();
+                        hud.score = 0;
+                        spawner.scoreKeep = 0;
+                        hud.setLevel(1);
                         Game.gameState = Game.STATE.Level3;
                     } else if (Game.gameState == Game.STATE.WonLevel3){
+                        handler.object.clear();
+                        hud.score = 0;
+                        spawner.scoreKeep = 0;
+                        hud.setLevel(1);
                         Game.gameState = Game.STATE.Level4;
                     } else if (Game.gameState == Game.STATE.WonLevel4){
+                        handler.object.clear();
+                        hud.score = 0;
+                        spawner.scoreKeep = 0;
+                        hud.setLevel(1);
                         Game.gameState = Game.STATE.Level5;
                     } else if (Game.gameState == Game.STATE.WonLevel5){
+                        handler.object.clear();
+                        hud.score = 0;
+                        spawner.scoreKeep = 0;
+                        hud.setLevel(1);
                         Game.gameState = Game.STATE.Level6;
                     } else if (Game.gameState == Game.STATE.WonLevel6){
+                        handler.object.clear();
+                        hud.score = 0;
+                        spawner.scoreKeep = 0;
+                        hud.setLevel(1);
                         Game.gameState = Game.STATE.Level7;
                     } else if (Game.gameState == Game.STATE.WonLevel7){
+                        handler.object.clear();
+                        hud.score = 0;
+                        spawner.scoreKeep = 0;
+                        hud.setLevel(1);
                         Game.gameState = Game.STATE.Level8;
                     } else if (Game.gameState == Game.STATE.WonLevel8){
+                        handler.object.clear();
+                        hud.score = 0;
+                        spawner.scoreKeep = 0;
+                        hud.setLevel(1);
                         Game.gameState = Game.STATE.Level9;
                     } else if (Game.gameState == Game.STATE.WonLevel9) {
+                        handler.object.clear();
+                        hud.score = 0;
+                        spawner.scoreKeep = 0;
+                        hud.setLevel(1);
                         Game.gameState = Game.STATE.Level10;
                     }
 

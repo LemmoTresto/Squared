@@ -14,9 +14,8 @@ public class Died extends MouseAdapter{
     HUD hud;
     Spawn spawner;
     boolean buttonpressed = false;
-    int timer = 150;
-    boolean waiter = true;
     Random r = new Random();
+    float scorePlayer;
 
     public Died(Handler handler, HUD hud, Spawn spawner){
         this.handler = handler;
@@ -55,9 +54,10 @@ public class Died extends MouseAdapter{
                 handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
                 handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
                 handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.FastEnemy, handler));
-                spawner.done2 = true;
-                spawner.done3 = true;
                 buttonpressed = false;
+                hud.score = 0;
+                spawner.scoreKeep = 0;
+                hud.setLevel(1);
             }
 
         }
