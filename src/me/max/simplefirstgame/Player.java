@@ -57,19 +57,29 @@ public class Player extends GameObject{
                 }
 
             }
-            else if (tempObject.getId() == ID.EnemyBoss){
+            else if (tempObject.getId() == ID.EnemyBossLvl1){
 
                 if (getBounds().intersects(tempObject.getBounds())){
                     HUD.HEALTH -= 10;
                 }
 
             }
-            else if (tempObject.getId() == ID.EnemyBossBullet){
+            else if (tempObject.getId() == ID.EnemyBossBulletLvl1_1){
 
                 if (getBounds().intersects(tempObject.getBounds())){
                     HUD.HEALTH -= 3;
                 }
 
+            }
+            else if (tempObject.getId() == ID.EnemyBossBulletLvl2_1){
+                if (getBounds().intersects(tempObject.getBounds())){
+                    HUD.HEALTH -= 3;
+                }
+            }
+            else if (tempObject.getId() == ID.EnemyBossBulletLvl2_2){
+                if (getBounds().intersects(tempObject.getBounds())){
+                    HUD.HEALTH -= 2;
+                }
             }
         }
     }

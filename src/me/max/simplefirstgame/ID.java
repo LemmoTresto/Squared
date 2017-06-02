@@ -10,7 +10,10 @@ public enum ID {
     Trial(),
     FastEnemy(),
     SmartEnemy(),
-    EnemyBoss(),
-    EnemyBossBullet()
+    EnemyBossLvl1(),
+    EnemyBossBulletLvl1_1(),
+    EnemyBossBulletLvl2_1(),
+    EnemyBossBulletLvl2_2(),
+    EnemyBossLvl2()
 
 }

@@ -27,35 +27,31 @@ public class onWin extends MouseAdapter{
         if ((Game.gameState == Game.STATE.WonLevel1) || (Game.gameState == Game.STATE.WonLevel2) || (Game.gameState == Game.STATE.WonLevel3) || (Game.gameState == Game.STATE.WonLevel4) || (Game.gameState == Game.STATE.WonLevel5) || (Game.gameState == Game.STATE.WonLevel6) || (Game.gameState == Game.STATE.WonLevel7) || (Game.gameState == Game.STATE.WonLevel8) || (Game.gameState == Game.STATE.WonLevel9)) {
             int mx = e.getX();
             int my = e.getY();
-            if (e.getButton() == 1){
+            if (e.getButton() == 1) {
                 //Next level button
-                if (mouseOver(mx, my, Game.WIDTH / 2 - 90, 152, 200, 60)){
+                if (mouseOver(mx, my, Game.WIDTH / 2 - 107, 152, 220, 60)) {
                     nextLevelPressed = true;
                     menuPressed = false;
                 }
                 //Menu button
-                else if (mouseOver(mx, my, Game.WIDTH / 2 - 90, 222, 200, 60)){
+                else if (mouseOver(mx, my, Game.WIDTH / 2 - 90, 222, 200, 60)) {
                     menuPressed = true;
                     nextLevelPressed = false;
                 }
             }
 
-        } else if (Game.gameState == Game.STATE.WonLevel10) {
+        } else if (!(Game.gameState == Game.STATE.WonLevel1) && !(Game.gameState == Game.STATE.WonLevel2) && !(Game.gameState == Game.STATE.WonLevel3) && !(Game.gameState == Game.STATE.WonLevel4) && !(Game.gameState == Game.STATE.WonLevel5) && !(Game.gameState == Game.STATE.WonLevel6) && !(Game.gameState == Game.STATE.WonLevel7) && !(Game.gameState == Game.STATE.WonLevel8) && !(Game.gameState == Game.STATE.WonLevel9) && !(Game.gameState == Game.STATE.Level1) && !(Game.gameState == Game.STATE.Level2) && !(Game.gameState == Game.STATE.Level3) && !(Game.gameState == Game.STATE.Level4) && !(Game.gameState == Game.STATE.Level5) && !(Game.gameState == Game.STATE.Level6) && !(Game.gameState == Game.STATE.Level7) && !(Game.gameState == Game.STATE.Level8) && !(Game.gameState == Game.STATE.Level9) && !(Game.gameState == Game.STATE.Died) && !(Game.gameState == Game.STATE.LevelChooser) && !(Game.gameState == Game.STATE.Menu)) {
             int mx = e.getX();
             int my = e.getY();
-            if (e.getButton() == 1){
-                //Next level button
-                //if (mouseOver(mx, my, Game.WIDTH / 2 - 90, 152, 200, 60)){
-                //    nextLevelPressed = true;
-                //    menuPressed = false;
-                //}
-                //Menu button
-                //else if (mouseOver(mx, my, Game.WIDTH / 2 - 90, 222, 200, 60)){
-                //    menuPressed = true;
-                //    nextLevelPressed = false;
-                //}
+            if (e.getButton() == 1) {
+                if (mouseOver(mx, my, Game.WIDTH / 2 - 107, 152, 220, 60)) {
+                    nextLevelPressed = true;
+                    menuPressed = false;
+                } else if (mouseOver(mx, my, Game.WIDTH / 2 - 107, 222, 220, 60)) {
+                    menuPressed = true;
+                    nextLevelPressed = false;
+                }
             }
-
         }
     }
 
@@ -77,43 +73,43 @@ public class onWin extends MouseAdapter{
                         handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
                         handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
                         handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
-                    } else if (Game.gameState == Game.STATE.WonLevel2){
+                    } else if (Game.gameState == Game.STATE.WonLevel2) {
                         handler.object.clear();
                         hud.score = 0;
                         spawner.scoreKeep = 0;
                         hud.setLevel(1);
                         Game.gameState = Game.STATE.Level3;
-                    } else if (Game.gameState == Game.STATE.WonLevel3){
+                    } else if (Game.gameState == Game.STATE.WonLevel3) {
                         handler.object.clear();
                         hud.score = 0;
                         spawner.scoreKeep = 0;
                         hud.setLevel(1);
                         Game.gameState = Game.STATE.Level4;
-                    } else if (Game.gameState == Game.STATE.WonLevel4){
+                    } else if (Game.gameState == Game.STATE.WonLevel4) {
                         handler.object.clear();
                         hud.score = 0;
                         spawner.scoreKeep = 0;
                         hud.setLevel(1);
                         Game.gameState = Game.STATE.Level5;
-                    } else if (Game.gameState == Game.STATE.WonLevel5){
+                    } else if (Game.gameState == Game.STATE.WonLevel5) {
                         handler.object.clear();
                         hud.score = 0;
                         spawner.scoreKeep = 0;
                         hud.setLevel(1);
                         Game.gameState = Game.STATE.Level6;
-                    } else if (Game.gameState == Game.STATE.WonLevel6){
+                    } else if (Game.gameState == Game.STATE.WonLevel6) {
                         handler.object.clear();
                         hud.score = 0;
                         spawner.scoreKeep = 0;
                         hud.setLevel(1);
                         Game.gameState = Game.STATE.Level7;
-                    } else if (Game.gameState == Game.STATE.WonLevel7){
+                    } else if (Game.gameState == Game.STATE.WonLevel7) {
                         handler.object.clear();
                         hud.score = 0;
                         spawner.scoreKeep = 0;
                         hud.setLevel(1);
                         Game.gameState = Game.STATE.Level8;
-                    } else if (Game.gameState == Game.STATE.WonLevel8){
+                    } else if (Game.gameState == Game.STATE.WonLevel8) {
                         handler.object.clear();
                         hud.score = 0;
                         spawner.scoreKeep = 0;
@@ -133,14 +129,29 @@ public class onWin extends MouseAdapter{
                     Game.gameState = Game.STATE.Menu;
                 }
             }
-        } else if (!(Game.gameState == Game.STATE.WonLevel1) && !(Game.gameState == Game.STATE.WonLevel2) && !(Game.gameState == Game.STATE.WonLevel3) && !(Game.gameState == Game.STATE.WonLevel4) && !(Game.gameState == Game.STATE.WonLevel5) && !(Game.gameState == Game.STATE.WonLevel6) && !(Game.gameState == Game.STATE.WonLevel7) && !(Game.gameState == Game.STATE.WonLevel8) && !(Game.gameState == Game.STATE.WonLevel9)) {
-
+        } else if (!(Game.gameState == Game.STATE.WonLevel1) && !(Game.gameState == Game.STATE.WonLevel2) && !(Game.gameState == Game.STATE.WonLevel3) && !(Game.gameState == Game.STATE.WonLevel4) && !(Game.gameState == Game.STATE.WonLevel5) && !(Game.gameState == Game.STATE.WonLevel6) && !(Game.gameState == Game.STATE.WonLevel7) && !(Game.gameState == Game.STATE.WonLevel8) && !(Game.gameState == Game.STATE.WonLevel9) && !(Game.gameState == Game.STATE.Level1) && !(Game.gameState == Game.STATE.Level2) && !(Game.gameState == Game.STATE.Level3) && !(Game.gameState == Game.STATE.Level4) && !(Game.gameState == Game.STATE.Level5) && !(Game.gameState == Game.STATE.Level6) && !(Game.gameState == Game.STATE.Level7) && !(Game.gameState == Game.STATE.Level8) && !(Game.gameState == Game.STATE.Level9) && !(Game.gameState == Game.STATE.Died) && !(Game.gameState == Game.STATE.LevelChooser) && !(Game.gameState == Game.STATE.Menu)) {
+            int mx = e.getX();
+            int my = e.getY();
+            if ((mouseOver(mx, my, Game.WIDTH / 2 - 90, 152, 200, 60)) && (nextLevelPressed)) {
+                nextLevelPressed = false;
+                menuPressed = false;
+                handler.object.clear();
+                if (Game.gameState == Game.STATE.WonLevel10) {
+                    //Nothing to do yet because no more levels.
+                }
+            } else if ((mouseOver(mx, my, Game.WIDTH / 2 - 107, 222, 220, 60)) && (menuPressed)) {
+                menuPressed = false;
+                nextLevelPressed = false;
+                Game.gameState = Game.STATE.Menu;
+            }
         }
     }
 
     public void tick(){
         if ((Game.gameState == Game.STATE.WonLevel1) || (Game.gameState == Game.STATE.WonLevel2) || (Game.gameState == Game.STATE.WonLevel3) || (Game.gameState == Game.STATE.WonLevel4) || (Game.gameState == Game.STATE.WonLevel5) || (Game.gameState == Game.STATE.WonLevel6) || (Game.gameState == Game.STATE.WonLevel7) || (Game.gameState == Game.STATE.WonLevel8) || (Game.gameState == Game.STATE.WonLevel9)) {
 
+
+        } else if (!(Game.gameState == Game.STATE.WonLevel1) && !(Game.gameState == Game.STATE.WonLevel2) && !(Game.gameState == Game.STATE.WonLevel3) && !(Game.gameState == Game.STATE.WonLevel4) && !(Game.gameState == Game.STATE.WonLevel5) && !(Game.gameState == Game.STATE.WonLevel6) && !(Game.gameState == Game.STATE.WonLevel7) && !(Game.gameState == Game.STATE.WonLevel8) && !(Game.gameState == Game.STATE.WonLevel9) && !(Game.gameState == Game.STATE.Level1) && !(Game.gameState == Game.STATE.Level2) && !(Game.gameState == Game.STATE.Level3) && !(Game.gameState == Game.STATE.Level4) && !(Game.gameState == Game.STATE.Level5) && !(Game.gameState == Game.STATE.Level6) && !(Game.gameState == Game.STATE.Level7) && !(Game.gameState == Game.STATE.Level8) && !(Game.gameState == Game.STATE.Level9) && !(Game.gameState == Game.STATE.Died) && !(Game.gameState == Game.STATE.LevelChooser) && !(Game.gameState == Game.STATE.Menu)) {
 
         }
     }
@@ -163,6 +174,23 @@ public class onWin extends MouseAdapter{
                 g.setColor(Color.cyan);
                 g.drawString("Menu", Game.WIDTH / 2 - 28, 260);
                 g.drawString("Next Level", Game.WIDTH / 2 - 60, 190);
+            } else if (!(Game.gameState == Game.STATE.WonLevel1) && !(Game.gameState == Game.STATE.WonLevel2) && !(Game.gameState == Game.STATE.WonLevel3) && !(Game.gameState == Game.STATE.WonLevel4) && !(Game.gameState == Game.STATE.WonLevel5) && !(Game.gameState == Game.STATE.WonLevel6) && !(Game.gameState == Game.STATE.WonLevel7) && !(Game.gameState == Game.STATE.WonLevel8) && !(Game.gameState == Game.STATE.WonLevel9) && !(Game.gameState == Game.STATE.Level1) && !(Game.gameState == Game.STATE.Level2) && !(Game.gameState == Game.STATE.Level3) && !(Game.gameState == Game.STATE.Level4) && !(Game.gameState == Game.STATE.Level5) && !(Game.gameState == Game.STATE.Level6) && !(Game.gameState == Game.STATE.Level7) && !(Game.gameState == Game.STATE.Level8) && !(Game.gameState == Game.STATE.Level9) && !(Game.gameState == Game.STATE.Died) && !(Game.gameState == Game.STATE.LevelChooser) && !(Game.gameState == Game.STATE.Menu)) {
+                Font font1 = new Font("arial", 1, 50);
+                Font font2 = new Font("arial", 1, 30);
+                g.setFont(font1);
+                g.setColor(Color.green);
+                g.drawString("You've Won!", Game.WIDTH / 2 - 140, 50);
+                g.setColor(Color.blue);
+                g.drawRect(Game.WIDTH / 2 - 170, 100, 345, 200);
+                g.setColor(Color.orange);
+                g.setFont(font2);
+                g.drawString("You completed level " + getLevel(), Game.WIDTH / 2 - 158, 135);
+                g.setColor(Color.white);
+                g.drawRect(Game.WIDTH / 2 - 107, 222, 220, 60);
+                g.drawRect(Game.WIDTH / 2 - 107, 152, 220, 60);
+                g.setColor(Color.cyan);
+                g.drawString("Menu", Game.WIDTH / 2 - 34, 260);
+                g.drawString("More soon!", Game.WIDTH / 2 - 68, 190);
             }
     }
 

@@ -190,11 +190,12 @@ public class LevelChooser extends MouseAdapter{
                 handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
             }
 
-            //level3
+          /*  //level3
             else if ((mouseOver(mx, my, 150, 100, 45, 45)) && (level3pressed)) {
                 handler.object.clear();
                 Game.gameState = Game.STATE.Level3;
                 level3pressed = false;
+                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
             }
 
             //level4
@@ -244,7 +245,7 @@ public class LevelChooser extends MouseAdapter{
                 handler.object.clear();
                 Game.gameState = Game.STATE.Level10;
                 level10pressed = false;
-            }
+            } */
         }
     }
 
