@@ -70,6 +70,7 @@ public class onWin extends MouseAdapter{
                         spawner.scoreKeep = 0;
                         hud.setLevel(1);
                         Game.gameState = Game.STATE.Level2;
+                        hud.HEALTH = 100;
                         handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
                         handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
                         handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
@@ -79,54 +80,63 @@ public class onWin extends MouseAdapter{
                         spawner.scoreKeep = 0;
                         hud.setLevel(1);
                         Game.gameState = Game.STATE.Level3;
+                        hud.HEALTH = 100;
                     } else if (Game.gameState == Game.STATE.WonLevel3) {
                         handler.object.clear();
                         hud.score = 0;
                         spawner.scoreKeep = 0;
                         hud.setLevel(1);
                         Game.gameState = Game.STATE.Level4;
+                        hud.HEALTH = 100;
                     } else if (Game.gameState == Game.STATE.WonLevel4) {
                         handler.object.clear();
                         hud.score = 0;
                         spawner.scoreKeep = 0;
                         hud.setLevel(1);
                         Game.gameState = Game.STATE.Level5;
+                        hud.HEALTH = 100;
                     } else if (Game.gameState == Game.STATE.WonLevel5) {
                         handler.object.clear();
                         hud.score = 0;
                         spawner.scoreKeep = 0;
                         hud.setLevel(1);
                         Game.gameState = Game.STATE.Level6;
+                        hud.HEALTH = 100;
                     } else if (Game.gameState == Game.STATE.WonLevel6) {
                         handler.object.clear();
                         hud.score = 0;
                         spawner.scoreKeep = 0;
                         hud.setLevel(1);
                         Game.gameState = Game.STATE.Level7;
+                        hud.HEALTH = 100;
                     } else if (Game.gameState == Game.STATE.WonLevel7) {
                         handler.object.clear();
                         hud.score = 0;
                         spawner.scoreKeep = 0;
                         hud.setLevel(1);
                         Game.gameState = Game.STATE.Level8;
+                        hud.HEALTH = 100;
                     } else if (Game.gameState == Game.STATE.WonLevel8) {
                         handler.object.clear();
                         hud.score = 0;
                         spawner.scoreKeep = 0;
                         hud.setLevel(1);
                         Game.gameState = Game.STATE.Level9;
+                        hud.HEALTH = 100;
                     } else if (Game.gameState == Game.STATE.WonLevel9) {
                         handler.object.clear();
                         hud.score = 0;
                         spawner.scoreKeep = 0;
                         hud.setLevel(1);
                         Game.gameState = Game.STATE.Level10;
+                        hud.HEALTH = 100;
                     }
 
                 } else if ((mouseOver(mx, my, Game.WIDTH / 2 - 90, 222, 200, 60)) && (menuPressed)) {
                     menuPressed = false;
                     nextLevelPressed = false;
                     Game.gameState = Game.STATE.Menu;
+                    hud.HEALTH = 100;
                 }
             }
         } else if (!(Game.gameState == Game.STATE.WonLevel1) && !(Game.gameState == Game.STATE.WonLevel2) && !(Game.gameState == Game.STATE.WonLevel3) && !(Game.gameState == Game.STATE.WonLevel4) && !(Game.gameState == Game.STATE.WonLevel5) && !(Game.gameState == Game.STATE.WonLevel6) && !(Game.gameState == Game.STATE.WonLevel7) && !(Game.gameState == Game.STATE.WonLevel8) && !(Game.gameState == Game.STATE.WonLevel9) && !(Game.gameState == Game.STATE.Level1) && !(Game.gameState == Game.STATE.Level2) && !(Game.gameState == Game.STATE.Level3) && !(Game.gameState == Game.STATE.Level4) && !(Game.gameState == Game.STATE.Level5) && !(Game.gameState == Game.STATE.Level6) && !(Game.gameState == Game.STATE.Level7) && !(Game.gameState == Game.STATE.Level8) && !(Game.gameState == Game.STATE.Level9) && !(Game.gameState == Game.STATE.Died) && !(Game.gameState == Game.STATE.LevelChooser) && !(Game.gameState == Game.STATE.Menu) && !(Game.gameState == Game.STATE.HardcoreMode)) {
@@ -143,6 +153,7 @@ public class onWin extends MouseAdapter{
                 menuPressed = false;
                 nextLevelPressed = false;
                 Game.gameState = Game.STATE.Menu;
+                hud.HEALTH = 100;
             }
         }
     }

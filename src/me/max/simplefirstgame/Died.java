@@ -58,6 +58,7 @@ public class Died extends MouseAdapter{
                 hud.score = 0;
                 spawner.scoreKeep = 0;
                 hud.setLevel(1);
+                hud.HEALTH = 100;
             }
 
         }
