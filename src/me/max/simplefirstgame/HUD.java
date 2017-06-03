@@ -30,9 +30,9 @@ public class HUD {
                 Game.gameState = Game.STATE.Died;
                 for (int i = 0; i < handler.object.size(); i++){
                     GameObject tempObject = handler.object.get(i);
-                    HEALTH = 100;
                     if (tempObject.getId() == ID.Player){
                         handler.object.remove(i);
+                        HEALTH = 100;
                         break;
                     }
                 }

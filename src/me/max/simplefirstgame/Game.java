@@ -26,6 +26,7 @@ public class Game extends Canvas implements Runnable{
         Menu,
         LevelChooser,
         Died,
+        HardcoreMode,
         Level1,
         Level2,
         Level3,

@@ -12,7 +12,7 @@ public class LevelChooser extends MouseAdapter{
 
     private Handler handler;
     private Spawn spawner;
-    private boolean level1pressed, level2pressed, level3pressed, level4pressed, level5pressed, level6pressed, level7pressed, level8pressed, level9pressed, level10pressed;
+    private boolean level1pressed, level2pressed, level3pressed, level4pressed, level5pressed, level6pressed, level7pressed, level8pressed, level9pressed, level10pressed, hardcorePressed;
     private Random r = new Random();
 
     public LevelChooser(Handler handler, Spawn spawner){
@@ -26,6 +26,7 @@ public class LevelChooser extends MouseAdapter{
                 int mx = e.getX();
                 int my = e.getY();
                 if (mouseOver(mx, my, 50, 100, 45, 45)) {
+                    hardcorePressed = false;
                     level2pressed = false;
                     level3pressed = false;
                     level4pressed = false;
@@ -40,6 +41,7 @@ public class LevelChooser extends MouseAdapter{
 
                 //level2
                 else if (mouseOver(mx, my, 100, 100, 45, 45)) {
+                    hardcorePressed = false;
                     level1pressed = false;
                     level3pressed = false;
                     level4pressed = false;
@@ -54,6 +56,7 @@ public class LevelChooser extends MouseAdapter{
 
                 //level3
                 else if (mouseOver(mx, my, 150, 100, 45, 45)) {
+                    hardcorePressed = false;
                     level1pressed = false;
                     level2pressed = false;
                     level4pressed = false;
@@ -68,6 +71,7 @@ public class LevelChooser extends MouseAdapter{
 
                 //level4
                 else if (mouseOver(mx, my, 200, 100, 45, 45)) {
+                    hardcorePressed = false;
                     level1pressed = false;
                     level2pressed = false;
                     level3pressed = false;
@@ -82,6 +86,7 @@ public class LevelChooser extends MouseAdapter{
 
                 //level5
                 else if (mouseOver(mx, my, 250, 100, 45, 45)) {
+                    hardcorePressed = false;
                     level1pressed = false;
                     level2pressed = false;
                     level3pressed = false;
@@ -96,6 +101,7 @@ public class LevelChooser extends MouseAdapter{
 
                 //level6
                 else if (mouseOver(mx, my, 300, 100, 45, 45)) {
+                    hardcorePressed = false;
                     level1pressed = false;
                     level2pressed = false;
                     level3pressed = false;
@@ -110,6 +116,7 @@ public class LevelChooser extends MouseAdapter{
 
                 //level7
                 else if (mouseOver(mx, my, 350, 100, 45, 45)) {
+                    hardcorePressed = false;
                     level1pressed = false;
                     level2pressed = false;
                     level3pressed = false;
@@ -124,6 +131,7 @@ public class LevelChooser extends MouseAdapter{
 
                 //level8
                 else if (mouseOver(mx, my, 400, 100, 45, 45)) {
+                    hardcorePressed = false;
                     level1pressed = false;
                     level2pressed = false;
                     level3pressed = false;
@@ -138,6 +146,7 @@ public class LevelChooser extends MouseAdapter{
 
                 //level9
                 else if (mouseOver(mx, my, 450, 100, 45, 45)) {
+                    hardcorePressed = false;
                     level1pressed = false;
                     level2pressed = false;
                     level3pressed = false;
@@ -152,6 +161,7 @@ public class LevelChooser extends MouseAdapter{
 
                 //level10
                 else if (mouseOver(mx, my, 500, 100, 45, 45)) {
+                    hardcorePressed = false;
                     level1pressed = false;
                     level2pressed = false;
                     level3pressed = false;
@@ -162,6 +172,19 @@ public class LevelChooser extends MouseAdapter{
                     level8pressed = false;
                     level9pressed = false;
                     level10pressed = true;
+                }
+                else if (mouseOver(mx, my, 195, 300, 250, 70)){
+                    level1pressed = false;
+                    level2pressed = false;
+                    level3pressed = false;
+                    level4pressed = false;
+                    level5pressed = false;
+                    level6pressed = false;
+                    level7pressed = false;
+                    level8pressed = false;
+                    level9pressed = false;
+                    level10pressed = false;
+                    hardcorePressed = true;
                 }
             }
         }
@@ -187,6 +210,14 @@ public class LevelChooser extends MouseAdapter{
                 level2pressed = false;
                 handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
                 handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
+                handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
+            }
+
+             else if ((mouseOver(mx, my, 195, 300, 250, 70)) && (hardcorePressed)){
+                handler.object.clear();
+                Game.gameState = Game.STATE.HardcoreMode;
+                hardcorePressed = false;
+                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
                 handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
             }
 
@@ -245,6 +276,11 @@ public class LevelChooser extends MouseAdapter{
                 handler.object.clear();
                 Game.gameState = Game.STATE.Level10;
                 level10pressed = false;
+            }
+            else if ((mouseOver(mx, my, 195, 300, 250, 70) && (hardcorePressed))){
+                handler.object.clear();
+                Game.gameState = Game.STATE.HardcoreMode;
+                hardcorePressed = false;
             } */
         }
     }
@@ -262,7 +298,7 @@ public class LevelChooser extends MouseAdapter{
             Font font1 = new Font("arial", 1, 50);
             g.setFont(font1);
             g.setColor(Color.gray);
-            g.drawString("Levels", Game.WIDTH / 2 - 90, 60);
+            g.drawString("World 1", Game.WIDTH / 2 - 90, 60);
 
             //level font
             Font font2 = new Font("arial", 1, 25);
@@ -297,6 +333,15 @@ public class LevelChooser extends MouseAdapter{
             g.drawRect(250, 100, 45, 45);
             g.setColor(Color.blue);
             g.drawString("5", 267, 132);
+
+            //insane/hardcore mode
+            g.setColor(Color.white);
+            Font font3 = new Font("arial", 1, 43);
+            g.setFont(font3);
+            g.drawRect(195, 300, 250, 70);
+            g.setColor(Color.red);
+            g.drawString("Hardcore", 225, 348);
+            g.setFont(font2);
 
             //level6
             g.setColor(Color.white);
