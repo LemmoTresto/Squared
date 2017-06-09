@@ -15,6 +15,6 @@ Please report bugs, feature requests or feedback about levels or anything in the
 I'll help you ASAP!
 
 Disclaimer:
-Do Not copy my code to make your own RectDoge. You're allowed to learn from my code but please do not use it to create a RectDoge. Your allowed to base something of my game or of the original Wave game but please do not copy this code like nothing. It's something I work hard for and I don't really like/appreciate someone stealing it / making advantage of my code.
+Do Not copy my code to make your own Squared. You're allowed to learn from my code but please do not use it to create a Squared. Your allowed to base something of my game or of the original Wave game but please do not copy this code like nothing. It's something I work hard for and I don't really like/appreciate someone stealing it / making advantage of my code.
 Ofourse you can use the same game loop or anything like it but just don't copy. If you want to learn and make games then don't copy. Look through my code and learn from it. It'll help you even though my code isn't the best.
 
