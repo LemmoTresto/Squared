@@ -1,4 +1,4 @@
-# FirstSimpleGame
+# Squared
 
 
 Welcome!
