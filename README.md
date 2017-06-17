@@ -1,5 +1,4 @@
 # Squared
-# Welp somehow everything is fucked up. Have a good day.
 
 
 Welcome!
