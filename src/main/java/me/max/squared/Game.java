@@ -1,5 +1,8 @@
 package me.max.squared;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.io.File;
@@ -7,12 +10,22 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.Random;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.jar.JarFile;
+import java.util.jar.Manifest;
 
 /**
  * Created by max on 24-5-2017.
  * © Copyright 2017 Max Berkelmans
  */
 public class Game extends Canvas implements Runnable {
+
+    private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
     private Thread thread;
@@ -30,6 +43,9 @@ public class Game extends Canvas implements Runnable {
     private Help help;
     private DataSaving dataSaving;
     private int fps;
+    private UpdateChecker updateChecker;
+
+    private static Map<String, String> attributes = new HashMap<>();
 
     private static String OS = System.getProperty("os.name").toLowerCase();
     private File f;
@@ -83,6 +99,7 @@ public class Game extends Canvas implements Runnable {
         menuShop = new MenuShop(handler, hud, spawner);
         help = new Help(handler, spawner);
         dataSaving = new DataSaving();
+        updateChecker = new UpdateChecker();
 
         try {
             getData();
@@ -104,6 +121,18 @@ public class Game extends Canvas implements Runnable {
         this.addMouseListener(new MenuShop(handler, hud, spawner));
         this.addMouseListener(new Help(handler, spawner));
 
+        try {
+            Enumeration<URL> resources = this.getClass().getClassLoader().getResources(JarFile.MANIFEST_NAME);
+
+            while (resources.hasMoreElements()) {
+                InputStream inputStream = resources.nextElement().openStream();
+                Manifest manifest = new Manifest(inputStream);
+                manifest.getMainAttributes().forEach((key, value) -> attributes.put(key.toString(), (String) value));
+                inputStream.close();
+            }
+        } catch (IOException ignored) {}
+
+        System.out.println(updateChecker.checkForUpdates());
     }
 
 
@@ -214,6 +243,11 @@ public class Game extends Canvas implements Runnable {
             return var;
         }
     }
+
+    public static Gson getGson(){
+        return gson;
+    }
+
 
     public void getData() throws IOException {
 
@@ -368,6 +402,10 @@ public class Game extends Canvas implements Runnable {
     public static boolean isUnix() {
 
         return (OS.indexOf("nix") >= 0 || OS.indexOf("nux") >= 0 || OS.indexOf("aix") > 0);
+    }
+
+    public static String getManifestValue(String key){
+        return attributes.get(key);
     }
 
 

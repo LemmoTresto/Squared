@@ -363,6 +363,9 @@ public class LevelChooser extends MouseAdapter{
             g.setColor(Color.white);
             g.drawString("© Copyright 2017 Max Berkelmans", 10, Game.HEIGHT - 40);
 
+            //level font set
+            g.setFont(font2);
+
             //level1
             g.setColor(Color.white);
             g.drawRect(50, 100, 45, 45);
