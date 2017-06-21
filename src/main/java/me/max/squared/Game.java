@@ -136,7 +136,7 @@ public class Game extends Canvas implements Runnable {
         System.out.println(update);
         if (update){
             JOptionPane.showMessageDialog(this,
-                    "An update is available, get it at Github or Jenkins!\nhttps://www.github.com/MaxiMiniJaniJos/Squared\nhttps://www.ci.scarsz.me/job/squared",
+                    "An update is available, get it at Github or Jenkins!\nhttps://www.github.com/MaxiMiniJaniJos/Squared\nhttps://ci.scarsz.me/job/squared",
                     "Squared - Update",
                     JOptionPane.INFORMATION_MESSAGE);
         }
