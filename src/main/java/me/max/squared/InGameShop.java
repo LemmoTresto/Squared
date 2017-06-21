@@ -84,6 +84,7 @@ public class InGameShop extends MouseAdapter {
                         } else
                             spawner.scoreKeep += 300;
                         hud.coins -= 4;
+                        Game.gameState = currentLevel;
                     }
                 } else if ((mouseOver(mx, my, 350, 250, 135, 60)) && (BackPressed)){
                     Game.gameState = currentLevel;

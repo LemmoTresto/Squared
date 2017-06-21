@@ -397,6 +397,9 @@ public class Spawn {
 //TODO: Idea for new level. A enemy which is always high up and drops x.
 //TODO: Enemy which has a small object going around it when cming close hits you.
 
+//Powerups
+//TODO: Speed boost, forcefield more.. by jj. disappearing time 2 seconds
+
 //Other in order!
 //TODO: Finish pause screen (learn how to make things a bit more black (transparant/foggy/more light/idk)..
 //TODO: Make copyright button and copyright title in the menu!!
