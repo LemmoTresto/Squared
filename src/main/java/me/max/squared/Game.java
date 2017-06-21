@@ -3,6 +3,7 @@ package me.max.squared;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.io.File;
@@ -10,7 +11,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.Random;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Enumeration;
@@ -132,7 +132,14 @@ public class Game extends Canvas implements Runnable {
             }
         } catch (IOException ignored) {}
 
-        System.out.println(updateChecker.checkForUpdates());
+        boolean update = updateChecker.checkForUpdates();
+        System.out.println(update);
+        if (update){
+            JOptionPane.showMessageDialog(this,
+                    "An update is available, get it at Github or Jenkins!\nhttps://www.github.com/MaxiMiniJaniJos/Squared\nhttps://www.ci.scarsz.me/job/squared",
+                    "Squared - Update",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
 
