@@ -11,17 +11,19 @@ import java.util.Random;
  */
 public class Died extends MouseAdapter{
 
-    Handler handler;
-    HUD hud;
-    Spawn spawner;
+    private Handler handler;
+    private HUD hud;
+    private Spawn spawner;
+    private EffectHandler effectHandler;
     boolean buttonpressed = false;
-    Random r = new Random();
+    private Random r = new Random();
     float scorePlayer;
 
-    public Died(Handler handler, HUD hud, Spawn spawner){
+    public Died(Handler handler, HUD hud, Spawn spawner, EffectHandler effectHandler){
         this.handler = handler;
         this.hud = hud;
         this.spawner = spawner;
+        this.effectHandler = effectHandler;
 
     }
 
@@ -78,7 +80,7 @@ public class Died extends MouseAdapter{
             Font font2 = new Font("arial", 1, 30);
             g.setFont(font1);
             g.setColor(Color.red);
-            handler.removeObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
+            handler.removeObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
             g.drawString("You died...", Game.WIDTH / 2 - 120, 50);
             g.setColor(Color.blue);
             g.drawRect(Game.WIDTH / 2 - 160, 100, 325, 200);

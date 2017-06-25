@@ -3,6 +3,8 @@ package me.max.squared;
 import java.awt.*;
 import java.util.Random;
 
+import static me.max.squared.EffectHandler.object;
+
 /**
  * Created by max on 25-5-2017.
  * © Copyright 2017 Max Berkelmans
@@ -11,10 +13,14 @@ public class Player extends GameObject{
 
     Random r = new Random();
     Handler handler;
+    EffectHandler effectHandler;
+    HUD hud;
 
-    public Player (float x, float y, ID id, Handler handler) {
+    public Player (float x, float y, ID id, HUD hud, Handler handler, EffectHandler effectHandler) {
         super(x, y, id);
         this.handler = handler;
+        this.effectHandler = effectHandler;
+        this.hud = hud;
 
     }
 
@@ -26,7 +32,9 @@ public class Player extends GameObject{
         x = Game.clamp((int) x, 0, Game.WIDTH - 39);
         y = Game.clamp((int) y, 0, Game.HEIGHT - 62);
 
-        collision();
+        if (!HUD.immortal) {
+            collision();
+        }
 
         handler.addObject(new Trial(x, y, ID.Trial, MenuShop.PlayerColor, 32, 32, 0.09f, handler));
 
@@ -147,6 +155,46 @@ public class Player extends GameObject{
             if (tempObject.getId() == ID.EnemyBossLvl2){
                 if (getBounds().intersects(tempObject.getBounds())){
                     HUD.HEALTH -= 10;
+                }
+            }
+            if (tempObject.getId() == ID.BasicRegenHeart){
+                if (getBounds().intersects(tempObject.getBounds())){
+                    handler.removeObject(tempObject);
+                    for (int t = 0; t < object.size(); t++){
+                        GameEffect tempEffect = effectHandler.object.get(t);
+                        if (tempEffect.getId() == ID.RegenEffect){
+                            effectHandler.removeEffect(tempEffect);
+                            break;
+                        }
+                    }
+                    effectHandler.addEffect(new RegenEffect(0, hud, ID.RegenEffect, effectHandler));
+                }
+            }
+            if (tempObject.getId() == ID.BasicForceFieldRing){
+                if (getBounds().intersects(tempObject.getBounds())){
+                    handler.removeObject(tempObject);
+                    for (int t = 0; t < object.size(); t++){
+                        GameEffect tempEffect = effectHandler.object.get(t);
+                        if (tempEffect.getId() == ID.ForceFieldEffect){
+                            effectHandler.removeEffect(tempEffect);
+                            break;
+                        }
+                    }
+                    effectHandler.addEffect(new ForceFieldEffect(0, hud, ID.ForceFieldEffect, effectHandler));
+                }
+            }
+
+            if (tempObject.getId() == ID.BasicSpeedArrow){
+                if (getBounds().intersects(tempObject.getBounds())){
+                    handler.removeObject(tempObject);
+                    for (int t = 0; t < object.size(); t++){
+                        GameEffect tempEffect = effectHandler.object.get(t);
+                        if (tempEffect.getId() == ID.SpeedEffect){
+                            effectHandler.removeEffect(tempEffect);
+                            break;
+                        }
+                    }
+                    effectHandler.addEffect(new SpeedEffect(0, hud, ID.SpeedEffect, effectHandler));
                 }
             }
 

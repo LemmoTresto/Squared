@@ -11,6 +11,8 @@ import java.util.ArrayList;
  */
 public class MenuShop extends MouseAdapter {
 
+    private GameEffect speedEffect;
+
     public enum StoreUpgrades{
         none,
         MoreCoins_1,
@@ -336,6 +338,35 @@ public class MenuShop extends MouseAdapter {
     }
 
     public void tick(){
+
+        for (int i = 0; i < EffectHandler.object.size(); i++) {
+            GameEffect tempEffect = EffectHandler.object.get(i);
+            if (tempEffect.getId() == ID.SpeedEffect){
+                speedEffect = tempEffect;
+            }
+        }
+        if (purchasedUpgrades == null){
+
+        } else {
+            if (!purchasedUpgrades.isEmpty()) {
+                if (purchasedUpgrades.contains(StoreUpgrades.Speed_3)) {
+                    KeyInput.playerSpeed = 6;
+                    if (EffectHandler.object.contains(speedEffect)) {
+                        KeyInput.playerSpeed = 7;
+                    }
+                } else if (purchasedUpgrades.contains(StoreUpgrades.Speed_2)) {
+                    KeyInput.playerSpeed = 5.5f;
+                    if (EffectHandler.object.contains(speedEffect)) {
+                        KeyInput.playerSpeed = 6.5f;
+                    }
+                } else if (purchasedUpgrades.contains(StoreUpgrades.Speed_1)) {
+                    KeyInput.playerSpeed = 5.25f;
+                    if (EffectHandler.object.contains(speedEffect)) {
+                        KeyInput.playerSpeed = 6.25f;
+                    }
+                }
+            }
+        }
         if (skinSTATE == SkinSTATE.White){
             PlayerColor = Color.white;
         } else if (skinSTATE == SkinSTATE.Red){
@@ -377,6 +408,7 @@ public class MenuShop extends MouseAdapter {
             }
         }
     }
+
 
     public void render(Graphics g) {
         if (Game.gameState == Game.STATE.MenuShop) {

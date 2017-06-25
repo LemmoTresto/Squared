@@ -33,6 +33,7 @@ public class Game extends Canvas implements Runnable {
     private Handler handler;
     private Random r;
     private HUD hud;
+    private EffectHandler effectHandler;
     private Spawn spawner;
     private Menu menu;
     private LevelChooser lvlchooser;
@@ -91,10 +92,11 @@ public class Game extends Canvas implements Runnable {
 
         menu = new Menu();
         hud = new HUD(handler);
+        effectHandler = new EffectHandler();
         spawner = new Spawn(handler, hud);
-        lvlchooser = new LevelChooser(handler, spawner);
-        died = new Died(handler, hud, spawner);
-        onWin = new onWin(handler, hud, spawner);
+        lvlchooser = new LevelChooser(handler, spawner, hud, effectHandler);
+        died = new Died(handler, hud, spawner, effectHandler);
+        onWin = new onWin(handler, hud, spawner, effectHandler);
         inGameShop = new InGameShop(handler, hud, spawner);
         menuShop = new MenuShop(handler, hud, spawner);
         help = new Help(handler, spawner);
@@ -113,9 +115,9 @@ public class Game extends Canvas implements Runnable {
 
         this.addKeyListener(new KeyInput(handler));
         this.addMouseListener(new Menu());
-        this.addMouseListener(new LevelChooser(handler, spawner));
-        this.addMouseListener(new Died(handler, hud, spawner));
-        this.addMouseListener(new onWin(handler, hud, spawner));
+        this.addMouseListener(new LevelChooser(handler, spawner, hud, effectHandler));
+        this.addMouseListener(new Died(handler, hud, spawner, effectHandler));
+        this.addMouseListener(new onWin(handler, hud, spawner, effectHandler));
         this.addMouseListener(new HUD(handler));
         this.addMouseListener(new InGameShop(handler, hud, spawner));
         this.addMouseListener(new MenuShop(handler, hud, spawner));
@@ -199,6 +201,7 @@ public class Game extends Canvas implements Runnable {
     private void tick() {
         handler.tick();
         hud.tick();
+        effectHandler.tick();
         spawner.tick();
         menu.tick();
         lvlchooser.tick();
@@ -225,7 +228,10 @@ public class Game extends Canvas implements Runnable {
 
         g.setColor(Color.yellow);
         g.drawString("FPS: " + fps, Game.WIDTH - 65, 15);
+
         hud.render(g);
+
+        effectHandler.render(g);
 
         menu.render(g);
         lvlchooser.render(g);
@@ -234,7 +240,6 @@ public class Game extends Canvas implements Runnable {
         inGameShop.render(g);
         menuShop.render(g);
         help.render(g);
-
 
         g.dispose();
         bs.show();

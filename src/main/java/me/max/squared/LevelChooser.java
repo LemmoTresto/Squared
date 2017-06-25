@@ -13,12 +13,16 @@ public class LevelChooser extends MouseAdapter{
 
     private Handler handler;
     private Spawn spawner;
+    private HUD hud;
+    private EffectHandler effectHandler;
     private boolean isBackPressed, level1pressed, level2pressed, level3pressed, level4pressed, level5pressed, level6pressed, level7pressed, level8pressed, level9pressed, level10pressed, hardcorePressed;
     private Random r = new Random();
 
-    public LevelChooser(Handler handler, Spawn spawner){
+    public LevelChooser(Handler handler, Spawn spawner, HUD hud, EffectHandler effectHandler){
         this.handler = handler;
         this.spawner = spawner;
+        this.hud = hud;
+        this.effectHandler = effectHandler;
     }
 
     public void mousePressed(MouseEvent e){
@@ -236,7 +240,7 @@ public class LevelChooser extends MouseAdapter{
                 InGameShop.currentLevel = Game.STATE.Level1;
                 Game.gameState = Game.STATE.Level1;
                 level1pressed = false;
-                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
+                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
                 handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
             }
 
@@ -246,7 +250,7 @@ public class LevelChooser extends MouseAdapter{
                 Game.gameState = Game.STATE.Level2;
                 InGameShop.currentLevel = Game.STATE.Level2;
                 level2pressed = false;
-                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
+                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
                 handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
                 handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
             }
@@ -256,7 +260,7 @@ public class LevelChooser extends MouseAdapter{
                 Game.gameState = Game.STATE.HardcoreMode;
                 InGameShop.currentLevel = Game.STATE.HardcoreMode;
                 hardcorePressed = false;
-                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
+                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
                 handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
             }
 
@@ -266,7 +270,7 @@ public class LevelChooser extends MouseAdapter{
                 Game.gameState = Game.STATE.Level3;
                 InGameShop.currentLevel = Game.STATE.Level3;
                 level3pressed = false;
-                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
+                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
                 handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
                 handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
             }
@@ -277,7 +281,7 @@ public class LevelChooser extends MouseAdapter{
                 Game.gameState = Game.STATE.Level4;
                 InGameShop.currentLevel = Game.STATE.Level4;
                 level4pressed = false;
-                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
+                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
                 handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
                 handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.FastEnemy, handler));
             }
@@ -288,6 +292,7 @@ public class LevelChooser extends MouseAdapter{
                 Game.gameState = Game.STATE.Level5;
                 InGameShop.currentLevel = Game.STATE.Level5;
                 level5pressed = false;
+                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
             }
 
             //level6
@@ -296,6 +301,7 @@ public class LevelChooser extends MouseAdapter{
                 Game.gameState = Game.STATE.Level6;
                 InGameShop.currentLevel = Game.STATE.Level6;
                 level6pressed = false;
+                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
             }
 
             //level7
@@ -304,6 +310,7 @@ public class LevelChooser extends MouseAdapter{
                 Game.gameState = Game.STATE.Level7;
                 InGameShop.currentLevel = Game.STATE.Level7;
                 level7pressed = false;
+                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
             }
 
             //level8
@@ -312,6 +319,7 @@ public class LevelChooser extends MouseAdapter{
                 Game.gameState = Game.STATE.Level8;
                 InGameShop.currentLevel = Game.STATE.Level8;
                 level8pressed = false;
+                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
             }
 
             //level9
@@ -320,6 +328,7 @@ public class LevelChooser extends MouseAdapter{
                 Game.gameState = Game.STATE.Level9;
                 InGameShop.currentLevel = Game.STATE.Level9;
                 level9pressed = false;
+                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
             }
 
             //level10
@@ -328,6 +337,7 @@ public class LevelChooser extends MouseAdapter{
                 Game.gameState = Game.STATE.Level10;
                 InGameShop.currentLevel = Game.STATE.Level10;
                 level10pressed = false;
+                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
             }
         }
     }
