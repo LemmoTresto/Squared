@@ -52,8 +52,17 @@ public class BasicRegenHeart extends GameObject{
 
     }
 
-    public void render(Graphics g) {
+    public void render(Graphics g2) {
         if (isFlashed) {
+
+            float alpha = 0.4f;
+            AlphaComposite alcom = AlphaComposite.getInstance(
+                    AlphaComposite.SRC_OVER, alpha);
+            Graphics2D g = (Graphics2D) g2.create();
+            if (Game.gameState == Game.STATE.PauseScreen){
+                g.setComposite(alcom);
+            }
+
             g.setColor(new Color(150, 4, 60));
             int width = 17;
             int height = 23;

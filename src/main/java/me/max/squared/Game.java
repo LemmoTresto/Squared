@@ -108,6 +108,15 @@ public class Game extends Canvas implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        hud.lives = 1;
+        if (MenuShop.purchasedUpgrades != null && !MenuShop.purchasedUpgrades.isEmpty()) {
+            if (MenuShop.purchasedUpgrades.contains(MenuShop.StoreUpgrades.ExtraLife_1)){
+                hud.lives = 2;
+            } else {
+                hud.lives = 1;
+            }
+        }
+        System.out.println(hud.lives);
 
         r = new Random();
 
@@ -133,6 +142,8 @@ public class Game extends Canvas implements Runnable {
                 inputStream.close();
             }
         } catch (IOException ignored) {}
+
+
 
         boolean update = updateChecker.checkForUpdates();
         System.out.println(update);

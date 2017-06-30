@@ -25,21 +25,31 @@ public class Trial extends GameObject{
     }
 
     public void tick() {
-        if (alpha > life){
+        if (alpha > life) {
             alpha -= life - 0.001f;
-        }else{
+        } else {
             handler.removeObject(this);
         }
     }
 
     public void render(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setComposite(makeTranspaant(alpha));
 
-        g.setColor(color);
-        g.fillRect((int) x, (int) y, width, height);
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.setComposite(makeTranspaant(alpha));
+            AlphaComposite alcom = AlphaComposite.getInstance(
+                    AlphaComposite.SRC_OVER, 0.2f);
+            if (Game.gameState == Game.STATE.PauseScreen) {
+                g2d.setComposite(alcom);
+            }
 
-        g2d.setComposite(makeTranspaant(1));
+            g.setColor(color);
+            g.fillRect((int) x, (int) y, width, height);
+            if (!(Game.gameState == Game.STATE.PauseScreen)) {
+                g2d.setComposite(makeTranspaant(1));
+            } else {
+                g2d.setComposite(alcom);
+            }
+
     }
 
     private AlphaComposite makeTranspaant(float alpha){

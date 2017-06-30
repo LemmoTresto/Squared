@@ -65,11 +65,20 @@ public class SpeedEffect extends GameEffect {
         x = x2 + 5;
     }
 
-    public void render(Graphics g) {
+    public void render(Graphics g2) {
         //The eh heart and more as HUD and more...!
         //use a static number * length of the currenteffect array. to make a easy way of adding these icons!
         if (!isFlashed) {
             if (Game.gameState == Game.STATE.Level1 || Game.gameState == Game.STATE.Level2 || Game.gameState == Game.STATE.Level3 || Game.gameState == Game.STATE.Level4 || Game.gameState == Game.STATE.Level5 || Game.gameState == Game.STATE.Level6 || Game.gameState == Game.STATE.Level7 || Game.gameState == Game.STATE.Level8 || Game.gameState == Game.STATE.Level9 || Game.gameState == Game.STATE.Level10) {
+
+                float alpha = 0.4f;
+                AlphaComposite alcom = AlphaComposite.getInstance(
+                        AlphaComposite.SRC_OVER, alpha);
+                Graphics2D g = (Graphics2D) g2.create();
+                if (Game.gameState == Game.STATE.PauseScreen){
+                    g.setComposite(alcom);
+                }
+
                 //Outside of icon
                 x2 = x - 5;
                 g.setColor(Color.darkGray);

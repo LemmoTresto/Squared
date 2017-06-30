@@ -36,7 +36,7 @@ public class Player extends GameObject{
             collision();
         }
 
-        handler.addObject(new Trial(x, y, ID.Trial, MenuShop.PlayerColor, 32, 32, 0.09f, handler));
+        handler.addObject(new Trial(x, y, ID.PlayerTrial, MenuShop.PlayerColor, 32, 32, 0.09f, handler));
 
     }
 
@@ -44,7 +44,6 @@ public class Player extends GameObject{
         for (int i = 0; i < handler.object.size(); i++){
 
             GameObject tempObject = handler.object.get(i);
-
             if (tempObject.getId() == ID.BasicEnemy){
 
                 if (getBounds().intersects(tempObject.getBounds())){
@@ -201,7 +200,16 @@ public class Player extends GameObject{
         }
     }
 
-    public void render(Graphics g) {
+    public void render(Graphics g2) {
+
+        float alpha = 0.2f;
+        AlphaComposite alcom = AlphaComposite.getInstance(
+                AlphaComposite.SRC_OVER, alpha);
+        Graphics2D g = (Graphics2D) g2.create();
+        if (Game.gameState == Game.STATE.PauseScreen){
+            g.setComposite(alcom);
+        }
+
         g.setColor(MenuShop.PlayerColor);
         g.fillRect((int) x, (int) y, 32, 32);
     }

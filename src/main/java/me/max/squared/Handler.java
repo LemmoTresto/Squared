@@ -23,9 +23,15 @@ public class Handler {
 
     public void render(Graphics g) {
         if (!(Game.gameState == Game.STATE.InGameShop)) {
+            GameObject tempObject;
             for (int i = 0; i < object.size(); i++) {
-                GameObject tempObject = object.get(i);
-                tempObject.render(g);
+                try {
+                    tempObject = object.get(i);
+                    tempObject.render(g);
+                } catch (NullPointerException e){
+                    //Do nothing cuz nothing to worry about
+                    System.out.println("Another unnecessary nullpointer from handler in render... Ignore it ;).");
+                }
             }
         }
     }

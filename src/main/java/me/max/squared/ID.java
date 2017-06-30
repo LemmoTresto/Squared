@@ -32,6 +32,9 @@ public enum ID {
     BasicForceFieldRing(),
     ForceFieldEffect(),
     BasicSpeedArrow(),
-    SpeedEffect()
+    SpeedEffect(),
+    LaserBeam(),
+    LaserEnemy(),
+    PlayerTrial()
 
 }

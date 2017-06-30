@@ -33,6 +33,7 @@ public class Spawn {
     public void tick() {
 
         powerupChance = r.nextInt(1333);
+        powerupChance = r.nextInt(100);
 
         if (Game.gameState == Game.STATE.Menu) {
             if (!(done2)) {
@@ -65,13 +66,13 @@ public class Spawn {
                 }
 
                 if (powerupChance == 1){
-                    int whichOne = r.nextInt(2);
+                    int whichOne = r.nextInt(3);
                     if (whichOne == 1){
                         handler.addObject(new BasicRegenHeart(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicRegenHeart, handler));
                     } else if (whichOne == 2){
                         handler.addObject(new BasicSpeedArrow(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicSpeedArrow, handler));
                     } else if (whichOne == 0){
-                        handler.addObject(new BasicForceFieldRing(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.ForceFieldEffect, handler));
+                        handler.addObject(new BasicForceFieldRing(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicForceFieldRing, handler));
                     }
                 }
 
@@ -154,13 +155,13 @@ public class Spawn {
             }
 
             if (powerupChance == 1){
-                int whichOne = r.nextInt(2);
+                int whichOne = r.nextInt(3);
                 if (whichOne == 1){
                     handler.addObject(new BasicRegenHeart(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicRegenHeart, handler));
                 } else if (whichOne == 2){
                     handler.addObject(new BasicSpeedArrow(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicSpeedArrow, handler));
                 } else if (whichOne == 0){
-                    handler.addObject(new BasicForceFieldRing(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.ForceFieldEffect, handler));
+                    handler.addObject(new BasicForceFieldRing(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicForceFieldRing, handler));
                 }
             }
 
@@ -210,13 +211,13 @@ public class Spawn {
             }
 
             if (powerupChance == 1){
-                int whichOne = r.nextInt(2);
+                int whichOne = r.nextInt(3);
                 if (whichOne == 1){
                     handler.addObject(new BasicRegenHeart(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicRegenHeart, handler));
                 } else if (whichOne == 2){
                     handler.addObject(new BasicSpeedArrow(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicSpeedArrow, handler));
                 } else if (whichOne == 0){
-                    handler.addObject(new BasicForceFieldRing(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.ForceFieldEffect, handler));
+                    handler.addObject(new BasicForceFieldRing(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicForceFieldRing, handler));
                 }
             }
 
@@ -264,13 +265,13 @@ public class Spawn {
             }
 
             if (powerupChance == 1){
-                int whichOne = r.nextInt(2);
+                int whichOne = r.nextInt(3);
                 if (whichOne == 1){
                     handler.addObject(new BasicRegenHeart(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicRegenHeart, handler));
                 } else if (whichOne == 2){
                     handler.addObject(new BasicSpeedArrow(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicSpeedArrow, handler));
                 } else if (whichOne == 0){
-                    handler.addObject(new BasicForceFieldRing(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.ForceFieldEffect, handler));
+                    handler.addObject(new BasicForceFieldRing(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicForceFieldRing, handler));
                 }
             }
 
@@ -366,13 +367,13 @@ public class Spawn {
             coinChance = r.nextInt(getCoinChance());
 
             if (powerupChance == 1){
-                int whichOne = r.nextInt(2);
+                int whichOne = r.nextInt(3);
                 if (whichOne == 1){
                     handler.addObject(new BasicRegenHeart(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicRegenHeart, handler));
                 } else if (whichOne == 2){
                     handler.addObject(new BasicSpeedArrow(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicSpeedArrow, handler));
                 } else if (whichOne == 0){
-                    handler.addObject(new BasicForceFieldRing(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.ForceFieldEffect, handler));
+                    handler.addObject(new BasicForceFieldRing(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicForceFieldRing, handler));
                 }
             }
 
@@ -434,6 +435,18 @@ public class Spawn {
             scoreKeep++;
             coinChance = r.nextInt(getCoinChance());
 
+            if (powerupChance == 1){
+                int whichOne = r.nextInt(3);
+                System.out.println(whichOne);
+                if (whichOne == 1){
+                    handler.addObject(new BasicRegenHeart(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicRegenHeart, handler));
+                } else if (whichOne == 2){
+                    handler.addObject(new BasicSpeedArrow(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicSpeedArrow, handler));
+                } else if (whichOne == 0){
+                    handler.addObject(new BasicForceFieldRing(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicForceFieldRing, handler));
+                }
+            }
+
             /*if (currentInGameCoins <= maxCoin) {
                 if (coinChance == 1) {
                     handler.addObject(new BasicCoin(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicCoin, handler));
@@ -466,6 +479,7 @@ public class Spawn {
 //TODO: Idea for level 5. A laser enemy shoots a whopping laser!!
 //TODO: Idea for new level. A enemy which is always high up and drops x.
 //TODO: Enemy which has a small object going around it when cming close hits you.
+//TODO: Enemy which stops places something on the ground and then moves on.
 
 //Powerups
 //TODO: Speed boost, forcefield more.. by jj. disappearing time 2 seconds

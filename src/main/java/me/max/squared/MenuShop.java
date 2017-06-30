@@ -220,7 +220,7 @@ public class MenuShop extends MouseAdapter {
                     isSelectPressed = false;
                     isUnselectPressed = false;
                 }
-                else if (!(purchasedSkins.contains(lookingSkinState))) {
+                else if (!(purchasedSkins == null) && !(purchasedSkins.isEmpty()) && !(purchasedSkins.contains(lookingSkinState))) {
                     if ((mouseOver(mx, my, 80, 390, 50, 20)) && (isBuyPressed)) {
                         if (hud.coins >= 50) {
                             purchasedSkins.add(lookingSkinState);
@@ -246,7 +246,7 @@ public class MenuShop extends MouseAdapter {
                         isUnselectPressed = false;
                     }
                 }
-                else if (purchasedSkins.contains(lookingSkinState) && !(currentSkin == lookingSkinState)) {
+                else if (!(purchasedSkins == null) && !(purchasedSkins.isEmpty()) && purchasedSkins.contains(lookingSkinState) && !(currentSkin == lookingSkinState)) {
                     if ((mouseOver(mx, my, 25 + 20 + 7, 390, 50, 20)) && (isSelectPressed)) {
                         currentSkin = lookingSkinState;
                             isBackPressed = false;
@@ -350,19 +350,28 @@ public class MenuShop extends MouseAdapter {
         } else {
             if (!purchasedUpgrades.isEmpty()) {
                 if (purchasedUpgrades.contains(StoreUpgrades.Speed_3)) {
-                    KeyInput.playerSpeed = 6;
-                    if (EffectHandler.object.contains(speedEffect)) {
-                        KeyInput.playerSpeed = 7;
+                    if (!(EffectHandler.object.contains(speedEffect))) {
+                        KeyInput.playerSpeed = 6;
+                    } else {
+                        KeyInput.playerSpeed = 9;
                     }
                 } else if (purchasedUpgrades.contains(StoreUpgrades.Speed_2)) {
-                    KeyInput.playerSpeed = 5.5f;
-                    if (EffectHandler.object.contains(speedEffect)) {
-                        KeyInput.playerSpeed = 6.5f;
+                    if (!(EffectHandler.object.contains(speedEffect))) {
+                        KeyInput.playerSpeed = 5.5f;
+                    } else {
+                        KeyInput.playerSpeed = 8.5f;
                     }
                 } else if (purchasedUpgrades.contains(StoreUpgrades.Speed_1)) {
-                    KeyInput.playerSpeed = 5.25f;
-                    if (EffectHandler.object.contains(speedEffect)) {
-                        KeyInput.playerSpeed = 6.25f;
+                    if (!(EffectHandler.object.contains(speedEffect))) {
+                        KeyInput.playerSpeed = 5.25f;
+                    } else {
+                        KeyInput.playerSpeed = 8.25f;
+                    }
+                } else {
+                    if (!EffectHandler.object.contains(speedEffect)){
+                        KeyInput.playerSpeed = 5;
+                    } else {
+                        KeyInput.playerSpeed = 8;
                     }
                 }
             }
@@ -701,7 +710,7 @@ public class MenuShop extends MouseAdapter {
             } else {
                 g.setColor(Color.white);
             }
-            if (purchasedUpgrades.contains(StoreUpgrades.MoreCoins_5)){
+            if (!(purchasedUpgrades == null) && !(purchasedUpgrades.isEmpty()) &&purchasedUpgrades.contains(StoreUpgrades.MoreCoins_5)){
                 g.setColor(Color.white);
             }
             g.drawRect(200, 115, 125, 81);
@@ -712,73 +721,74 @@ public class MenuShop extends MouseAdapter {
             g.drawString("5% Increment", 222, 153);
             g.drawString("30 Coins", 239, 171);
             g.setColor(Color.green);
-            if (purchasedUpgrades.contains(StoreUpgrades.MoreCoins_1)) {
-                g.fillRect(201, 186, 24, 10);
-            }
-            if (purchasedUpgrades.contains(StoreUpgrades.MoreCoins_2)){
-                g.fillRect(226, 186, 24, 10);
-            }
-            if (purchasedUpgrades.contains(StoreUpgrades.MoreCoins_3)){
-                g.fillRect(251, 186, 24, 10);
-            }
-            if (purchasedUpgrades.contains(StoreUpgrades.MoreCoins_4)){
-                g.fillRect(276, 186, 24, 10);
-            }
-            if (purchasedUpgrades.contains(StoreUpgrades.MoreCoins_5)){
-                g.fillRect(301, 186, 24, 10);
-            }
+            if (!(purchasedUpgrades == null) && !(purchasedUpgrades.isEmpty())) {
+                if (purchasedUpgrades.contains(StoreUpgrades.MoreCoins_1)) {
+                    g.fillRect(201, 186, 24, 10);
+                }
+                if (purchasedUpgrades.contains(StoreUpgrades.MoreCoins_2)) {
+                    g.fillRect(226, 186, 24, 10);
+                }
+                if (purchasedUpgrades.contains(StoreUpgrades.MoreCoins_3)) {
+                    g.fillRect(251, 186, 24, 10);
+                }
+                if (purchasedUpgrades.contains(StoreUpgrades.MoreCoins_4)) {
+                    g.fillRect(276, 186, 24, 10);
+                }
+                if (purchasedUpgrades.contains(StoreUpgrades.MoreCoins_5)) {
+                    g.fillRect(301, 186, 24, 10);
+                }
 
-            //SPEED INCREMENT!
-            if (hud.coins >= 25){
+                //SPEED INCREMENT!
+                if (hud.coins >= 25) {
+                    g.setColor(Color.green);
+                } else if (hud.coins < 25) {
+                    g.setColor(Color.red);
+                } else {
+                    g.setColor(Color.white);
+                }
+                if (purchasedUpgrades.contains(StoreUpgrades.Speed_3)) {
+                    g.setColor(Color.white);
+                }
+                g.drawRect(200, 221, 125, 81);
+                g.setColor(Color.white);
+                g.setFont(font7);
+                g.drawString("Player speed", 222, 241);
+                g.drawString("5% Increment", 222, 259);
+                g.drawString("25 Coins", 239, 277);
                 g.setColor(Color.green);
-            } else if (hud.coins < 25){
-                g.setColor(Color.red);
-            } else {
-                g.setColor(Color.white);
-            }
-            if (purchasedUpgrades.contains(StoreUpgrades.Speed_3)){
-                g.setColor(Color.white);
-            }
-            g.drawRect(200, 221, 125, 81);
-            g.setColor(Color.white);
-            g.setFont(font7);
-            g.drawString("Player speed", 222, 241);
-            g.drawString("5% Increment", 222, 259);
-            g.drawString("25 Coins", 239, 277);
-            g.setColor(Color.green);
-            if (purchasedUpgrades.contains(StoreUpgrades.Speed_1)) {
-                g.fillRect(201, 292, 40, 10);
-            }
-            if (purchasedUpgrades.contains(StoreUpgrades.Speed_2)){
-                g.fillRect(242, 292, 40, 10);
-            }
-            if (purchasedUpgrades.contains(StoreUpgrades.Speed_3)){
-                g.fillRect(283, 292, 42, 10);
-            }
+                if (purchasedUpgrades.contains(StoreUpgrades.Speed_1)) {
+                    g.fillRect(201, 292, 40, 10);
+                }
+                if (purchasedUpgrades.contains(StoreUpgrades.Speed_2)) {
+                    g.fillRect(242, 292, 40, 10);
+                }
+                if (purchasedUpgrades.contains(StoreUpgrades.Speed_3)) {
+                    g.fillRect(283, 292, 42, 10);
+                }
 
 
-            //EXTRA LIFE!
-            if (hud.coins >= 60){
+                //EXTRA LIFE!
+                if (hud.coins >= 60) {
+                    g.setColor(Color.green);
+                } else if (hud.coins < 60) {
+                    g.setColor(Color.red);
+                } else {
+                    g.setColor(Color.white);
+                }
+                if (purchasedUpgrades.contains(StoreUpgrades.ExtraLife_1)) {
+                    g.setColor(Color.white);
+                }
+                g.drawRect(350, 115, 125, 81);
+                g.setColor(Color.white);
+                g.setFont(font7);
+                g.drawString("Extra life!", 386, 135);
+                g.drawString("1 Extra life", 384, 153);
+                g.drawString("60 Coins", 389, 171);
                 g.setColor(Color.green);
-            } else if (hud.coins < 60){
-                g.setColor(Color.red);
-            } else {
-                g.setColor(Color.white);
+                if (purchasedUpgrades.contains(StoreUpgrades.ExtraLife_1)) {
+                    g.fillRect(351, 186, 124, 10);
+                }
             }
-            if (purchasedUpgrades.contains(StoreUpgrades.ExtraLife_1)){
-                g.setColor(Color.white);
-            }
-            g.drawRect(350, 115, 125, 81);
-            g.setColor(Color.white);
-            g.setFont(font7);
-            g.drawString("Extra life!", 386, 135);
-            g.drawString("1 Extra life", 384, 153);
-            g.drawString("60 Coins", 389, 171);
-            g.setColor(Color.green);
-            if (purchasedUpgrades.contains(StoreUpgrades.ExtraLife_1)) {
-                g.fillRect(351, 186, 124, 10);
-            }
-
 
         }
     }

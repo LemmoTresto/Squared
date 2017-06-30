@@ -311,6 +311,7 @@ public class LevelChooser extends MouseAdapter{
                 InGameShop.currentLevel = Game.STATE.Level7;
                 level7pressed = false;
                 handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
+                handler.addObject(new LaserEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LaserEnemy, handler));
             }
 
             //level8

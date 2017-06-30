@@ -11,10 +11,12 @@ public class KeyInput extends KeyAdapter{
 
     private Handler handler;
     private float xp, xm, yp, ym;
-    public static float playerSpeed = 5;
+    public static float playerSpeed;
 
     public KeyInput(Handler handler){
         this.handler = handler;
+
+        playerSpeed = 5;
     }
 
     public void keyPressed(KeyEvent e){
