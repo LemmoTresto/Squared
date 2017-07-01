@@ -6,12 +6,14 @@ import java.awt.*;
  * Created by max on 25-5-2017.
  * © Copyright 2017 Max Berkelmans
  */
-public class BulletEnemy extends GameObject{
+public class LaserEnemy extends GameObject{
 
     private Handler handler;
     int bulletSpawn = 250;
+    private float oldVelX;
+    private float oldVelY;
 
-    public BulletEnemy(float x, float y, ID id, Handler handler) {
+    public LaserEnemy(float x, float y, ID id, Handler handler) {
         super(x, y, id);
 
         this.handler = handler;
@@ -32,10 +34,19 @@ public class BulletEnemy extends GameObject{
         handler.addObject(new Trial(x, y, ID.Trial, Color.magenta, 20, 20, 0.05f, handler));
 
         bulletSpawn--;
-        if (bulletSpawn <= 0){
-            bulletSpawn = 250;
-            if (!(Game.gameState == Game.STATE.Died) && !(Game.gameState == Game.STATE.Died)) {
-                handler.addObject(new BulletEnemyBullet(x, y, ID.BulletEnemyBullet, handler));
+        if (bulletSpawn <= 50){
+            if (!(velX == 0) && !(velY == 0)) {
+                oldVelX = velX;
+                oldVelY = velY;
+            }
+            velX = 0;
+            velY = 0;
+            bulletSpawn--;
+            if (bulletSpawn <= 0) {
+                bulletSpawn = 250;
+                velX = oldVelX;
+                velY = oldVelY;
+                handler.addObject(new Trial(x, y, ID.LaserBeam, new Color(250, 250, 250), 14, 14, 0.009f, handler));
             }
         }
 
@@ -51,8 +62,10 @@ public class BulletEnemy extends GameObject{
             g.setComposite(alcom);
         }
 
-        g.setColor(Color.magenta);
+        g.setColor(new Color(139,0,0));
+        //beam will be bright white!
         g.fillRect((int) x, (int) y, 20, 20);
+
     }
 
     public Rectangle getBounds() {

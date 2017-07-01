@@ -22,19 +22,30 @@ public class EnemyBossBulletLvl1_1 extends GameObject{
     }
 
     public void tick() {
-        x += velX;
-        y += velY;
+        if (!(Game.gameState == Game.STATE.Died) && !(Game.gameState == Game.STATE.WonLevel1)) {
+            x += velX;
+            y += velY;
 
-        if (y >= Game.HEIGHT) handler.removeObject(this);
+            if (y >= Game.HEIGHT) handler.removeObject(this);
 
-        //if (y <= 0 || y >= Game.HEIGHT - 50) { velY *= -1; }
+            //if (y <= 0 || y >= Game.HEIGHT - 50) { velY *= -1; }
 
-        //if (x <= 0 || x >= Game.WIDTH - 20) { velX *= -1; }
+            //if (x <= 0 || x >= Game.WIDTH - 20) { velX *= -1; }
 
-        handler.addObject(new Trial(x, y, ID.Trial, Color.orange, 16, 16, 0.07f, handler));
+            handler.addObject(new Trial(x, y, ID.Trial, Color.orange, 16, 16, 0.07f, handler));
+        }
     }
 
-    public void render(Graphics g) {
+    public void render(Graphics g2) {
+
+        float alpha = 0.4f;
+        AlphaComposite alcom = AlphaComposite.getInstance(
+                AlphaComposite.SRC_OVER, alpha);
+        Graphics2D g = (Graphics2D) g2.create();
+        if (Game.gameState == Game.STATE.PauseScreen){
+            g.setComposite(alcom);
+        }
+
         g.setColor(Color.orange);
         g.fillRect((int) x, (int) y, 16, 16);
     }

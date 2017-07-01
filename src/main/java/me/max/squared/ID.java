@@ -26,6 +26,15 @@ public enum ID {
     RocketEnemyExplosion(),
     EnemyBossLvl4(),
     EnemyBossBulletLvl4_1(),
-    EnemyBossBulletLvl4_2()
+    EnemyBossBulletLvl4_2(),
+    BasicRegenHeart(),
+    RegenEffect(),
+    BasicForceFieldRing(),
+    ForceFieldEffect(),
+    BasicSpeedArrow(),
+    SpeedEffect(),
+    LaserBeam(),
+    LaserEnemy(),
+    PlayerTrial()
 
 }

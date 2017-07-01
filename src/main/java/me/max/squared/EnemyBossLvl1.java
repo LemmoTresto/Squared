@@ -54,7 +54,16 @@ public class EnemyBossLvl1 extends GameObject{
         handler.addObject(new Trial(x, y, ID.Trial, Color.red, 86, 86, 0.07f, handler));
     }
 
-    public void render(Graphics g) {
+    public void render(Graphics g2) {
+
+        float alpha = 0.4f;
+        AlphaComposite alcom = AlphaComposite.getInstance(
+                AlphaComposite.SRC_OVER, alpha);
+        Graphics2D g = (Graphics2D) g2.create();
+        if (Game.gameState == Game.STATE.PauseScreen){
+            g.setComposite(alcom);
+        }
+
         g.setColor(Color.red);
         g.fillRect((int) x, (int) y, 86, 86);
     }

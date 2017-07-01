@@ -29,7 +29,16 @@ public class BasicCoin extends GameObject{
 
     }
 
-    public void render(Graphics g) {
+    public void render(Graphics g2) {
+
+        float alpha = 0.4f;
+        AlphaComposite alcom = AlphaComposite.getInstance(
+                AlphaComposite.SRC_OVER, alpha);
+        Graphics2D g = (Graphics2D) g2.create();
+        if (Game.gameState == Game.STATE.PauseScreen){
+            g.setComposite(alcom);
+        }
+
         g.setColor(Color.yellow);
         g.fillOval((int) x, (int) y, 20, 20);
     }

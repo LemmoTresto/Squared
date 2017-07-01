@@ -14,14 +14,16 @@ public class onWin extends MouseAdapter{
     private Handler handler;
     private HUD hud;
     private Spawn spawner;
+    private EffectHandler effectHandler;
     private Random r = new Random();
     private boolean nextLevelPressed = false;
     private boolean menuPressed = false;
 
-    public onWin(Handler handler, HUD hud, Spawn spawner){
+    public onWin(Handler handler, HUD hud, Spawn spawner, EffectHandler effectHandler){
         this.handler = handler;
         this.hud = hud;
         this.spawner = spawner;
+        this.effectHandler = effectHandler;
     }
 
     public void mousePressed(MouseEvent e) {
@@ -72,19 +74,19 @@ public class onWin extends MouseAdapter{
                     if (Game.gameState == Game.STATE.WonLevel1) {
                         Game.gameState = Game.STATE.Level2;
                         InGameShop.currentLevel = Game.STATE.Level2;
-                        handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
+                        handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
                         handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
                         handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
                     } else if (Game.gameState == Game.STATE.WonLevel2) {
                         Game.gameState = Game.STATE.Level3;
                         InGameShop.currentLevel = Game.STATE.Level3;
-                        handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
+                        handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
                         handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
                         handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
                     } else if (Game.gameState == Game.STATE.WonLevel3) {
                         Game.gameState = Game.STATE.Level4;
                         InGameShop.currentLevel = Game.STATE.Level4;
-                        handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
+                        handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
                         handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
                         handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.FastEnemy, handler));
                     } else if (Game.gameState == Game.STATE.WonLevel4) {

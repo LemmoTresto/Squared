@@ -23,6 +23,7 @@ public class HUD extends MouseAdapter {
     private boolean inGameShopPressed, pausePressed;
     public LinkedList<GameObject> object2 = new LinkedList<GameObject>();
     public static boolean shopEnabled = true;
+    public static boolean immortal = false;
 
     public HUD(Handler handler){
         this.handler = handler;
@@ -64,6 +65,7 @@ public class HUD extends MouseAdapter {
     }
 
     public void tick() {
+
         if (!(Game.gameState == Game.STATE.Menu) && !(Game.gameState == Game.STATE.InGameShop) && !(Game.gameState == Game.STATE.PauseScreen) && !(Game.gameState == Game.STATE.Help) && !(Game.gameState == Game.STATE.MenuShop) && !(Game.gameState == Game.STATE.LevelChooser) && !(Game.gameState == Game.STATE.Died) && !(Game.gameState == Game.STATE.WonLevel1) && !(Game.gameState == Game.STATE.WonLevel2) && !(Game.gameState == Game.STATE.WonLevel3) && !(Game.gameState == Game.STATE.WonLevel4) && !(Game.gameState == Game.STATE.WonLevel5) && !(Game.gameState == Game.STATE.WonLevel6) && !(Game.gameState == Game.STATE.WonLevel7) && !(Game.gameState == Game.STATE.WonLevel8) && !(Game.gameState == Game.STATE.WonLevel9) && !(Game.gameState == Game.STATE.WonLevel10)) {
             HEALTH = Game.clamp((int) HEALTH, 0, 100);
             greenValue = Game.clamp(greenValue, 0, 255);
@@ -83,6 +85,7 @@ public class HUD extends MouseAdapter {
                         }
                     }
                     Game.gameState = Game.STATE.Died;
+                    EffectHandler.object.clear();
                     for (int i = 0; i < handler.object.size(); i++) {
                         GameObject tempObject = handler.object.get(i);
                         if (tempObject.getId() == ID.Player) {
@@ -91,19 +94,35 @@ public class HUD extends MouseAdapter {
                             break;
                         }
                     }
-                    if (shopEnabled = false) {
-                        shopEnabled = true;
-                    }
+                    shopEnabled = true;
                 } else {
                     lives --;
                     HEALTH = 100;
                 }
             }
         }
+        if (Game.gameState == Game.STATE.Level1 || Game.gameState == Game.STATE.Level2 || Game.gameState == Game.STATE.Level3 || Game.gameState == Game.STATE.Level4 || Game.gameState == Game.STATE.Level5 || Game.gameState == Game.STATE.Level6 || Game.gameState == Game.STATE.Level7 || Game.gameState == Game.STATE.Level8 || Game.gameState == Game.STATE.Level9 || Game.gameState == Game.STATE.Level10 || Game.gameState == Game.STATE.InGameShop){
+            if (EffectHandler.object.isEmpty()) {
+                if (EffectHandler.object.contains(EffectHandler.EFFECT.ForceField)) {
+                    immortal = true;
+                } else {
+                    immortal = false;
+                }
+            }
+        }
     }
 
-    public void render(Graphics g){
+    public void render(Graphics g2){
         if (!(Game.gameState == Game.STATE.Menu) && !(Game.gameState == Game.STATE.MenuShop) && !(Game.gameState == Game.STATE.Help) && !(Game.gameState == Game.STATE.LevelChooser) && !(Game.gameState == Game.STATE.Died) && !(Game.gameState == Game.STATE.WonLevel1) && !(Game.gameState == Game.STATE.WonLevel2) && !(Game.gameState == Game.STATE.WonLevel3) && !(Game.gameState == Game.STATE.WonLevel4) && !(Game.gameState == Game.STATE.WonLevel5) && !(Game.gameState == Game.STATE.WonLevel6) && !(Game.gameState == Game.STATE.WonLevel7) && !(Game.gameState == Game.STATE.WonLevel8) && !(Game.gameState == Game.STATE.WonLevel9) && !(Game.gameState == Game.STATE.WonLevel10)) {
+
+            float alpha = 0.4f;
+            AlphaComposite alcom = AlphaComposite.getInstance(
+                    AlphaComposite.SRC_OVER, alpha);
+            Graphics2D g = (Graphics2D) g2.create();
+            if (Game.gameState == Game.STATE.PauseScreen){
+                g.setComposite(alcom);
+            }
+
             g.setColor(Color.gray);
             g.fillRect(15, 15, 200, 32);
             g.setColor(new Color(75, (int) greenValue, 0));
