@@ -485,6 +485,9 @@ public class Spawn {
 //TODO: Speed boost, forcefield more.. by jj. disappearing time 2 seconds
 //TODO: Effect handler, EffectRegen.
 
+//Powerups
+//TODO: Speed boost, forcefield more.. by jj. disappearing time 2 seconds
+
 //Other in order!
 //TODO: Make update migration!! Otherwise many people won't be able to play, I was thinking about making a big array with everything we have and then use .contains as nullpointers come with using data. I THINK I DON'T NEED TO DO THIS AS IT WILL AUTO CREATE IT UNLESS I USE AN ARRAY WHICH I DON'T THINK I'M GOING TO DO?
 //TODO: Finish pause screen (learn how to make things a bit more black (transparant/foggy/more light/idk)..

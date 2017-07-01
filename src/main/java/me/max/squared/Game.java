@@ -142,9 +142,7 @@ public class Game extends Canvas implements Runnable {
                 inputStream.close();
             }
         } catch (IOException ignored) {}
-
-
-
+      
         boolean update = updateChecker.checkForUpdates();
         System.out.println(update);
         if (update){
