@@ -2,6 +2,13 @@ package me.max.squared;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import me.max.squared.data.DataSaving;
+import me.max.squared.data.Datas;
+import me.max.squared.handlers.main.EffectHandler;
+import me.max.squared.handlers.main.Handler;
+import me.max.squared.handlers.others.*;
+import me.max.squared.menus.*;
+import me.max.squared.utils.UpdateChecker;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,7 +42,7 @@ public class Game extends Canvas implements Runnable {
     private HUD hud;
     private EffectHandler effectHandler;
     private Spawn spawner;
-    private Menu menu;
+    private me.max.squared.menus.Menu menu;
     private LevelChooser lvlchooser;
     private Died died;
     private onWin onWin;
@@ -90,7 +97,7 @@ public class Game extends Canvas implements Runnable {
 
         handler = new Handler();
 
-        menu = new Menu();
+        menu = new me.max.squared.menus.Menu();
         hud = new HUD(handler);
         effectHandler = new EffectHandler();
         spawner = new Spawn(handler, hud);
@@ -120,10 +127,10 @@ public class Game extends Canvas implements Runnable {
 
         r = new Random();
 
-        new Window(WIDTH, HEIGHT, "Squared - (BETA)", this);
+        new me.max.squared.handlers.others.Window(WIDTH, HEIGHT, "Squared - (BETA)", this);
 
         this.addKeyListener(new KeyInput(handler));
-        this.addMouseListener(new Menu());
+        this.addMouseListener(new me.max.squared.menus.Menu());
         this.addMouseListener(new LevelChooser(handler, spawner, hud, effectHandler));
         this.addMouseListener(new Died(handler, hud, spawner, effectHandler));
         this.addMouseListener(new onWin(handler, hud, spawner, effectHandler));
@@ -142,7 +149,9 @@ public class Game extends Canvas implements Runnable {
                 inputStream.close();
             }
         } catch (IOException ignored) {}
-      
+
+
+
         boolean update = updateChecker.checkForUpdates();
         System.out.println(update);
         if (update){
