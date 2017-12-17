@@ -11,25 +11,25 @@ import java.awt.event.KeyEvent;
  * Created by max on 25-5-2017.
  * © Copyright 2017 Max Berkelmans
  */
-public class KeyInput extends KeyAdapter{
+public class KeyInput extends KeyAdapter {
 
+    public static float playerSpeed;
     private Handler handler;
     private float xp, xm, yp, ym;
-    public static float playerSpeed;
 
-    public KeyInput(Handler handler){
+    public KeyInput(Handler handler) {
         this.handler = handler;
 
         playerSpeed = 5;
     }
 
-    public void keyPressed(KeyEvent e){
+    public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
 
-        for (int i = 0; i < handler.object.size(); i++){
+        for (int i = 0; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);
 
-            if (tempObject.getId() == ID.Player){
+            if (tempObject.getId() == ID.Player) {
 
                 if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP) ym = playerSpeed;
                 if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) xm = playerSpeed;
@@ -41,7 +41,9 @@ public class KeyInput extends KeyAdapter{
 
             }
         }
-        if (key == KeyEvent.VK_ESCAPE) { System.exit(1); }
+        if (key == KeyEvent.VK_ESCAPE) {
+            System.exit(1);
+        }
 
     }
 

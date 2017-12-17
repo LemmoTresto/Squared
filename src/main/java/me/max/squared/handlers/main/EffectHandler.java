@@ -11,31 +11,24 @@ import java.util.LinkedList;
  */
 public class EffectHandler {
 
+    public static LinkedList<GameEffect> object = new LinkedList<GameEffect>();
     private float x;
 
-    public enum EFFECT {
-        Regen(),
-        ForceField(),
-        Speed()
-    }
-
-    public static LinkedList<GameEffect> object = new LinkedList<GameEffect>();
-
     public void tick() {
-            for (int i = 0; i < object.size(); i++) {
-                GameEffect tempObject = object.get(i);
-                tempObject.tick();
-            }
+        for (int i = 0; i < object.size(); i++) {
+            GameEffect tempObject = object.get(i);
+            tempObject.tick();
+        }
     }
 
     public void render(Graphics g) {
         x = -25;
-            for (int i = 0; i < object.size(); i++) {
-                GameEffect tempObject = object.get(i);
-                x += 40;
-                tempObject.setX(x);
-                tempObject.render(g);
-            }
+        for (int i = 0; i < object.size(); i++) {
+            GameEffect tempObject = object.get(i);
+            x += 40;
+            tempObject.setX(x);
+            tempObject.render(g);
+        }
     }
 
     public void addEffect(GameEffect object) {
@@ -44,5 +37,11 @@ public class EffectHandler {
 
     public void removeEffect(GameEffect object) {
         this.object.remove(object);
+    }
+
+    public enum EFFECT {
+        Regen(),
+        ForceField(),
+        Speed()
     }
 }

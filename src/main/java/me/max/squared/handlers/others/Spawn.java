@@ -14,6 +14,7 @@ import me.max.squared.objects.enemies.*;
 import me.max.squared.objects.powerups.BasicForceFieldRing;
 import me.max.squared.objects.powerups.BasicRegenHeart;
 import me.max.squared.objects.powerups.BasicSpeedArrow;
+import me.max.squared.utils.DiscordRPCUtil;
 
 import java.util.Random;
 
@@ -23,26 +24,31 @@ import java.util.Random;
  */
 public class Spawn {
 
-    private Handler handler;
-    private HUD hud;
-    private static Random r = new Random();
-    private static int coinChanceMethod = 500;
     public static int coinChance;
     public static int maxCoin = 3;
     public static int currentInGameCoins = 0;
+    private static Random r = new Random();
+    private static int coinChanceMethod = 500;
     public boolean done2 = false;
     public boolean done3 = false;
-    private GameObject player;
-
-    private int powerupChance;
-
-
     public float scoreKeep = 0;
+    private Handler handler;
+    private HUD hud;
+    private GameObject player;
+    private int powerupChance;
 
     public Spawn(Handler handler, HUD hud) {
         this.handler = handler;
         this.hud = hud;
 
+    }
+
+    public static int getCoinChance() {
+        return coinChanceMethod;
+    }
+
+    public void setCoinChance(int coinChanceMethod) {
+        this.coinChanceMethod = coinChanceMethod;
     }
 
     public void tick() {
@@ -70,8 +76,8 @@ public class Spawn {
 
             if (scoreKeep >= 250) {
                 scoreKeep = 0;
-                hud.setLevel(hud.getLevel() + 1);
-
+                hud.setWave(hud.getWave() + 1);
+                DiscordRPCUtil.updatePresence();
                 if (currentInGameCoins <= maxCoin) {
                     if (coinChance == 1) {
                         handler.addObject(new BasicCoin(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicCoin, handler));
@@ -79,31 +85,31 @@ public class Spawn {
                     }
                 }
 
-                if (powerupChance == 1){
+                if (powerupChance == 1) {
                     int whichOne = r.nextInt(3);
-                    if (whichOne == 1){
+                    if (whichOne == 1) {
                         handler.addObject(new BasicRegenHeart(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicRegenHeart, handler));
-                    } else if (whichOne == 2){
+                    } else if (whichOne == 2) {
                         handler.addObject(new BasicSpeedArrow(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicSpeedArrow, handler));
-                    } else if (whichOne == 0){
+                    } else if (whichOne == 0) {
                         handler.addObject(new BasicForceFieldRing(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicForceFieldRing, handler));
                     }
                 }
 
-                if (hud.getLevel() == 2) {
+                if (hud.getWave() == 2) {
                     handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-                } else if (hud.getLevel() == 3) {
+                } else if (hud.getWave() == 3) {
                     handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-                } else if (hud.getLevel() == 4) {
+                } else if (hud.getWave() == 4) {
                     handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-                } else if (hud.getLevel() == 5) {
+                } else if (hud.getWave() == 5) {
                     handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
                     handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-                } else if (hud.getLevel() == 6) {
+                } else if (hud.getWave() == 6) {
                     handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.FastEnemy, handler));
-                } else if (hud.getLevel() == 7) {
+                } else if (hud.getWave() == 7) {
                     handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-                } else if (hud.getLevel() == 8) {
+                } else if (hud.getWave() == 8) {
                     handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.FastEnemy, handler));
                     for (int i = 0; i < handler.object.size(); i++) {
                         GameObject tempObject = handler.object.get(i);
@@ -113,7 +119,7 @@ public class Spawn {
                             break;
                         }
                     }
-                } else if (hud.getLevel() == 9) {
+                } else if (hud.getWave() == 9) {
                     for (int i = 0; i < handler.object.size(); i++) {
                         GameObject tempObject = handler.object.get(i);
 
@@ -122,7 +128,7 @@ public class Spawn {
                             break;
                         }
                     }
-                } else if (hud.getLevel() == 10) {
+                } else if (hud.getWave() == 10) {
                     for (int i = 0; i < handler.object.size(); i++) {
                         GameObject tempObject = handler.object.get(i);
 
@@ -132,7 +138,7 @@ public class Spawn {
                         }
                     }
                     handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler));
-                } else if (hud.getLevel() == 11) {
+                } else if (hud.getWave() == 11) {
                     for (int i = 0; i < handler.object.size(); i++) {
                         GameObject tempObject = handler.object.get(i);
 
@@ -150,9 +156,9 @@ public class Spawn {
                         }
                     }
                     handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler));
-                } else if (hud.getLevel() == 12) {
+                } else if (hud.getWave() == 12) {
                     handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.FastEnemy, handler));
-                } else if (hud.getLevel() > 12) {
+                } else if (hud.getWave() > 12) {
                     handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.FastEnemy, handler));
                     handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
                 }
@@ -168,44 +174,44 @@ public class Spawn {
                 }
             }
 
-            if (powerupChance == 1){
+            if (powerupChance == 1) {
                 int whichOne = r.nextInt(3);
-                if (whichOne == 1){
+                if (whichOne == 1) {
                     handler.addObject(new BasicRegenHeart(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicRegenHeart, handler));
-                } else if (whichOne == 2){
+                } else if (whichOne == 2) {
                     handler.addObject(new BasicSpeedArrow(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicSpeedArrow, handler));
-                } else if (whichOne == 0){
+                } else if (whichOne == 0) {
                     handler.addObject(new BasicForceFieldRing(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicForceFieldRing, handler));
                 }
             }
 
             if (scoreKeep >= 300) {
                 scoreKeep = 0;
-                hud.setLevel(hud.getLevel() + 1);
+                hud.setWave(hud.getWave() + 1);
+                DiscordRPCUtil.updatePresence();
 
-
-                if (hud.getLevel() == 2) {
+                if (hud.getWave() == 2) {
                     handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-                } else if (hud.getLevel() == 3) {
+                } else if (hud.getWave() == 3) {
                     handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-                } else if (hud.getLevel() == 4) {
+                } else if (hud.getWave() == 4) {
                     handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.FastEnemy, handler));
-                } else if (hud.getLevel() == 5) {
+                } else if (hud.getWave() == 5) {
                     handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-                } else if (hud.getLevel() == 6) {
+                } else if (hud.getWave() == 6) {
                     handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-                } else if (hud.getLevel() == 7) {
+                } else if (hud.getWave() == 7) {
                     handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-                } else if (hud.getLevel() == 8) {
+                } else if (hud.getWave() == 8) {
                     handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.FastEnemy, handler));
-                } else if (hud.getLevel() == 9) {
+                } else if (hud.getWave() == 9) {
                     handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-                } else if (hud.getLevel() == 10) {
+                } else if (hud.getWave() == 10) {
                     handler.clearEnemies();
                     hud.HEALTH = 100;
                     handler.addObject(new EnemyBossLvl1((Game.WIDTH / 2) - 48, -120, ID.EnemyBossLvl1, handler));
                     hud.shopEnabled = false;
-                } else if (hud.getLevel() == 15) {
+                } else if (hud.getWave() == 15) {
                     handler.object.clear();
                     hud.HEALTH = 100;
                     hud.shopEnabled = true;
@@ -224,44 +230,44 @@ public class Spawn {
                 }
             }
 
-            if (powerupChance == 1){
+            if (powerupChance == 1) {
                 int whichOne = r.nextInt(3);
-                if (whichOne == 1){
+                if (whichOne == 1) {
                     handler.addObject(new BasicRegenHeart(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicRegenHeart, handler));
-                } else if (whichOne == 2){
+                } else if (whichOne == 2) {
                     handler.addObject(new BasicSpeedArrow(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicSpeedArrow, handler));
-                } else if (whichOne == 0){
+                } else if (whichOne == 0) {
                     handler.addObject(new BasicForceFieldRing(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicForceFieldRing, handler));
                 }
             }
 
             if (scoreKeep >= 300) {
                 scoreKeep = 0;
-                hud.setLevel(hud.getLevel() + 1);
+                hud.setWave(hud.getWave() + 1);
+                DiscordRPCUtil.updatePresence();
 
-
-                if (hud.getLevel() == 2) {
+                if (hud.getWave() == 2) {
                     handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-                } else if (hud.getLevel() == 3) {
+                } else if (hud.getWave() == 3) {
                     handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-                } else if (hud.getLevel() == 4) {
+                } else if (hud.getWave() == 4) {
                     handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.FastEnemy, handler));
-                } else if (hud.getLevel() == 5) {
+                } else if (hud.getWave() == 5) {
                     handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-                } else if (hud.getLevel() == 6) {
+                } else if (hud.getWave() == 6) {
                     handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.FastEnemy, handler));
-                } else if (hud.getLevel() == 7) {
+                } else if (hud.getWave() == 7) {
                     handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler));
-                } else if (hud.getLevel() == 8) {
+                } else if (hud.getWave() == 8) {
                     handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-                } else if (hud.getLevel() == 9) {
+                } else if (hud.getWave() == 9) {
                     handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-                } else if (hud.getLevel() == 10) {
+                } else if (hud.getWave() == 10) {
                     handler.clearEnemies();
                     hud.HEALTH = 100;
                     handler.addObject(new EnemyBossLvl2((Game.WIDTH / 2) - 48, -120, ID.EnemyBossLvl2, handler));
                     hud.shopEnabled = false;
-                } else if (hud.getLevel() == 15) {
+                } else if (hud.getWave() == 15) {
                     handler.object.clear();
                     Game.gameState = Game.STATE.WonLevel2;
                     hud.HEALTH = 100;
@@ -278,13 +284,13 @@ public class Spawn {
                 }
             }
 
-            if (powerupChance == 1){
+            if (powerupChance == 1) {
                 int whichOne = r.nextInt(3);
-                if (whichOne == 1){
+                if (whichOne == 1) {
                     handler.addObject(new BasicRegenHeart(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicRegenHeart, handler));
-                } else if (whichOne == 2){
+                } else if (whichOne == 2) {
                     handler.addObject(new BasicSpeedArrow(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicSpeedArrow, handler));
-                } else if (whichOne == 0){
+                } else if (whichOne == 0) {
                     handler.addObject(new BasicForceFieldRing(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicForceFieldRing, handler));
                 }
             }
@@ -294,7 +300,7 @@ public class Spawn {
 
             if (currentInGameCoins <= maxCoin) {
                 if (coinChance == 1) {
-                    if (hud.getLevel() >= 10) {
+                    if (hud.getWave() >= 10) {
                         if (player.x <= Game.WIDTH / 2) {
                             int Low = Game.WIDTH / 2;
                             int High = Game.WIDTH - 50;
@@ -320,18 +326,18 @@ public class Spawn {
 
             if (scoreKeep >= 300) {
                 scoreKeep = 0;
-                hud.setLevel(hud.getLevel() + 1);
+                hud.setWave(hud.getWave() + 1);
+                DiscordRPCUtil.updatePresence();
 
-
-                if (hud.getLevel() == 2) {
+                if (hud.getWave() == 2) {
                     handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
                     handler.addObject(new BulletEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BulletEnemy, handler));
-                } else if (hud.getLevel() == 3) {
+                } else if (hud.getWave() == 3) {
                     handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
                     handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-                } else if (hud.getLevel() == 4) {
+                } else if (hud.getWave() == 4) {
                     handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.FastEnemy, handler));
-                } else if (hud.getLevel() == 5) {
+                } else if (hud.getWave() == 5) {
                     handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.FastEnemy, handler));
                     handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler));
 
@@ -344,12 +350,12 @@ public class Spawn {
                         }
                     }
 
-                } else if (hud.getLevel() == 6) {
+                } else if (hud.getWave() == 6) {
                     handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler));
-                } else if (hud.getLevel() == 7) {
+                } else if (hud.getWave() == 7) {
                     handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler));
                     handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.FastEnemy, handler));
-                } else if (hud.getLevel() == 8) {
+                } else if (hud.getWave() == 8) {
                     handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.FastEnemy, handler));
 
                     for (int i = 0; i < handler.object.size(); i++) {
@@ -361,14 +367,14 @@ public class Spawn {
                         }
                     }
 
-                } else if (hud.getLevel() == 9) {
+                } else if (hud.getWave() == 9) {
                     handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler));
-                } else if (hud.getLevel() == 10) {
+                } else if (hud.getWave() == 10) {
                     handler.clearEnemies();
                     hud.HEALTH = 100;
                     handler.addObject(new EnemyBossLvl3((Game.WIDTH / 2) - 48, -120, ID.EnemyBossLvl3, handler));
                     hud.shopEnabled = false;
-                } else if (hud.getLevel() == 17) {
+                } else if (hud.getWave() == 17) {
                     handler.object.clear();
                     Game.gameState = Game.STATE.WonLevel3;
                     hud.HEALTH = 100;
@@ -380,13 +386,13 @@ public class Spawn {
             scoreKeep++;
             coinChance = r.nextInt(getCoinChance());
 
-            if (powerupChance == 1){
+            if (powerupChance == 1) {
                 int whichOne = r.nextInt(3);
-                if (whichOne == 1){
+                if (whichOne == 1) {
                     handler.addObject(new BasicRegenHeart(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicRegenHeart, handler));
-                } else if (whichOne == 2){
+                } else if (whichOne == 2) {
                     handler.addObject(new BasicSpeedArrow(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicSpeedArrow, handler));
-                } else if (whichOne == 0){
+                } else if (whichOne == 0) {
                     handler.addObject(new BasicForceFieldRing(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicForceFieldRing, handler));
                 }
             }
@@ -400,22 +406,22 @@ public class Spawn {
 
             if (scoreKeep >= 300) {
                 scoreKeep = 0;
-                hud.setLevel(hud.getLevel() + 1);
+                hud.setWave(hud.getWave() + 1);
 
-                if (hud.getLevel() == 2) {
+                if (hud.getWave() == 2) {
                     handler.addObject(new RocketEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.RocketEnemy, handler));
-                } else if (hud.getLevel() == 3) {
+                } else if (hud.getWave() == 3) {
                     handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
                     handler.addObject(new BulletEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BulletEnemy, handler));
-                } else if (hud.getLevel() == 4) {
+                } else if (hud.getWave() == 4) {
                     handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-                } else if (hud.getLevel() == 5) {
+                } else if (hud.getWave() == 5) {
                     handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler));
                     handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.FastEnemy, handler));
-                } else if (hud.getLevel() == 6) {
+                } else if (hud.getWave() == 6) {
                     handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
                     handler.addObject(new BulletEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BulletEnemy, handler));
-                } else if (hud.getLevel() == 7) {
+                } else if (hud.getWave() == 7) {
                     handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler));
                     handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.FastEnemy, handler));
 
@@ -428,16 +434,16 @@ public class Spawn {
                         }
                     }
 
-                } else if (hud.getLevel() == 8) {
+                } else if (hud.getWave() == 8) {
                     handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-                } else if (hud.getLevel() == 9) {
+                } else if (hud.getWave() == 9) {
                     handler.addObject(new BulletEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BulletEnemy, handler));
-                } else if (hud.getLevel() == 10) {
+                } else if (hud.getWave() == 10) {
                     handler.clearEnemies();
                     hud.HEALTH = 100;
                     handler.addObject(new EnemyBossLvl4((Game.WIDTH / 2) - 48, Game.HEIGHT + 120, ID.EnemyBossLvl4, handler));
                     hud.shopEnabled = false;
-                } else if (hud.getLevel() == 15) {
+                } else if (hud.getWave() == 15) {
                     handler.object.clear();
                     Game.gameState = Game.STATE.WonLevel4;
                     hud.HEALTH = 100;
@@ -470,21 +476,13 @@ public class Spawn {
 
             if (scoreKeep >= 300) {
                 scoreKeep = 0;
-                hud.setLevel(hud.getLevel() + 1);
+                hud.setWave(hud.getWave() + 1);
                 handler.addObject(new BasicRegenHeart(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicRegenHeart, handler));
                 handler.addObject(new BasicForceFieldRing(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicForceFieldRing, handler));
                 handler.addObject(new BasicSpeedArrow(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicSpeedArrow, handler));
             }*/
 
         }
-    }
-
-
-    public static int getCoinChance(){
-        return coinChanceMethod;
-    }
-    public void setCoinChance(int coinChanceMethod){
-        this.coinChanceMethod = coinChanceMethod;
     }
 }
 
@@ -500,7 +498,6 @@ public class Spawn {
 //TODO: Effect handler, EffectRegen.
 
 //Other in order!
-//TODO: Make update migration!! Otherwise many people won't be able to play, I was thinking about making a big array with everything we have and then use .contains as nullpointers come with using data. I THINK I DON'T NEED TO DO THIS AS IT WILL AUTO CREATE IT UNLESS I USE AN ARRAY WHICH I DON'T THINK I'M GOING TO DO?
 //TODO: Finish pause screen (learn how to make things a bit more black (transparant/foggy/more light/idk)..
 //TODO: Get sounds...
 

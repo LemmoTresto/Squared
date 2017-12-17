@@ -1,6 +1,6 @@
 package me.max.squared.menus;
 
-import me.max.squared.*;
+import me.max.squared.Game;
 import me.max.squared.enums.ID;
 import me.max.squared.handlers.main.EffectHandler;
 import me.max.squared.handlers.main.Handler;
@@ -10,351 +10,167 @@ import me.max.squared.objects.enemies.BasicEnemy;
 import me.max.squared.objects.enemies.FastEnemy;
 import me.max.squared.objects.enemies.LaserEnemy;
 import me.max.squared.objects.players.Player;
+import me.max.squared.utils.DiscordRPCUtil;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Random;
 
 /**
  * Created by max on 28-5-2017.
  * © Copyright 2017 Max Berkelmans
  */
-public class LevelChooser extends MouseAdapter{
+public class LevelChooser extends MouseAdapter {
 
     private Handler handler;
     private Spawn spawner;
     private HUD hud;
     private EffectHandler effectHandler;
-    private boolean isBackPressed, level1pressed, level2pressed, level3pressed, level4pressed, level5pressed, level6pressed, level7pressed, level8pressed, level9pressed, level10pressed, hardcorePressed;
     private Random r = new Random();
+    private BufferedImage level1, background, level2, level3, level4, level5, level6, level7, level8, level9, level10, hardcore;
 
-    public LevelChooser(Handler handler, Spawn spawner, HUD hud, EffectHandler effectHandler){
+    public LevelChooser(Handler handler, Spawn spawner, HUD hud, EffectHandler effectHandler) {
         this.handler = handler;
         this.spawner = spawner;
         this.hud = hud;
         this.effectHandler = effectHandler;
+
+        try {
+            background = ImageIO.read(getClass().getResource("/images/squared_frame.png"));
+            level1 = ImageIO.read(getClass().getResource("/images/squared_level1.png"));
+            level2 = ImageIO.read(getClass().getResource("/images/squared_level2.png"));
+            level3 = ImageIO.read(getClass().getResource("/images/squared_level3.png"));
+            level4 = ImageIO.read(getClass().getResource("/images/squared_level4.png"));
+            level5 = ImageIO.read(getClass().getResource("/images/squared_level5.png"));
+            level6 = ImageIO.read(getClass().getResource("/images/squared_level6.png"));
+            level7 = ImageIO.read(getClass().getResource("/images/squared_level7.png"));
+            level8 = ImageIO.read(getClass().getResource("/images/squared_level8.png"));
+            level9 = ImageIO.read(getClass().getResource("/images/squared_level9.png"));
+            level10 = ImageIO.read(getClass().getResource("/images/squared_level10.png"));
+            hardcore = ImageIO.read(getClass().getResource("/images/squared_hardcore.png"));
+        } catch (IOException e) {
+            System.out.println("Level image couldn't be loaded!");
+
+        }
     }
 
-    public void mousePressed(MouseEvent e){
+
+    public void mouseClicked(MouseEvent e) {
         if (Game.gameState == Game.STATE.LevelChooser) {
-            if ((e.getButton() == 1)) {
+            if (e.getButton() == 1) {
                 int mx = e.getX();
                 int my = e.getY();
 
                 //back button
-                if (mouseOver(mx, my, 32, 20, 23, 23)) {
-                    isBackPressed = true;
-                    hardcorePressed = false;
-                    level2pressed = false;
-                    level3pressed = false;
-                    level4pressed = false;
-                    level5pressed = false;
-                    level6pressed = false;
-                    level7pressed = false;
-                    level8pressed = false;
-                    level9pressed = false;
-                    level10pressed = false;
-                    level1pressed = false;
+                if (mouseOver(mx, my, 48, 35, 23, 23)) {
+                    Game.gameState = Game.STATE.Menu;
                 }
-
-                //level1
-                else if (mouseOver(mx, my, 50, 100, 45, 45)) {
-                    hardcorePressed = false;
-                    level2pressed = false;
-                    level3pressed = false;
-                    level4pressed = false;
-                    level5pressed = false;
-                    level6pressed = false;
-                    level7pressed = false;
-                    level8pressed = false;
-                    level9pressed = false;
-                    level10pressed = false;
-                    level1pressed = true;
+                //hardcore mode
+                else if (mouseOver(mx, my, 205, 300, 231, 70)) {
+                    handler.object.clear();
+                    Game.gameState = Game.STATE.HardcoreMode;
+                    InGameShop.currentLevel = Game.STATE.HardcoreMode;
+                    handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
+                    handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
+                    DiscordRPCUtil.updatePresence();
                 }
-
-                //level2
-                else if (mouseOver(mx, my, 100, 100, 45, 45)) {
-                    hardcorePressed = false;
-                    level1pressed = false;
-                    level3pressed = false;
-                    level4pressed = false;
-                    level5pressed = false;
-                    level6pressed = false;
-                    level7pressed = false;
-                    level8pressed = false;
-                    level9pressed = false;
-                    level10pressed = false;
-                    level2pressed = true;
+                //level 1
+                else if (mouseOver(mx, my, 70, 100, 45, 45)) {
+                    handler.object.clear();
+                    InGameShop.currentLevel = Game.STATE.Level1;
+                    Game.gameState = Game.STATE.Level1;
+                    handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
+                    handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
+                    DiscordRPCUtil.updatePresence();
                 }
-
-                //level3
-                else if (mouseOver(mx, my, 150, 100, 45, 45)) {
-                    hardcorePressed = false;
-                    level1pressed = false;
-                    level2pressed = false;
-                    level4pressed = false;
-                    level5pressed = false;
-                    level6pressed = false;
-                    level7pressed = false;
-                    level8pressed = false;
-                    level9pressed = false;
-                    level10pressed = false;
-                    level3pressed = true;
+                //level 2
+                else if (mouseOver(mx, my, 120, 100, 45, 45)) {
+                    handler.object.clear();
+                    Game.gameState = Game.STATE.Level2;
+                    InGameShop.currentLevel = Game.STATE.Level2;
+                    handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
+                    handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
+                    handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
+                    DiscordRPCUtil.updatePresence();
                 }
-
-                //level4
-                else if (mouseOver(mx, my, 200, 100, 45, 45)) {
-                    hardcorePressed = false;
-                    level1pressed = false;
-                    level2pressed = false;
-                    level3pressed = false;
-                    level5pressed = false;
-                    level6pressed = false;
-                    level7pressed = false;
-                    level8pressed = false;
-                    level9pressed = false;
-                    level10pressed = false;
-                    level4pressed = true;
+                //level 3
+                else if (mouseOver(mx, my, 170, 100, 45, 45)) {
+                    handler.object.clear();
+                    Game.gameState = Game.STATE.Level3;
+                    InGameShop.currentLevel = Game.STATE.Level3;
+                    handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
+                    handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
+                    handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
+                    DiscordRPCUtil.updatePresence();
                 }
-
-                //level5
-                else if (mouseOver(mx, my, 250, 100, 45, 45)) {
-                    hardcorePressed = false;
-                    level1pressed = false;
-                    level2pressed = false;
-                    level3pressed = false;
-                    level4pressed = false;
-                    level6pressed = false;
-                    level7pressed = false;
-                    level8pressed = false;
-                    level9pressed = false;
-                    level10pressed = false;
-                    level5pressed = true;
+                //level 4
+                else if (mouseOver(mx, my, 220, 100, 45, 45)) {
+                    handler.object.clear();
+                    Game.gameState = Game.STATE.Level4;
+                    InGameShop.currentLevel = Game.STATE.Level4;
+                    handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
+                    handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
+                    handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.FastEnemy, handler));
+                    DiscordRPCUtil.updatePresence();
                 }
-
-                //level6
-                else if (mouseOver(mx, my, 300, 100, 45, 45)) {
-                    hardcorePressed = false;
-                    level1pressed = false;
-                    level2pressed = false;
-                    level3pressed = false;
-                    level4pressed = false;
-                    level5pressed = false;
-                    level7pressed = false;
-                    level8pressed = false;
-                    level9pressed = false;
-                    level10pressed = false;
-                    level6pressed = true;
+                //level 5
+                else if (mouseOver(mx, my, 270, 100, 45, 45)) {
+                    handler.object.clear();
+                    Game.gameState = Game.STATE.Level5;
+                    InGameShop.currentLevel = Game.STATE.Level5;
+                    handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
+                    DiscordRPCUtil.updatePresence();
                 }
-
-                //level7
-                else if (mouseOver(mx, my, 350, 100, 45, 45)) {
-                    hardcorePressed = false;
-                    level1pressed = false;
-                    level2pressed = false;
-                    level3pressed = false;
-                    level4pressed = false;
-                    level5pressed = false;
-                    level6pressed = false;
-                    level8pressed = false;
-                    level9pressed = false;
-                    level10pressed = false;
-                    level7pressed = true;
+                //level 6
+                else if (mouseOver(mx, my, 320, 100, 45, 45)) {
+                    handler.object.clear();
+                    Game.gameState = Game.STATE.Level6;
+                    InGameShop.currentLevel = Game.STATE.Level6;
+                    handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
+                    DiscordRPCUtil.updatePresence();
                 }
-
-                //level8
-                else if (mouseOver(mx, my, 400, 100, 45, 45)) {
-                    hardcorePressed = false;
-                    level1pressed = false;
-                    level2pressed = false;
-                    level3pressed = false;
-                    level4pressed = false;
-                    level5pressed = false;
-                    level6pressed = false;
-                    level7pressed = false;
-                    level9pressed = false;
-                    level10pressed = false;
-                    level8pressed = true;
+                //level 7
+                else if (mouseOver(mx, my, 370, 100, 45, 45)) {
+                    handler.object.clear();
+                    Game.gameState = Game.STATE.Level7;
+                    InGameShop.currentLevel = Game.STATE.Level7;
+                    handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
+                    handler.addObject(new LaserEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LaserEnemy, handler));
+                    DiscordRPCUtil.updatePresence();
                 }
-
-                //level9
-                else if (mouseOver(mx, my, 450, 100, 45, 45)) {
-                    hardcorePressed = false;
-                    level1pressed = false;
-                    level2pressed = false;
-                    level3pressed = false;
-                    level4pressed = false;
-                    level5pressed = false;
-                    level6pressed = false;
-                    level7pressed = false;
-                    level8pressed = false;
-                    level10pressed = false;
-                    level9pressed = true;
+                //level 8
+                else if (mouseOver(mx, my, 420, 100, 45, 45)) {
+                    handler.object.clear();
+                    Game.gameState = Game.STATE.Level8;
+                    InGameShop.currentLevel = Game.STATE.Level8;
+                    handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
+                    DiscordRPCUtil.updatePresence();
                 }
-
-                //level10
-                else if (mouseOver(mx, my, 500, 100, 45, 45)) {
-                    hardcorePressed = false;
-                    level1pressed = false;
-                    level2pressed = false;
-                    level3pressed = false;
-                    level4pressed = false;
-                    level5pressed = false;
-                    level6pressed = false;
-                    level7pressed = false;
-                    level8pressed = false;
-                    level9pressed = false;
-                    level10pressed = true;
+                //level 9
+                else if (mouseOver(mx, my, 470, 100, 45, 45)) {
+                    handler.object.clear();
+                    Game.gameState = Game.STATE.Level9;
+                    InGameShop.currentLevel = Game.STATE.Level9;
+                    handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
+                    DiscordRPCUtil.updatePresence();
                 }
-                else if (mouseOver(mx, my, 195, 300, 250, 70)){
-                    level1pressed = false;
-                    level2pressed = false;
-                    level3pressed = false;
-                    level4pressed = false;
-                    level5pressed = false;
-                    level6pressed = false;
-                    level7pressed = false;
-                    level8pressed = false;
-                    level9pressed = false;
-                    level10pressed = false;
-                    hardcorePressed = true;
+                //level 10
+                else if (mouseOver(mx, my, 520, 100, 45, 45)) {
+                    handler.object.clear();
+                    Game.gameState = Game.STATE.Level10;
+                    InGameShop.currentLevel = Game.STATE.Level10;
+                    handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
+                    DiscordRPCUtil.updatePresence();
                 }
             }
         }
     }
 
-    public void mouseReleased(MouseEvent e) {
-        if (Game.gameState == Game.STATE.LevelChooser) {
-            int mx = e.getX();
-            int my = e.getY();
-
-            if ((mouseOver(mx, my, 32, 20, 23, 23)) && (isBackPressed)){
-                Game.gameState = Game.STATE.Menu;
-                isBackPressed = false;
-                level1pressed = false;
-                level2pressed = false;
-                level3pressed = false;
-                level4pressed = false;
-                level5pressed = false;
-                level6pressed = false;
-                level7pressed = false;
-                level8pressed = false;
-                level9pressed = false;
-                level10pressed = false;
-
-
-            }
-            //level1
-            else if ((mouseOver(mx, my, 50, 100, 45, 45)) && (level1pressed)) {
-                handler.object.clear();
-                InGameShop.currentLevel = Game.STATE.Level1;
-                Game.gameState = Game.STATE.Level1;
-                level1pressed = false;
-                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
-                handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
-            }
-
-            //level2
-            else if ((mouseOver(mx, my, 100, 100, 45, 45)) && (level2pressed)) {
-                handler.object.clear();
-                Game.gameState = Game.STATE.Level2;
-                InGameShop.currentLevel = Game.STATE.Level2;
-                level2pressed = false;
-                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
-                handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
-                handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
-            }
-
-             else if ((mouseOver(mx, my, 195, 300, 250, 70)) && (hardcorePressed)){
-                handler.object.clear();
-                Game.gameState = Game.STATE.HardcoreMode;
-                InGameShop.currentLevel = Game.STATE.HardcoreMode;
-                hardcorePressed = false;
-                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
-                handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
-            }
-
-            //level3
-            else if ((mouseOver(mx, my, 150, 100, 45, 45)) && (level3pressed)) {
-                handler.object.clear();
-                Game.gameState = Game.STATE.Level3;
-                InGameShop.currentLevel = Game.STATE.Level3;
-                level3pressed = false;
-                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
-                handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
-                handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
-            }
-
-            //level4
-            else if ((mouseOver(mx, my, 200, 100, 45, 45)) && (level4pressed)) {
-                handler.object.clear();
-                Game.gameState = Game.STATE.Level4;
-                InGameShop.currentLevel = Game.STATE.Level4;
-                level4pressed = false;
-                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
-                handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.BasicEnemy, handler));
-                handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 32), r.nextInt(Game.HEIGHT - 32), ID.FastEnemy, handler));
-            }
-
-            //level5
-            else if ((mouseOver(mx, my, 250, 100, 45, 45)) && (level5pressed)) {
-                handler.object.clear();
-                Game.gameState = Game.STATE.Level5;
-                InGameShop.currentLevel = Game.STATE.Level5;
-                level5pressed = false;
-                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
-            }
-
-            //level6
-            else if ((mouseOver(mx, my, 300, 100, 45, 45)) && (level6pressed)) {
-                handler.object.clear();
-                Game.gameState = Game.STATE.Level6;
-                InGameShop.currentLevel = Game.STATE.Level6;
-                level6pressed = false;
-                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
-            }
-
-            //level7
-            else if ((mouseOver(mx, my, 350, 100, 45, 45)) && (level7pressed)) {
-                handler.object.clear();
-                Game.gameState = Game.STATE.Level7;
-                InGameShop.currentLevel = Game.STATE.Level7;
-                level7pressed = false;
-                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
-                handler.addObject(new LaserEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LaserEnemy, handler));
-            }
-
-            //level8
-            else if ((mouseOver(mx, my, 400, 100, 45, 45)) && (level8pressed)) {
-                handler.object.clear();
-                Game.gameState = Game.STATE.Level8;
-                InGameShop.currentLevel = Game.STATE.Level8;
-                level8pressed = false;
-                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
-            }
-
-            //level9
-            else if ((mouseOver(mx, my, 450, 100, 45, 45)) && (level9pressed)) {
-                handler.object.clear();
-                Game.gameState = Game.STATE.Level9;
-                InGameShop.currentLevel = Game.STATE.Level9;
-                level9pressed = false;
-                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
-            }
-
-            //level10
-            else if ((mouseOver(mx, my, 500, 100, 45, 45)) && (level10pressed)) {
-                handler.object.clear();
-                Game.gameState = Game.STATE.Level10;
-                InGameShop.currentLevel = Game.STATE.Level10;
-                level10pressed = false;
-                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, hud, handler, effectHandler));
-            }
-        }
-    }
-
-    public void tick(){
+    public void tick() {
         if (Game.gameState == Game.STATE.LevelChooser) {
             //nothing to tick
         }
@@ -367,14 +183,12 @@ public class LevelChooser extends MouseAdapter{
             Font font1 = new Font("arial", 1, 50);
             g.setFont(font1);
             g.setColor(Color.gray);
-            g.drawString("World 1", Game.WIDTH / 2 - 90, 60);
+            g.drawString("World 1", Game.WIDTH / 2 - 90, 80);
 
             //Back button
             //box
             g.setColor(Color.gray);
-            //g.drawRect(32, 20, 23, 23);
-            g.drawString("«", 30, 45);
-
+            g.drawString("«", 45, 60);
             //level font
             Font font2 = new Font("arial", 1, 25);
             g.setFont(font2);
@@ -383,87 +197,53 @@ public class LevelChooser extends MouseAdapter{
             Font fontCopyRight = new Font("arial", 1, 15);
             g.setFont(fontCopyRight);
             g.setColor(Color.white);
-            g.drawString("© Copyright 2017 Max Berkelmans", 10, Game.HEIGHT - 40);
+            g.drawString("© Copyright 2017 Max Berkelmans", 35, Game.HEIGHT - 55);
 
             //level font set
             g.setFont(font2);
 
+            //background
+            g.drawImage(background, -11, -15, Game.WIDTH + 30, Game.HEIGHT, null);
+
             //level1
-            g.setColor(Color.white);
-            g.drawRect(50, 100, 45, 45);
-            g.setColor(Color.blue);
-            g.drawString("1", 67, 132);
+            g.drawImage(level1, 70, 100, 45, 45, null);
 
             //level2
-            g.setColor(Color.white);
-            g.drawRect(100, 100, 45, 45);
-            g.setColor(Color.blue);
-            g.drawString("2", 117, 132);
+            g.drawImage(level2, 120, 100, 45, 45, null);
 
             //level3
-            g.setColor(Color.white);
-            g.drawRect(150, 100, 45, 45);
-            g.setColor(Color.blue);
-            g.drawString("3", 167, 132);
+            g.drawImage(level3, 170, 100, 45, 45, null);
 
             //level4
-            g.setColor(Color.white);
-            g.drawRect(200, 100, 45, 45);
-            g.setColor(Color.blue);
-            g.drawString("4", 217, 132);
+            g.drawImage(level4, 220, 100, 45, 45, null);
 
             //level5
-            g.setColor(Color.white);
-            g.drawRect(250, 100, 45, 45);
-            g.setColor(Color.blue);
-            g.drawString("5", 267, 132);
-
-            //insane/hardcore mode
-            g.setColor(Color.white);
-            Font font3 = new Font("arial", 1, 43);
-            g.setFont(font3);
-            g.drawRect(195, 300, 250, 70);
-            g.setColor(Color.red);
-            g.drawString("Hardcore", 225, 348);
-            g.setFont(font2);
+            g.drawImage(level5, 270, 100, 45, 45, null);
 
             //level6
-            g.setColor(Color.white);
-            g.drawRect(300, 100, 45, 45);
-            g.setColor(Color.blue);
-            g.drawString("6", 317, 132);
+            g.drawImage(level6, 320, 100, 45, 45, null);
 
             //level7
-            g.setColor(Color.white);
-            g.drawRect(350, 100, 45, 45);
-            g.setColor(Color.blue);
-            g.drawString("7", 367, 132);
+            g.drawImage(level7, 370, 100, 45, 45, null);
 
             //level8
-            g.setColor(Color.white);
-            g.drawRect(400, 100, 45, 45);
-            g.setColor(Color.blue);
-            g.drawString("8", 417, 132);
+            g.drawImage(level8, 420, 100, 45, 45, null);
 
             //level9
-            g.setColor(Color.white);
-            g.drawRect(450, 100, 45, 45);
-            g.setColor(Color.blue);
-            g.drawString("9", 467, 132);
+            g.drawImage(level9, 470, 100, 45, 45, null);
 
             //level10
-            g.setColor(Color.white);
-            g.drawRect(500, 100, 45, 45);
-            g.setColor(Color.blue);
-            g.drawString("10", 508, 132);
+            g.drawImage(level10, 520, 100, 45, 45, null);
 
+            //levelhardcore
+            g.drawImage(hardcore, 195, 300, 250, 70, null);
 
         }
     }
 
-    private boolean mouseOver(int mx, int my, int x, int y, int width, int height){
-        if (mx > x && mx < x + width){
-            if (my > y && my < y + height){
+    private boolean mouseOver(int mx, int my, int x, int y, int width, int height) {
+        if (mx > x && mx < x + width) {
+            if (my > y && my < y + height) {
                 return true;
             }
         }

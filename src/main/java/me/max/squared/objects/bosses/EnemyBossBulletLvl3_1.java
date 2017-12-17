@@ -1,10 +1,10 @@
 package me.max.squared.objects.bosses;
 
 import me.max.squared.Game;
-import me.max.squared.objects.GameObject;
 import me.max.squared.enums.ID;
-import me.max.squared.objects.trials.Trial;
 import me.max.squared.handlers.main.Handler;
+import me.max.squared.objects.GameObject;
+import me.max.squared.objects.trials.Trial;
 
 import java.awt.*;
 import java.util.Random;
@@ -25,15 +25,15 @@ public class EnemyBossBulletLvl3_1 extends GameObject {
 
         this.handler = handler;
 
-        for (int i = 0; i < handler.object.size(); i++){
-            if (handler.object.get(i).getId() == ID.Player){
+        for (int i = 0; i < handler.object.size(); i++) {
+            if (handler.object.get(i).getId() == ID.Player) {
                 player = handler.object.get(i);
             }
         }
 
-        if (player.x > Game.WIDTH / 2){
+        if (player.x > Game.WIDTH / 2) {
             velX = 5;
-        } else if (player.x < Game.WIDTH / 2){
+        } else if (player.x < Game.WIDTH / 2) {
             velX = -5;
         } else {
             velX = 5;
@@ -59,15 +59,7 @@ public class EnemyBossBulletLvl3_1 extends GameObject {
         }
     }
 
-    public void render(Graphics g2) {
-
-        float alpha = 0.4f;
-        AlphaComposite alcom = AlphaComposite.getInstance(
-                AlphaComposite.SRC_OVER, alpha);
-        Graphics2D g = (Graphics2D) g2.create();
-        if (Game.gameState == Game.STATE.PauseScreen){
-            g.setComposite(alcom);
-        }
+    public void render(Graphics g) {
 
         g.setColor(Color.red);
         g.fillRect((int) x, (int) y, 13, 13);

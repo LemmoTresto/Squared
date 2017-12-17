@@ -115,6 +115,7 @@
     </build>
 
     <repositories>
+        <!-- non existent own maven repo
         <repository>
             <id>maximinijanijos-github</id>
             <url>https://raw.githubusercontent.com/MaxiMiniJaniJos/Maven/master/</url>
@@ -122,6 +123,12 @@
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>
             </snapshots>
+        </repository> -->
+
+        <repository>
+            <id>central</id>
+            <name>bintray</name>
+            <url>http://jcenter.bintray.com</url>
         </repository>
     </repositories>
 
@@ -149,6 +156,14 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.4</version>
+        </dependency>
+
+        <!-- discord-ipc for java by jagrosh -->
+        <!-- https://github.com/jagrosh/DiscordIPC -->
+        <dependency>
+            <groupId>com.jagrosh</groupId>
+            <artifactId>DiscordIPC</artifactId>
+            <version>0.3</version>
         </dependency>
 
     </dependencies>

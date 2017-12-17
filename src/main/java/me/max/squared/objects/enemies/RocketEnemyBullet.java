@@ -1,10 +1,10 @@
 package me.max.squared.objects.enemies;
 
 import me.max.squared.Game;
-import me.max.squared.objects.GameObject;
 import me.max.squared.enums.ID;
-import me.max.squared.objects.trials.Trial;
 import me.max.squared.handlers.main.Handler;
+import me.max.squared.objects.GameObject;
+import me.max.squared.objects.trials.Trial;
 
 import java.awt.*;
 
@@ -26,8 +26,8 @@ public class RocketEnemyBullet extends GameObject {
         //velX = 5;
         //velY = 5;
 
-        for (int i = 0; i < handler.object.size(); i++){
-            if (handler.object.get(i).getId() == ID.Player){
+        for (int i = 0; i < handler.object.size(); i++) {
+            if (handler.object.get(i).getId() == ID.Player) {
                 player = handler.object.get(i);
             }
         }
@@ -65,15 +65,7 @@ public class RocketEnemyBullet extends GameObject {
         }
     }
 
-    public void render(Graphics g2) {
-
-        float alpha = 0.4f;
-        AlphaComposite alcom = AlphaComposite.getInstance(
-                AlphaComposite.SRC_OVER, alpha);
-        Graphics2D g = (Graphics2D) g2.create();
-        if (Game.gameState == Game.STATE.PauseScreen){
-            g.setComposite(alcom);
-        }
+    public void render(Graphics g) {
 
         g.setColor(rocketEnemyC);
         g.fillRect((int) x, (int) y, 16, 16);

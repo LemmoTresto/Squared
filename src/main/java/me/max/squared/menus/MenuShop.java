@@ -1,6 +1,6 @@
 package me.max.squared.menus;
 
-import me.max.squared.*;
+import me.max.squared.Game;
 import me.max.squared.effects.GameEffect;
 import me.max.squared.enums.ID;
 import me.max.squared.handlers.main.EffectHandler;
@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by max on 4-6-2017.
@@ -20,255 +21,91 @@ import java.util.ArrayList;
  */
 public class MenuShop extends MouseAdapter {
 
-    private GameEffect speedEffect;
-
-    public enum StoreUpgrades{
-        none,
-        MoreCoins_1,
-        MoreCoins_2,
-        MoreCoins_3,
-        MoreCoins_4,
-        MoreCoins_5,
-        ExtraLife_1,
-        Speed_1,
-        Speed_2,
-        Speed_3
-    }
-
-    public enum SkinSTATE{
-        White, //1
-        Red, //2
-        Blue, //3
-        Green, //4
-        Yellow, //5
-        Orange, //6
-        Pink, //7
-        Gray //8
-    }
-
     public static SkinSTATE lookingSkinState = SkinSTATE.White;
-    public static ArrayList purchasedSkins = new ArrayList();
+    public static List<SkinSTATE> purchasedSkins = new ArrayList<>();
     public static SkinSTATE currentSkin = SkinSTATE.White;
     public static SkinSTATE skinSTATE = currentSkin;
-    public static ArrayList purchasedUpgrades = new ArrayList();
-
+    public static List<StoreUpgrades> purchasedUpgrades = new ArrayList<>();
+    public static Color PlayerColor;
+    private GameEffect speedEffect;
     private Handler handler;
     private HUD hud;
     private Spawn spawner;
-
-    private boolean isExtraLifePressed, isLeftArrowClicked, isRightArrowClicked, isBackPressed, isBuyPressed, isUnselectPressed, isSelectPressed, isCoinIncrementPressed, isSpeedIncrementPressed;
-
     private Color LookingColor;
-    public static Color PlayerColor;
 
-    public MenuShop(Handler handler, HUD hud, Spawn spawner){
+    public MenuShop(Handler handler, HUD hud, Spawn spawner) {
         this.handler = handler;
         this.hud = hud;
         this.spawner = spawner;
     }
 
-    public void mousePressed(MouseEvent e) {
+    public void mouseClicked(MouseEvent e) {
         if (Game.gameState == Game.STATE.MenuShop) {
             if (e.getButton() == 1) {
                 int mx = e.getX();
                 int my = e.getY();
                 if (mouseOver(mx, my, 25, 360, 20, 20)) {
-                    isLeftArrowClicked = true;
-                    isRightArrowClicked = false;
-                    isBackPressed = false;
-                    isBuyPressed = false;
-                    isSelectPressed = false;
-                    isUnselectPressed = false;
-                } else if (mouseOver(mx, my, 25 + 45 + 39, 360, 20, 20)) {
-                    isRightArrowClicked = true;
-                    isLeftArrowClicked = false;
-                    isBackPressed = false;
-                    isBuyPressed = false;
-                    isSelectPressed = false;
-                    isUnselectPressed = false;
-                } else if (mouseOver(mx, my, 15, 100, 120, 60)) {
-                    isBackPressed = true;
-                    isLeftArrowClicked = false;
-                    isRightArrowClicked = false;
-                    isBuyPressed = false;
-                    isSelectPressed = false;
-                    isUnselectPressed = false;
-                }
-                if (!(purchasedSkins == null) && !(purchasedSkins.isEmpty())) {
-                    if (mouseOver(mx, my, 80, 390, 50, 20)) {
-                        if (!(purchasedSkins.contains(lookingSkinState))) {
-                            if (hud.coins >= 50) {
-                                isBackPressed = false;
-                                isLeftArrowClicked = false;
-                                isRightArrowClicked = false;
-                                isBuyPressed = true;
-                                isSelectPressed = false;
-                                isUnselectPressed = false;
-                            }
-                        }
-                    } else if (currentSkin == lookingSkinState && (purchasedSkins.contains(lookingSkinState))) {
-                        if (mouseOver(mx, my, 25 + 20 + 4, 390, 55, 20)) {
-                            isBackPressed = false;
-                            isLeftArrowClicked = false;
-                            isRightArrowClicked = false;
-                            isBuyPressed = false;
-                            isSelectPressed = false;
-                            isUnselectPressed = true;
-                        }
-                    } else if (!(currentSkin == lookingSkinState) && (purchasedSkins.contains(lookingSkinState))) {
-                        if (mouseOver(mx, my, 25 + 20 + 7, 390, 50, 20)) {
-                            isBackPressed = false;
-                            isLeftArrowClicked = false;
-                            isRightArrowClicked = false;
-                            isBuyPressed = false;
-                            isSelectPressed = true;
-                            isUnselectPressed = false;
-                        }
-                    }
-                }
-                if (mouseOver(mx, my, 200, 115, 125, 81)){
-                    isBackPressed = false;
-                    isLeftArrowClicked = false;
-                    isRightArrowClicked = false;
-                    isBuyPressed = false;
-                    isSelectPressed = false;
-                    isUnselectPressed = false;
-                    isCoinIncrementPressed = true;
-                    isSpeedIncrementPressed = false;
-                }
-                if (mouseOver(mx, my, 200, 221, 125, 81)){
-                    isBackPressed = false;
-                    isLeftArrowClicked = false;
-                    isRightArrowClicked = false;
-                    isBuyPressed = false;
-                    isSelectPressed = false;
-                    isUnselectPressed = false;
-                    isCoinIncrementPressed = false;
-                    isSpeedIncrementPressed = true;
-                }
-                if (mouseOver(mx, my, 350, 115, 125, 81)){
-                    isBackPressed = false;
-                    isLeftArrowClicked = false;
-                    isRightArrowClicked = false;
-                    isBuyPressed = false;
-                    isSelectPressed = false;
-                    isUnselectPressed = false;
-                    isCoinIncrementPressed = false;
-                    isSpeedIncrementPressed = false;
-                    isExtraLifePressed = true;
-                }
-            }
-        }
-    }
-
-    public void mouseReleased(MouseEvent e) {
-        if (Game.gameState == Game.STATE.MenuShop) {
-            if (e.getButton() == 1){
-                int mx = e.getX();
-                int my = e.getY();
-                if ((mouseOver(mx, my, 25, 360, 20, 20)) && (isLeftArrowClicked)){
-                    if (lookingSkinState == SkinSTATE.Red){
+                    if (lookingSkinState == SkinSTATE.Red) {
                         lookingSkinState = SkinSTATE.White;
-                    } else if (lookingSkinState == SkinSTATE.Blue){
+                    } else if (lookingSkinState == SkinSTATE.Blue) {
                         lookingSkinState = SkinSTATE.Red;
-                    } else if (lookingSkinState == SkinSTATE.Green){
+                    } else if (lookingSkinState == SkinSTATE.Green) {
                         lookingSkinState = SkinSTATE.Blue;
-                    } else if (lookingSkinState == SkinSTATE.Yellow){
+                    } else if (lookingSkinState == SkinSTATE.Yellow) {
                         lookingSkinState = SkinSTATE.Green;
-                    } else if (lookingSkinState == SkinSTATE.Orange){
+                    } else if (lookingSkinState == SkinSTATE.Orange) {
                         lookingSkinState = SkinSTATE.Yellow;
-                    } else if   (lookingSkinState == SkinSTATE.Pink){
+                    } else if (lookingSkinState == SkinSTATE.Pink) {
                         lookingSkinState = SkinSTATE.Orange;
-                    } else if (lookingSkinState == SkinSTATE.Gray){
+                    } else if (lookingSkinState == SkinSTATE.Gray) {
                         lookingSkinState = SkinSTATE.Pink;
-                    } else if (lookingSkinState == SkinSTATE.Yellow){
+                    } else if (lookingSkinState == SkinSTATE.Yellow) {
                         lookingSkinState = SkinSTATE.Green;
-                    } else if (lookingSkinState == SkinSTATE.Orange){
+                    } else if (lookingSkinState == SkinSTATE.Orange) {
                         lookingSkinState = SkinSTATE.Yellow;
-                    } else if (lookingSkinState == SkinSTATE.Pink){
+                    } else if (lookingSkinState == SkinSTATE.Pink) {
                         lookingSkinState = SkinSTATE.Orange;
-                    } else if (lookingSkinState == SkinSTATE.Gray){
+                    } else if (lookingSkinState == SkinSTATE.Gray) {
                         lookingSkinState = SkinSTATE.Pink;
                     }
-                    isLeftArrowClicked = false;
-                    isRightArrowClicked = false;
-                    isBackPressed = false;
-                    isBuyPressed = false;
-                    isSelectPressed = false;
-                    isUnselectPressed = false;
-                }
-                else if ((mouseOver(mx, my, 25 + 45 + 39, 360, 20, 20)) && (isRightArrowClicked)){
-                    if (lookingSkinState == SkinSTATE.White){
+                } else if (mouseOver(mx, my, 25 + 45 + 39, 360, 20, 20)) {
+                    if (lookingSkinState == SkinSTATE.White) {
                         lookingSkinState = SkinSTATE.Red;
-                    } else if (lookingSkinState == SkinSTATE.Red){
+                    } else if (lookingSkinState == SkinSTATE.Red) {
                         lookingSkinState = SkinSTATE.Blue;
-                    } else if (lookingSkinState == SkinSTATE.Blue){
+                    } else if (lookingSkinState == SkinSTATE.Blue) {
                         lookingSkinState = SkinSTATE.Green;
-                    } else if (lookingSkinState == SkinSTATE.Green){
+                    } else if (lookingSkinState == SkinSTATE.Green) {
                         lookingSkinState = SkinSTATE.Yellow;
-                    } else if (lookingSkinState == SkinSTATE.Yellow){
+                    } else if (lookingSkinState == SkinSTATE.Yellow) {
                         lookingSkinState = SkinSTATE.Orange;
-                    } else if (lookingSkinState == SkinSTATE.Orange){
+                    } else if (lookingSkinState == SkinSTATE.Orange) {
                         lookingSkinState = SkinSTATE.Pink;
-                    } else if (lookingSkinState == SkinSTATE.Pink){
+                    } else if (lookingSkinState == SkinSTATE.Pink) {
                         lookingSkinState = SkinSTATE.Gray;
                     }
-                    isLeftArrowClicked = false;
-                    isRightArrowClicked = false;
-                    isBackPressed = false;
-                    isBuyPressed = false;
-                    isSelectPressed = false;
-                    isUnselectPressed = false;
-                }
-                else if ((mouseOver(mx, my, 15, 100, 120, 60)) && (isBackPressed)) {
+                } else if (mouseOver(mx, my, 15, 100, 120, 60)) {
                     Game.gameState = Game.STATE.Menu;
                     lookingSkinState = SkinSTATE.White;
-                    isBackPressed = false;
-                    isRightArrowClicked = false;
-                    isLeftArrowClicked = false;
-                    isBuyPressed = false;
-                    isSelectPressed = false;
-                    isUnselectPressed = false;
-                }
-                else if (!(purchasedSkins == null) && !(purchasedSkins.isEmpty()) && !(purchasedSkins.contains(lookingSkinState))) {
-                    if ((mouseOver(mx, my, 80, 390, 50, 20)) && (isBuyPressed)) {
-                        if (hud.coins >= 50) {
+                } else if (!(purchasedSkins == null) && !(purchasedSkins.isEmpty()) && !(purchasedSkins.contains(lookingSkinState))) {
+                    if (mouseOver(mx, my, 80, 390, 50, 20)) {
+                        if (HUD.coins >= 50) {
                             purchasedSkins.add(lookingSkinState);
                             currentSkin = lookingSkinState;
-                            hud.coins -= 50;
-                            isBackPressed = false;
-                            isLeftArrowClicked = false;
-                            isRightArrowClicked = false;
-                            isBuyPressed = false;
-                            isSelectPressed = false;
-                            isUnselectPressed = false;
+                            HUD.coins -= 50;
                         }
                     }
-                }
-                else if (currentSkin == lookingSkinState && (purchasedSkins.contains(lookingSkinState))) {
-                    if ((mouseOver(mx, my, 25 + 20 + 4, 390, 55, 20)) && (isUnselectPressed)) {
+                } else if (currentSkin == lookingSkinState && (purchasedSkins.contains(lookingSkinState))) {
+                    if (mouseOver(mx, my, 25 + 20 + 4, 390, 55, 20)) {
                         currentSkin = SkinSTATE.White;
-                        isBackPressed = false;
-                        isLeftArrowClicked = false;
-                        isRightArrowClicked = false;
-                        isBuyPressed = false;
-                        isSelectPressed = false;
-                        isUnselectPressed = false;
+                    }
+                } else if (!(purchasedSkins == null) && !(purchasedSkins.isEmpty()) && purchasedSkins.contains(lookingSkinState) && !(currentSkin == lookingSkinState)) {
+                    if (mouseOver(mx, my, 25 + 20 + 7, 390, 50, 20)) {
+                        currentSkin = lookingSkinState;
                     }
                 }
-                else if (!(purchasedSkins == null) && !(purchasedSkins.isEmpty()) && purchasedSkins.contains(lookingSkinState) && !(currentSkin == lookingSkinState)) {
-                    if ((mouseOver(mx, my, 25 + 20 + 7, 390, 50, 20)) && (isSelectPressed)) {
-                        currentSkin = lookingSkinState;
-                            isBackPressed = false;
-                            isLeftArrowClicked = false;
-                            isRightArrowClicked = false;
-                            isBuyPressed = false;
-                            isSelectPressed = false;
-                            isUnselectPressed = false;
-                        }
-                }
-                if ((mouseOver(mx, my, 200, 221, 125, 81) && (isSpeedIncrementPressed))){
-                    if (hud.coins >= 25) {
+                if (mouseOver(mx, my, 200, 221, 125, 81)) {
+                    if (HUD.coins >= 25) {
                         if (!(purchasedUpgrades.contains(StoreUpgrades.Speed_3))) {
                             if (purchasedUpgrades.contains(StoreUpgrades.Speed_2)) {
                                 purchasedUpgrades.add(StoreUpgrades.Speed_3);
@@ -280,21 +117,13 @@ public class MenuShop extends MouseAdapter {
                                 purchasedUpgrades.add(StoreUpgrades.Speed_1);
                                 KeyInput.playerSpeed = 5.25f;
                             }
-                            hud.coins -= 25;
+                            HUD.coins -= 25;
                         }
                     }
-                    isBackPressed = false;
-                    isLeftArrowClicked = false;
-                    isRightArrowClicked = false;
-                    isBuyPressed = false;
-                    isSelectPressed = false;
-                    isUnselectPressed = false;
-                    isSpeedIncrementPressed = false;
-                    isCoinIncrementPressed = false;
                 }
 
-                if ((mouseOver(mx, my, 200, 115, 125, 81)) && (isCoinIncrementPressed)){
-                    if (hud.coins >= 30) {
+                if (mouseOver(mx, my, 200, 115, 125, 81)) {
+                    if (HUD.coins >= 30) {
                         if (!(purchasedUpgrades.contains(StoreUpgrades.MoreCoins_5))) {
                             if (purchasedUpgrades.contains(StoreUpgrades.MoreCoins_4)) {
                                 purchasedUpgrades.add(StoreUpgrades.MoreCoins_5);
@@ -312,50 +141,33 @@ public class MenuShop extends MouseAdapter {
                                 purchasedUpgrades.add(StoreUpgrades.MoreCoins_1);
                                 spawner.setCoinChance(Spawn.getCoinChance() - 25);
                             }
-                            hud.coins -= 30;
+                            HUD.coins -= 30;
 
                         }
                     }
-                    isBackPressed = false;
-                    isLeftArrowClicked = false;
-                    isRightArrowClicked = false;
-                    isBuyPressed = false;
-                    isSelectPressed = false;
-                    isUnselectPressed = false;
-                    isSpeedIncrementPressed = false;
-                    isCoinIncrementPressed = false;
                 }
-                if (mouseOver(mx, my, 350, 115, 125, 81) && (isExtraLifePressed)){
-                    if (hud.coins >= 60){
-                        if (!purchasedUpgrades.contains(StoreUpgrades.ExtraLife_1)){
-                            hud.coins -= 60;
+                if (mouseOver(mx, my, 350, 115, 125, 81)) {
+                    if (HUD.coins >= 60) {
+                        if (!purchasedUpgrades.contains(StoreUpgrades.ExtraLife_1)) {
+                            HUD.coins -= 60;
                             purchasedUpgrades.add(StoreUpgrades.ExtraLife_1);
-                            hud.lives = 2;
+                            HUD.lives = 2;
                         }
                     }
-                    isBackPressed = false;
-                    isLeftArrowClicked = false;
-                    isRightArrowClicked = false;
-                    isBuyPressed = false;
-                    isSelectPressed = false;
-                    isUnselectPressed = false;
-                    isSpeedIncrementPressed = false;
-                    isCoinIncrementPressed = false;
-                    isExtraLifePressed = false;
                 }
             }
         }
     }
 
-    public void tick(){
+    public void tick() {
 
         for (int i = 0; i < EffectHandler.object.size(); i++) {
             GameEffect tempEffect = EffectHandler.object.get(i);
-            if (tempEffect.getId() == ID.SpeedEffect){
+            if (tempEffect.getId() == ID.SpeedEffect) {
                 speedEffect = tempEffect;
             }
         }
-        if (purchasedUpgrades == null){
+        if (purchasedUpgrades == null) {
 
         } else {
             if (!purchasedUpgrades.isEmpty()) {
@@ -378,7 +190,7 @@ public class MenuShop extends MouseAdapter {
                         KeyInput.playerSpeed = 8.25f;
                     }
                 } else {
-                    if (!EffectHandler.object.contains(speedEffect)){
+                    if (!EffectHandler.object.contains(speedEffect)) {
                         KeyInput.playerSpeed = 5;
                     } else {
                         KeyInput.playerSpeed = 8;
@@ -386,40 +198,40 @@ public class MenuShop extends MouseAdapter {
                 }
             }
         }
-        if (skinSTATE == SkinSTATE.White){
+        if (skinSTATE == SkinSTATE.White) {
             PlayerColor = Color.white;
-        } else if (skinSTATE == SkinSTATE.Red){
+        } else if (skinSTATE == SkinSTATE.Red) {
             PlayerColor = Color.red;
-        } else if (skinSTATE == SkinSTATE.Green){
+        } else if (skinSTATE == SkinSTATE.Green) {
             PlayerColor = Color.green;
-        } else if (skinSTATE == SkinSTATE.Blue){
+        } else if (skinSTATE == SkinSTATE.Blue) {
             PlayerColor = Color.blue;
-        } else if (skinSTATE == SkinSTATE.Pink){
+        } else if (skinSTATE == SkinSTATE.Pink) {
             PlayerColor = Color.pink;
-        } else if (skinSTATE == SkinSTATE.Orange){
+        } else if (skinSTATE == SkinSTATE.Orange) {
             PlayerColor = Color.orange;
-        } else if (skinSTATE == SkinSTATE.Yellow){
+        } else if (skinSTATE == SkinSTATE.Yellow) {
             PlayerColor = Color.yellow;
-        } else if (skinSTATE == SkinSTATE.Gray){
+        } else if (skinSTATE == SkinSTATE.Gray) {
             PlayerColor = Color.gray;
         }
         if (Game.gameState == Game.STATE.MenuShop) {
             skinSTATE = currentSkin;
-            if (lookingSkinState == SkinSTATE.White){
+            if (lookingSkinState == SkinSTATE.White) {
                 LookingColor = Color.white;
-            } else if (lookingSkinState == SkinSTATE.Red){
+            } else if (lookingSkinState == SkinSTATE.Red) {
                 LookingColor = Color.red;
-            } else if (lookingSkinState == SkinSTATE.Green){
+            } else if (lookingSkinState == SkinSTATE.Green) {
                 LookingColor = Color.green;
-            } else if (lookingSkinState == SkinSTATE.Blue){
+            } else if (lookingSkinState == SkinSTATE.Blue) {
                 LookingColor = Color.blue;
-            } else if (lookingSkinState == SkinSTATE.Pink){
+            } else if (lookingSkinState == SkinSTATE.Pink) {
                 LookingColor = Color.pink;
-            } else if (lookingSkinState == SkinSTATE.Orange){
+            } else if (lookingSkinState == SkinSTATE.Orange) {
                 LookingColor = Color.orange;
-            } else if (lookingSkinState == SkinSTATE.Yellow){
+            } else if (lookingSkinState == SkinSTATE.Yellow) {
                 LookingColor = Color.yellow;
-            } else if (lookingSkinState == SkinSTATE.Gray){
+            } else if (lookingSkinState == SkinSTATE.Gray) {
                 LookingColor = Color.gray;
             } else {
                 LookingColor = Color.white;
@@ -427,7 +239,6 @@ public class MenuShop extends MouseAdapter {
             }
         }
     }
-
 
     public void render(Graphics g) {
         if (Game.gameState == Game.STATE.MenuShop) {
@@ -438,7 +249,7 @@ public class MenuShop extends MouseAdapter {
             Font font2 = new Font("arial", 1, 25);
             g.setFont(font2);
             g.setColor(Color.white);
-            g.drawString("Coins: " + hud.coins, 15, 40);
+            g.drawString("Coins: " + HUD.coins, 15, 40);
             g.drawLine(-10, 75, 650, 75);
             g.drawRect(15, 100, 120, 60);
             g.drawString("Back", 45, 138);
@@ -495,19 +306,19 @@ public class MenuShop extends MouseAdapter {
                         g.drawRect(25 + 20 + 4, 390, 55, 20);
                         g.setColor(Color.blue);
                         g.drawString("Unselect", 25 + 20 + 8, 404);
-                    } else if (lookingSkinState != currentSkin) {
+                    } else {
                         g.setColor(Color.white);
                         g.drawRect(25 + 20 + 7, 390, 50, 20);
                         g.setColor(Color.blue);
                         g.drawString("Select", 25 + 20 + 14, 404);
                     }
-                } else if (!(purchasedSkins.contains(lookingSkinState))) {
+                } else {
                     g.setColor(Color.white);
                     g.drawRect(22, 390, 50, 20);
                     g.drawRect(80, 390, 50, 20);
                     g.setColor(Color.green);
                     g.drawString("50 Coins", 24, 405);
-                    if (hud.coins >= 50) {
+                    if (HUD.coins >= 50) {
                         g.setColor(Color.green);
                     } else {
                         g.setColor(Color.red);
@@ -523,19 +334,19 @@ public class MenuShop extends MouseAdapter {
                         g.drawRect(25 + 20 + 4, 390, 55, 20);
                         g.setColor(Color.blue);
                         g.drawString("Unselect", 25 + 20 + 8, 404);
-                    } else if (lookingSkinState != currentSkin) {
+                    } else {
                         g.setColor(Color.white);
                         g.drawRect(25 + 20 + 7, 390, 50, 20);
                         g.setColor(Color.blue);
                         g.drawString("Select", 25 + 20 + 14, 404);
                     }
-                } else if (!(purchasedSkins.contains(lookingSkinState))) {
+                } else {
                     g.setColor(Color.white);
                     g.drawRect(22, 390, 50, 20);
                     g.drawRect(80, 390, 50, 20);
                     g.setColor(Color.green);
                     g.drawString("50 Coins", 24, 405);
-                    if (hud.coins >= 50) {
+                    if (HUD.coins >= 50) {
                         g.setColor(Color.green);
                     } else {
                         g.setColor(Color.red);
@@ -551,19 +362,19 @@ public class MenuShop extends MouseAdapter {
                         g.drawRect(25 + 20 + 4, 390, 55, 20);
                         g.setColor(Color.blue);
                         g.drawString("Unselect", 25 + 20 + 8, 404);
-                    } else if (lookingSkinState != currentSkin) {
+                    } else {
                         g.setColor(Color.white);
                         g.drawRect(25 + 20 + 7, 390, 50, 20);
                         g.setColor(Color.blue);
                         g.drawString("Select", 25 + 20 + 14, 404);
                     }
-                } else if (!(purchasedSkins.contains(lookingSkinState))) {
+                } else {
                     g.setColor(Color.white);
                     g.drawRect(22, 390, 50, 20);
                     g.drawRect(80, 390, 50, 20);
                     g.setColor(Color.green);
                     g.drawString("50 Coins", 24, 405);
-                    if (hud.coins >= 50) {
+                    if (HUD.coins >= 50) {
                         g.setColor(Color.green);
                     } else {
                         g.setColor(Color.red);
@@ -579,19 +390,19 @@ public class MenuShop extends MouseAdapter {
                         g.drawRect(25 + 20 + 4, 390, 55, 20);
                         g.setColor(Color.blue);
                         g.drawString("Unselect", 25 + 20 + 8, 404);
-                    } else if (lookingSkinState != currentSkin) {
+                    } else {
                         g.setColor(Color.white);
                         g.drawRect(25 + 20 + 7, 390, 50, 20);
                         g.setColor(Color.blue);
                         g.drawString("Select", 25 + 20 + 14, 404);
                     }
-                } else if (!(purchasedSkins.contains(lookingSkinState))) {
+                } else {
                     g.setColor(Color.white);
                     g.drawRect(22, 390, 50, 20);
                     g.drawRect(80, 390, 50, 20);
                     g.setColor(Color.green);
                     g.drawString("50 Coins", 24, 405);
-                    if (hud.coins >= 50) {
+                    if (HUD.coins >= 50) {
                         g.setColor(Color.green);
                     } else {
                         g.setColor(Color.red);
@@ -607,19 +418,19 @@ public class MenuShop extends MouseAdapter {
                         g.drawRect(25 + 20 + 4, 390, 55, 20);
                         g.setColor(Color.blue);
                         g.drawString("Unselect", 25 + 20 + 8, 404);
-                    } else if (lookingSkinState != currentSkin) {
+                    } else {
                         g.setColor(Color.white);
                         g.drawRect(25 + 20 + 7, 390, 50, 20);
                         g.setColor(Color.blue);
                         g.drawString("Select", 25 + 20 + 14, 404);
                     }
-                } else if (!(purchasedSkins.contains(lookingSkinState))) {
+                } else {
                     g.setColor(Color.white);
                     g.drawRect(22, 390, 50, 20);
                     g.drawRect(80, 390, 50, 20);
                     g.setColor(Color.green);
                     g.drawString("50 Coins", 24, 405);
-                    if (hud.coins >= 50) {
+                    if (HUD.coins >= 50) {
                         g.setColor(Color.green);
                     } else {
                         g.setColor(Color.red);
@@ -635,19 +446,19 @@ public class MenuShop extends MouseAdapter {
                         g.drawRect(25 + 20 + 4, 390, 55, 20);
                         g.setColor(Color.blue);
                         g.drawString("Unselect", 25 + 20 + 8, 404);
-                    } else if (lookingSkinState != currentSkin) {
+                    } else {
                         g.setColor(Color.white);
                         g.drawRect(25 + 20 + 7, 390, 50, 20);
                         g.setColor(Color.blue);
                         g.drawString("Select", 25 + 20 + 14, 404);
                     }
-                } else if (!(purchasedSkins.contains(lookingSkinState))) {
+                } else {
                     g.setColor(Color.white);
                     g.drawRect(22, 390, 50, 20);
                     g.drawRect(80, 390, 50, 20);
                     g.setColor(Color.green);
                     g.drawString("50 Coins", 24, 405);
-                    if (hud.coins >= 50) {
+                    if (HUD.coins >= 50) {
                         g.setColor(Color.green);
                     } else {
                         g.setColor(Color.red);
@@ -663,19 +474,19 @@ public class MenuShop extends MouseAdapter {
                         g.drawRect(25 + 20 + 4, 390, 55, 20);
                         g.setColor(Color.blue);
                         g.drawString("Unselect", 25 + 20 + 8, 404);
-                    } else if (lookingSkinState != currentSkin) {
+                    } else {
                         g.setColor(Color.white);
                         g.drawRect(25 + 20 + 7, 390, 50, 20);
                         g.setColor(Color.blue);
                         g.drawString("Select", 25 + 20 + 14, 404);
                     }
-                } else if (!(purchasedSkins.contains(lookingSkinState))) {
+                } else {
                     g.setColor(Color.white);
                     g.drawRect(22, 390, 50, 20);
                     g.drawRect(80, 390, 50, 20);
                     g.setColor(Color.green);
                     g.drawString("50 Coins", 24, 405);
-                    if (hud.coins >= 50) {
+                    if (HUD.coins >= 50) {
                         g.setColor(Color.green);
                     } else {
                         g.setColor(Color.red);
@@ -691,19 +502,19 @@ public class MenuShop extends MouseAdapter {
                         g.drawRect(25 + 20 + 4, 390, 55, 20);
                         g.setColor(Color.blue);
                         g.drawString("Unselect", 25 + 20 + 8, 404);
-                    } else if (lookingSkinState != currentSkin) {
+                    } else {
                         g.setColor(Color.white);
                         g.drawRect(25 + 20 + 7, 390, 50, 20);
                         g.setColor(Color.blue);
                         g.drawString("Select", 25 + 20 + 14, 404);
                     }
-                } else if (!(purchasedSkins.contains(lookingSkinState))) {
+                } else {
                     g.setColor(Color.white);
                     g.drawRect(22, 390, 50, 20);
                     g.drawRect(80, 390, 50, 20);
                     g.setColor(Color.green);
                     g.drawString("50 Coins", 24, 405);
-                    if (hud.coins >= 50) {
+                    if (HUD.coins >= 50) {
                         g.setColor(Color.green);
                     } else {
                         g.setColor(Color.red);
@@ -713,14 +524,14 @@ public class MenuShop extends MouseAdapter {
             }
 
             //COIN CHANCE INCREMENT!
-            if (hud.coins >= 30){
+            if (HUD.coins >= 30) {
                 g.setColor(Color.green);
-            } else if (hud.coins < 30){
+            } else if (HUD.coins < 30) {
                 g.setColor(Color.red);
             } else {
                 g.setColor(Color.white);
             }
-            if (!(purchasedUpgrades == null) && !(purchasedUpgrades.isEmpty()) &&purchasedUpgrades.contains(StoreUpgrades.MoreCoins_5)){
+            if (!(purchasedUpgrades == null) && !(purchasedUpgrades.isEmpty()) && purchasedUpgrades.contains(StoreUpgrades.MoreCoins_5)) {
                 g.setColor(Color.white);
             }
             g.drawRect(200, 115, 125, 81);
@@ -749,9 +560,9 @@ public class MenuShop extends MouseAdapter {
                 }
 
                 //SPEED INCREMENT!
-                if (hud.coins >= 25) {
+                if (HUD.coins >= 25) {
                     g.setColor(Color.green);
-                } else if (hud.coins < 25) {
+                } else if (HUD.coins < 25) {
                     g.setColor(Color.red);
                 } else {
                     g.setColor(Color.white);
@@ -778,9 +589,9 @@ public class MenuShop extends MouseAdapter {
 
 
                 //EXTRA LIFE!
-                if (hud.coins >= 60) {
+                if (HUD.coins >= 60) {
                     g.setColor(Color.green);
-                } else if (hud.coins < 60) {
+                } else if (HUD.coins < 60) {
                     g.setColor(Color.red);
                 } else {
                     g.setColor(Color.white);
@@ -803,14 +614,39 @@ public class MenuShop extends MouseAdapter {
         }
     }
 
-
-    private boolean mouseOver(int mx, int my, int x, int y, int width, int height){
-        if (mx > x && mx < x + width){
-            if (my > y && my < y + height){
+    private boolean mouseOver(int mx, int my, int x, int y, int width, int height) {
+        if (mx > x && mx < x + width) {
+            if (my > y && my < y + height) {
                 return true;
             }
         }
 
         return false;
+    }
+
+
+    public enum StoreUpgrades {
+        none,
+        MoreCoins_1,
+        MoreCoins_2,
+        MoreCoins_3,
+        MoreCoins_4,
+        MoreCoins_5,
+        ExtraLife_1,
+        Speed_1,
+        Speed_2,
+        Speed_3
+    }
+
+
+    public enum SkinSTATE {
+        White, //1
+        Red, //2
+        Blue, //3
+        Green, //4
+        Yellow, //5
+        Orange, //6
+        Pink, //7
+        Gray //8
     }
 }

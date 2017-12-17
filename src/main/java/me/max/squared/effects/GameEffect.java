@@ -1,7 +1,7 @@
 package me.max.squared.effects;
 
-import me.max.squared.handlers.others.HUD;
 import me.max.squared.enums.ID;
+import me.max.squared.handlers.others.HUD;
 
 import java.awt.*;
 
@@ -15,28 +15,37 @@ public abstract class GameEffect {
     protected HUD hud;
     protected float x;
 
-    public GameEffect(float x, HUD hud, ID id){
+    public GameEffect(float x, HUD hud, ID id) {
         this.id = id;
         this.hud = hud;
         this.x = x;
     }
 
     public abstract void tick();
+
     public abstract void render(Graphics g);
 
-    public void setId(){
+    public void setId() {
         this.id = id;
     }
 
-    public ID getId(){
+    public ID getId() {
         return id;
     }
 
-    public HUD getHud() { return hud; }
+    public HUD getHud() {
+        return hud;
+    }
 
-    public void setHud() { this.hud = hud; }
+    public void setHud() {
+        this.hud = hud;
+    }
 
-    public void setX(float x) { this.x = x; }
+    public float getX() {
+        return x;
+    }
 
-    public float getX() { return x; }
+    public void setX(float x) {
+        this.x = x;
+    }
 }

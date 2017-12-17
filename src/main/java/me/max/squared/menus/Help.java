@@ -1,8 +1,8 @@
 package me.max.squared.menus;
 
 import me.max.squared.Game;
-import me.max.squared.handlers.others.Spawn;
 import me.max.squared.handlers.main.Handler;
+import me.max.squared.handlers.others.Spawn;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -13,46 +13,29 @@ import java.util.Random;
  * Created by max on 28-5-2017.
  * © Copyright 2017 Max Berkelmans
  */
-public class Help extends MouseAdapter{
+public class Help extends MouseAdapter {
 
     private Handler handler;
     private Spawn spawner;
-    private boolean isBackPressed;
     private Random r = new Random();
 
-    public Help(Handler handler, Spawn spawner){
+    public Help(Handler handler, Spawn spawner) {
         this.handler = handler;
         this.spawner = spawner;
     }
 
-    public void mousePressed(MouseEvent e){
-        if (Game.gameState == Game.STATE.Help) {
-            if ((e.getButton() == 1)) {
-                int mx = e.getX();
-                int my = e.getY();
-
-                //back button
-                if (mouseOver(mx, my, 32, 20, 23, 23)) {
-                    isBackPressed = true;
-                }
-
-            }
-        }
-    }
-
-    public void mouseReleased(MouseEvent e) {
+    public void mouseClicked(MouseEvent e) {
         if (Game.gameState == Game.STATE.Help) {
             int mx = e.getX();
             int my = e.getY();
 
-            if ((mouseOver(mx, my, 32, 20, 23, 23)) && (isBackPressed)){
+            if (mouseOver(mx, my, 32, 20, 23, 23)) {
                 Game.gameState = Game.STATE.Menu;
-                isBackPressed = false;
             }
         }
     }
 
-    public void tick(){
+    public void tick() {
         if (Game.gameState == Game.STATE.Help) {
             //nothing to tick
         }
@@ -79,8 +62,7 @@ public class Help extends MouseAdapter{
             g.setColor(Color.white);
             g.drawString("Welcome to Squared!", Game.WIDTH / 2 - 75, 100);
             g.drawString("This game was made by:", Game.WIDTH / 2 - 85, 120);
-            g.drawString("Max Berkelmans | LemmoTresto | NiCe1GuN | Hobo | Elmo | MaxiMiniJaniJos", Game.WIDTH / 2 - 230, 140);
-            g.drawString("Special credits for youtubers, testers and other people: Aaron, Urix, JJ, Techno, David and Scarsz", Game.WIDTH / 2 - 284, 160);
+            g.drawString("Max Berkelmans", Game.WIDTH / 2 - 63, 140);
 
             g.setFont(font1);
             g.setColor(Color.gray);
@@ -101,9 +83,9 @@ public class Help extends MouseAdapter{
         }
     }
 
-    private boolean mouseOver(int mx, int my, int x, int y, int width, int height){
-        if (mx > x && mx < x + width){
-            if (my > y && my < y + height){
+    private boolean mouseOver(int mx, int my, int x, int y, int width, int height) {
+        if (mx > x && mx < x + width) {
+            if (my > y && my < y + height) {
                 return true;
             }
         }

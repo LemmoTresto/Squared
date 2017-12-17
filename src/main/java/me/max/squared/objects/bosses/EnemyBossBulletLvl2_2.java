@@ -1,10 +1,10 @@
 package me.max.squared.objects.bosses;
 
 import me.max.squared.Game;
-import me.max.squared.objects.GameObject;
 import me.max.squared.enums.ID;
-import me.max.squared.objects.trials.Trial;
 import me.max.squared.handlers.main.Handler;
+import me.max.squared.objects.GameObject;
+import me.max.squared.objects.trials.Trial;
 
 import java.awt.*;
 import java.util.Random;
@@ -46,15 +46,7 @@ public class EnemyBossBulletLvl2_2 extends GameObject {
         }
     }
 
-    public void render(Graphics g2) {
-
-        float alpha = 0.4f;
-        AlphaComposite alcom = AlphaComposite.getInstance(
-                AlphaComposite.SRC_OVER, alpha);
-        Graphics2D g = (Graphics2D) g2.create();
-        if (Game.gameState == Game.STATE.PauseScreen){
-            g.setComposite(alcom);
-        }
+    public void render(Graphics g) {
 
         g.setColor(Color.yellow);
         g.fillRect((int) x, (int) y, 12, 12);

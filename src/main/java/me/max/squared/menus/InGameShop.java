@@ -1,9 +1,9 @@
 package me.max.squared.menus;
 
 import me.max.squared.Game;
+import me.max.squared.handlers.main.Handler;
 import me.max.squared.handlers.others.HUD;
 import me.max.squared.handlers.others.Spawn;
-import me.max.squared.handlers.main.Handler;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -16,110 +16,79 @@ import java.util.Random;
  */
 public class InGameShop extends MouseAdapter {
 
+    public static Game.STATE currentLevel;
     private Handler handler;
     private HUD hud;
     private Spawn spawner;
     private Color HealthUp;
     private Color HealthMaxed;
     private Color SkipWave;
-    private boolean hpPlus10Pressed, BackPressed, SkipWavePressed, hpMaxPressed;
     private Random r = new Random();
-    public static Game.STATE currentLevel;
 
-    public InGameShop(Handler handler, HUD hud, Spawn spawner){
+    public InGameShop(Handler handler, HUD hud, Spawn spawner) {
         this.handler = handler;
         this.hud = hud;
         this.spawner = spawner;
 
     }
 
-    public void mousePressed(MouseEvent e) {
+    public void mouseClicked(MouseEvent e) {
         if (Game.gameState == Game.STATE.InGameShop) {
             if (e.getButton() == 1) {
                 int mx = e.getX();
                 int my = e.getY();
-                if (mouseOver(mx, my, 100, 125, 135, 60)){
-                    hpPlus10Pressed = true;
-                    hpMaxPressed = false;
-                    BackPressed = false;
-                    SkipWavePressed = false;
-                } else if (mouseOver(mx, my, 100, 250, 135, 60)){
-                    hpPlus10Pressed = false;
-                    hpMaxPressed = true;
-                    BackPressed = false;
-                    SkipWavePressed = false;
-                } else if (mouseOver(mx, my, 350, 125, 135, 60)){
-                    hpPlus10Pressed = false;
-                    hpMaxPressed = false;
-                    BackPressed = false;
-                    SkipWavePressed = true;
-                } else if (mouseOver(mx, my, 350, 250, 135, 60)){
-                    hpPlus10Pressed = false;
-                    hpMaxPressed = false;
-                    BackPressed = true;
-                    SkipWavePressed = false;
-                }
-            }
-        }
-    }
-
-    public void mouseReleased(MouseEvent e) {
-        if (Game.gameState == Game.STATE.InGameShop) {
-            if (e.getButton() == 1) {
-                int mx = e.getX();
-                int my = e.getY();
-                if ((mouseOver(mx, my, 100, 125, 135, 60)) && (hpPlus10Pressed)){
-                    if (hud.coins >= 1){
-                        if (!(hud.HEALTH == 100)) {
-                            hud.coins--;
-                            hud.HEALTH += 20;
+                if (mouseOver(mx, my, 100, 125, 135, 60)) {
+                    if (HUD.coins >= 1) {
+                        if (!(HUD.HEALTH == 100)) {
+                            HUD.coins--;
+                            HUD.HEALTH += 20;
                         }
                     }
-                } else if ((mouseOver(mx, my, 100, 250, 135, 60)) && (hpMaxPressed)){
-                    if (hud.coins >= 3){
-                        if (!(hud.HEALTH == 100)){
-                            hud.coins -= 3;
-                            hud.HEALTH = 100;
+                } else if (mouseOver(mx, my, 100, 250, 135, 60)) {
+                    if (HUD.coins >= 3) {
+                        if (!(HUD.HEALTH == 100)) {
+                            HUD.coins -= 3;
+                            HUD.HEALTH = 100;
                         }
                     }
-                } else if ((mouseOver(mx, my, 350, 125, 135, 60)) && (SkipWavePressed)){
-                    if (hud.coins >= 4) {
-                        if (currentLevel == Game.STATE.HardcoreMode){
+                } else if (mouseOver(mx, my, 350, 125, 135, 60)) {
+                    if (HUD.coins >= 4) {
+                        if (currentLevel == Game.STATE.HardcoreMode) {
                             spawner.scoreKeep += 250;
                         } else
                             spawner.scoreKeep += 300;
-                        hud.coins -= 4;
+                        HUD.coins -= 4;
                         Game.gameState = currentLevel;
                     }
-                } else if ((mouseOver(mx, my, 350, 250, 135, 60)) && (BackPressed)){
+                } else if (mouseOver(mx, my, 350, 250, 135, 60)) {
                     Game.gameState = currentLevel;
                 }
             }
         }
     }
 
-    public void tick(){
+    public void tick() {
         if (Game.gameState == Game.STATE.InGameShop) {
             HUD.HEALTH = Game.clamp(HUD.HEALTH, 0, 100);
-            if (hud.coins >= 1){
+            if (HUD.coins >= 1) {
                 HealthUp = Color.green;
-            } else if (hud.coins < 1){
+            } else if (HUD.coins < 1) {
                 HealthUp = Color.red;
             }
-            if (hud.coins >= 3){
+            if (HUD.coins >= 3) {
                 HealthMaxed = Color.green;
-            } else if (hud.coins < 3){
+            } else if (HUD.coins < 3) {
                 HealthMaxed = Color.red;
             }
-            if (hud.coins >= 4){
+            if (HUD.coins >= 4) {
                 SkipWave = Color.green;
-            } else if (hud.coins < 4){
+            } else if (HUD.coins < 4) {
                 SkipWave = Color.red;
             }
         }
     }
 
-    public void render(Graphics g){
+    public void render(Graphics g) {
         if (Game.gameState == Game.STATE.InGameShop) {
 
             //Title
@@ -179,11 +148,9 @@ public class InGameShop extends MouseAdapter {
         }
     }
 
-    private boolean mouseOver(int mx, int my, int x, int y, int width, int height){
-        if (mx > x && mx < x + width){
-            if (my > y && my < y + height){
-                return true;
-            }
+    private boolean mouseOver(int mx, int my, int x, int y, int width, int height) {
+        if (mx > x && mx < x + width) {
+            return my > y && my < y + height;
         }
 
         return false;

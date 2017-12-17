@@ -1,9 +1,8 @@
 package me.max.squared.objects.powerups;
 
-import me.max.squared.Game;
-import me.max.squared.objects.GameObject;
-import me.max.squared.handlers.main.Handler;
 import me.max.squared.enums.ID;
+import me.max.squared.handlers.main.Handler;
+import me.max.squared.objects.GameObject;
 
 import java.awt.*;
 
@@ -34,7 +33,7 @@ public class BasicRegenHeart extends GameObject {
         timer -= timesFlashed;
 
         timer--;
-        if (timer <= 0){
+        if (timer <= 0) {
             timesFlashed += 1;
             timer = 30;
             if (timesFlashed >= 2) {
@@ -46,7 +45,7 @@ public class BasicRegenHeart extends GameObject {
             }
         }
 
-        if (timesFlashed >= 20){
+        if (timesFlashed >= 20) {
             handler.removeObject(this);
         }
 
@@ -57,16 +56,8 @@ public class BasicRegenHeart extends GameObject {
 
     }
 
-    public void render(Graphics g2) {
+    public void render(Graphics g) {
         if (isFlashed) {
-
-            float alpha = 0.4f;
-            AlphaComposite alcom = AlphaComposite.getInstance(
-                    AlphaComposite.SRC_OVER, alpha);
-            Graphics2D g = (Graphics2D) g2.create();
-            if (Game.gameState == Game.STATE.PauseScreen){
-                g.setComposite(alcom);
-            }
 
             g.setColor(new Color(150, 4, 60));
             int width = 17;

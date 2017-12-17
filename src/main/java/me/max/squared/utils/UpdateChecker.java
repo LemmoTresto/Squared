@@ -13,8 +13,9 @@ public class UpdateChecker {
 
 
     /**
-     * Check the build hash of DiscordSRV against the latest hashes from GitHub
-     * @return boolean indicating if an update to DiscordSRV is available
+     * Check the build hash of Squared against the latest hashes from GitHub
+     *
+     * @return boolean indicating if an update to Squared is available
      */
     public boolean checkForUpdates() {
         try {

@@ -1,10 +1,10 @@
 package me.max.squared.objects.bosses;
 
 import me.max.squared.Game;
-import me.max.squared.objects.GameObject;
 import me.max.squared.enums.ID;
-import me.max.squared.objects.trials.Trial;
 import me.max.squared.handlers.main.Handler;
+import me.max.squared.objects.GameObject;
+import me.max.squared.objects.trials.Trial;
 
 import java.awt.*;
 import java.util.Random;
@@ -38,7 +38,7 @@ public class EnemyBossLvl2 extends GameObject {
         else timer--;
 
         if (timer <= 0) timer2--;
-        if (timer2 <= 0){
+        if (timer2 <= 0) {
             if (velX == 0) velX = 2;
             int spawn = random.nextInt(20);
             if (spawn == 0) {
@@ -50,23 +50,16 @@ public class EnemyBossLvl2 extends GameObject {
         velX = Game.clamp(velX, -10, 10);
 
 
-
-        if (x <= 0 || x >= Game.WIDTH - 92) { velX *= -1; }
+        if (x <= 0 || x >= Game.WIDTH - 92) {
+            velX *= -1;
+        }
         //if (y <= 0 || y >= Game.HEIGHT - 50) { velY *= -1; }
 
 
         handler.addObject(new Trial(x, y, ID.Trial, Color.blue, 86, 86, 0.07f, handler));
     }
 
-    public void render(Graphics g2) {
-
-        float alpha = 0.4f;
-        AlphaComposite alcom = AlphaComposite.getInstance(
-                AlphaComposite.SRC_OVER, alpha);
-        Graphics2D g = (Graphics2D) g2.create();
-        if (Game.gameState == Game.STATE.PauseScreen){
-            g.setComposite(alcom);
-        }
+    public void render(Graphics g) {
 
         g.setColor(Color.blue);
         g.fillRect((int) x, (int) y, 86, 86);

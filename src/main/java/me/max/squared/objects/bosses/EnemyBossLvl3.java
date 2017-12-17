@@ -1,10 +1,10 @@
 package me.max.squared.objects.bosses;
 
 import me.max.squared.Game;
-import me.max.squared.objects.GameObject;
 import me.max.squared.enums.ID;
-import me.max.squared.objects.trials.Trial;
 import me.max.squared.handlers.main.Handler;
+import me.max.squared.objects.GameObject;
+import me.max.squared.objects.trials.Trial;
 
 import java.awt.*;
 import java.util.Random;
@@ -28,8 +28,8 @@ public class EnemyBossLvl3 extends GameObject {
         velX = 0;
         velY = 2;
 
-        for (int i = 0; i < handler.object.size(); i++){
-            if (handler.object.get(i).getId() == ID.Player){
+        for (int i = 0; i < handler.object.size(); i++) {
+            if (handler.object.get(i).getId() == ID.Player) {
                 player = handler.object.get(i);
             }
         }
@@ -48,22 +48,22 @@ public class EnemyBossLvl3 extends GameObject {
                 velY *= -1;
                 if (velY < 0) {
                     velY -= 0.02f;
-                } else if (velY > 0){
+                } else if (velY > 0) {
                     velY += 0.02f;
                 }
             } else if (y >= Game.HEIGHT - 110) {
                 velY *= -1;
                 if (velY < 0) {
                     velY -= 0.02f;
-                } else if (velY > 0){
+                } else if (velY > 0) {
                     velY += 0.02f;
                 }
             }
             int spawn = random.nextInt(10);
             if (spawn == 0) {
-                if (player.x < Game.WIDTH / 2){
+                if (player.x < Game.WIDTH / 2) {
                     handler.addObject(new EnemyBossBulletLvl3_1(x - 10, y + 40, ID.EnemyBossBulletLvl3_1, handler));
-                } else if (player.x > Game.WIDTH / 2){
+                } else if (player.x > Game.WIDTH / 2) {
                     handler.addObject(new EnemyBossBulletLvl3_1(x + 75, y + 40, ID.EnemyBossBulletLvl3_1, handler));
                 }
             }
@@ -72,22 +72,13 @@ public class EnemyBossLvl3 extends GameObject {
         velY = Game.clamp(velY, -7.5f, 7.5f);
 
 
-
         //if (x <= 0 || x >= Game.WIDTH - 92) { velX *= -1; }
 
 
         handler.addObject(new Trial(x, y, ID.Trial, Color.lightGray, 86, 86, 0.07f, handler));
     }
 
-    public void render(Graphics g2) {
-
-        float alpha = 0.4f;
-        AlphaComposite alcom = AlphaComposite.getInstance(
-                AlphaComposite.SRC_OVER, alpha);
-        Graphics2D g = (Graphics2D) g2.create();
-        if (Game.gameState == Game.STATE.PauseScreen){
-            g.setComposite(alcom);
-        }
+    public void render(Graphics g) {
 
         g.setColor(Color.lightGray);
         g.fillRect((int) x, (int) y, 86, 86);

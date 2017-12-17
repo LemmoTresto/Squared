@@ -1,8 +1,8 @@
 package me.max.squared.objects.enemies;
 
-import me.max.squared.objects.GameObject;
 import me.max.squared.enums.ID;
 import me.max.squared.handlers.main.Handler;
+import me.max.squared.objects.GameObject;
 
 import java.awt.*;
 
@@ -29,9 +29,9 @@ public class RocketEnemyExplosion extends GameObject {
     }
 
     public void tick() {
-        if (alpha > life){
+        if (alpha > life) {
             alpha -= life - 0.001f;
-        }else{
+        } else {
             handler.removeObject(this);
         }
     }
@@ -47,9 +47,9 @@ public class RocketEnemyExplosion extends GameObject {
         g2d.setComposite(makeTranspaant(1));
     }
 
-    private AlphaComposite makeTranspaant(float alpha){
+    private AlphaComposite makeTranspaant(float alpha) {
         float type = AlphaComposite.SRC_OVER;
-        return(AlphaComposite.getInstance((int) type, alpha));
+        return (AlphaComposite.getInstance((int) type, alpha));
     }
 
     public Rectangle getBounds() {

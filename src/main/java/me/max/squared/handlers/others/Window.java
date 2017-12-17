@@ -1,9 +1,12 @@
 package me.max.squared.handlers.others;
 
 import me.max.squared.Game;
+import me.max.squared.utils.DiscordRPCUtil;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Created by max on 24-5-2017.
@@ -11,18 +14,31 @@ import java.awt.*;
  */
 public class Window extends Canvas {
 
-    public Window(int width, int height, String title, Game game){
-        JFrame Frame = new JFrame(title);
+    public static JFrame frame;
 
-        Frame.setPreferredSize(new Dimension(width, height));
-        Frame.setMinimumSize(new Dimension(width, height));
-        Frame.setMaximumSize(new Dimension(width, height));
+    public Window(int width, int height, String title, Game game) {
+        frame = new JFrame(title);
 
-        Frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Frame.setResizable(false);
-        Frame.setLocationRelativeTo(null);
-        Frame.add(game);
-        Frame.setVisible(true);
+        frame.setPreferredSize(new Dimension(width, height));
+        frame.setMinimumSize(new Dimension(width, height));
+        frame.setMaximumSize(new Dimension(width, height));
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
+        frame.add(game);
+        frame.setVisible(true);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int confirm = JOptionPane.showOptionDialog(
+                        frame, "Are you sure you want to close Squared?",
+                        "Exit Confirmation", JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, null, null, null);
+                if (confirm == 0) {
+                    DiscordRPCUtil.shutdownDiscord();
+                    System.exit(1);
+                }
+            }
+        });
         game.start();
     }
 }

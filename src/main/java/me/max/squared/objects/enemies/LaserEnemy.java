@@ -1,10 +1,10 @@
 package me.max.squared.objects.enemies;
 
 import me.max.squared.Game;
-import me.max.squared.objects.GameObject;
 import me.max.squared.enums.ID;
-import me.max.squared.objects.trials.Trial;
 import me.max.squared.handlers.main.Handler;
+import me.max.squared.objects.GameObject;
+import me.max.squared.objects.trials.Trial;
 
 import java.awt.*;
 
@@ -14,8 +14,8 @@ import java.awt.*;
  */
 public class LaserEnemy extends GameObject {
 
-    private Handler handler;
     int bulletSpawn = 250;
+    private Handler handler;
     private float oldVelX;
     private float oldVelY;
 
@@ -33,14 +33,18 @@ public class LaserEnemy extends GameObject {
         x += velX;
         y += velY;
 
-        if (y <= 0 || y >= Game.HEIGHT - 50) { velY *= -1; }
+        if (y <= 0 || y >= Game.HEIGHT - 50) {
+            velY *= -1;
+        }
 
-        if (x <= 0 || x >= Game.WIDTH - 20) { velX *= -1; }
+        if (x <= 0 || x >= Game.WIDTH - 20) {
+            velX *= -1;
+        }
 
         handler.addObject(new Trial(x, y, ID.Trial, Color.magenta, 20, 20, 0.05f, handler));
 
         bulletSpawn--;
-        if (bulletSpawn <= 50){
+        if (bulletSpawn <= 50) {
             if (!(velX == 0) && !(velY == 0)) {
                 oldVelX = velX;
                 oldVelY = velY;
@@ -58,17 +62,9 @@ public class LaserEnemy extends GameObject {
 
     }
 
-    public void render(Graphics g2) {
+    public void render(Graphics g) {
 
-        float alpha = 0.4f;
-        AlphaComposite alcom = AlphaComposite.getInstance(
-                AlphaComposite.SRC_OVER, alpha);
-        Graphics2D g = (Graphics2D) g2.create();
-        if (Game.gameState == Game.STATE.PauseScreen){
-            g.setComposite(alcom);
-        }
-
-        g.setColor(new Color(139,0,0));
+        g.setColor(new Color(139, 0, 0));
         //beam will be bright white!
         g.fillRect((int) x, (int) y, 20, 20);
 

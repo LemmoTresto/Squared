@@ -15,8 +15,8 @@ import java.io.ObjectOutputStream;
  */
 public class DataSaving {
 
-    File f;
     private static String OS = System.getProperty("os.name").toLowerCase();
+    File f;
 
     public void tick() throws IOException {
 
@@ -27,30 +27,30 @@ public class DataSaving {
         data.coins = HUD.coins;
         data.highscore = HUD.highScore;
         data.lives = HUD.lives;
-        if (MenuShop.skinSTATE == MenuShop.SkinSTATE.White){
+        if (MenuShop.skinSTATE == MenuShop.SkinSTATE.White) {
             data.skinstate = 1;
-        } else if (MenuShop.skinSTATE == MenuShop.SkinSTATE.Red){
+        } else if (MenuShop.skinSTATE == MenuShop.SkinSTATE.Red) {
             data.skinstate = 2;
-        } else if (MenuShop.skinSTATE == MenuShop.SkinSTATE.Blue){
+        } else if (MenuShop.skinSTATE == MenuShop.SkinSTATE.Blue) {
             data.skinstate = 3;
-        } else if (MenuShop.skinSTATE == MenuShop.SkinSTATE.Green){
+        } else if (MenuShop.skinSTATE == MenuShop.SkinSTATE.Green) {
             data.skinstate = 4;
-        } else if (MenuShop.skinSTATE == MenuShop.SkinSTATE.Yellow){
+        } else if (MenuShop.skinSTATE == MenuShop.SkinSTATE.Yellow) {
             data.skinstate = 5;
-        } else if (MenuShop.skinSTATE == MenuShop.SkinSTATE.Orange){
+        } else if (MenuShop.skinSTATE == MenuShop.SkinSTATE.Orange) {
             data.skinstate = 6;
-        } else if (MenuShop.skinSTATE == MenuShop.SkinSTATE.Pink){
+        } else if (MenuShop.skinSTATE == MenuShop.SkinSTATE.Pink) {
             data.skinstate = 7;
-        } else if (MenuShop.skinSTATE == MenuShop.SkinSTATE.Gray){
+        } else if (MenuShop.skinSTATE == MenuShop.SkinSTATE.Gray) {
             data.skinstate = 8;
         }
         data.currentSkin = MenuShop.currentSkin;
         data.purchasedUpgrades = MenuShop.purchasedUpgrades;
         data.purchasedSkins = MenuShop.purchasedSkins;
 
-        if (Game.isWindows()){
+        if (Game.isWindows()) {
             File f = new File(System.getenv("APPDATA") + "\\.squared\\data.dat");
-            if(!f.getParentFile().exists()){
+            if (!f.getParentFile().exists()) {
                 f.getParentFile().mkdirs();
             }
             if (!(f.exists())) {
@@ -63,13 +63,12 @@ public class DataSaving {
                 ObjectOutputStream oos = new ObjectOutputStream(fout);
                 oos.writeObject(data);
                 oos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            catch (Exception e) { e.printStackTrace(); }
-        }
-
-        else if (Game.isMac()) {
+        } else if (Game.isMac()) {
             File f = new File(System.getProperty("user.home") + "/Library/Application Support/.squared/data.dat");
-            if(!f.getParentFile().exists()){
+            if (!f.getParentFile().exists()) {
                 f.getParentFile().mkdirs();
             }
             if (!(f.exists())) {
@@ -82,13 +81,12 @@ public class DataSaving {
                 ObjectOutputStream oos = new ObjectOutputStream(fout);
                 oos.writeObject(data);
                 oos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            catch (Exception e) { e.printStackTrace(); }
-        }
-
-        else if (Game.isUnix()) {
+        } else if (Game.isUnix()) {
             File f = new File(System.getProperty("user.home") + "/.squared/data.dat");
-            if(!f.getParentFile().exists()){
+            if (!f.getParentFile().exists()) {
                 f.getParentFile().mkdirs();
             }
             if (!(f.exists())) {
@@ -101,11 +99,10 @@ public class DataSaving {
                 ObjectOutputStream oos = new ObjectOutputStream(fout);
                 oos.writeObject(data);
                 oos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            catch (Exception e) { e.printStackTrace(); }
-        }
-
-        else {
+        } else {
             System.out.println(OS);
         }
 

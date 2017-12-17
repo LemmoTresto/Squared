@@ -1,9 +1,8 @@
 package me.max.squared.objects.trials;
 
-import me.max.squared.Game;
-import me.max.squared.objects.GameObject;
 import me.max.squared.enums.ID;
 import me.max.squared.handlers.main.Handler;
+import me.max.squared.objects.GameObject;
 
 import java.awt.*;
 
@@ -39,27 +38,17 @@ public class Trial extends GameObject {
 
     public void render(Graphics g) {
 
-            Graphics2D g2d = (Graphics2D) g;
-            g2d.setComposite(makeTranspaant(alpha));
-            AlphaComposite alcom = AlphaComposite.getInstance(
-                    AlphaComposite.SRC_OVER, 0.2f);
-            if (Game.gameState == Game.STATE.PauseScreen) {
-                g2d.setComposite(alcom);
-            }
-
-            g.setColor(color);
-            g.fillRect((int) x, (int) y, width, height);
-            if (!(Game.gameState == Game.STATE.PauseScreen)) {
-                g2d.setComposite(makeTranspaant(1));
-            } else {
-                g2d.setComposite(alcom);
-            }
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setComposite(makeTranspaant(alpha));
+        g.setColor(color);
+        g.fillRect((int) x, (int) y, width, height);
+        g2d.setComposite(makeTranspaant(1));
 
     }
 
-    private AlphaComposite makeTranspaant(float alpha){
+    private AlphaComposite makeTranspaant(float alpha) {
         float type = AlphaComposite.SRC_OVER;
-        return(AlphaComposite.getInstance((int) type, alpha));
+        return (AlphaComposite.getInstance((int) type, alpha));
     }
 
     public Rectangle getBounds() {

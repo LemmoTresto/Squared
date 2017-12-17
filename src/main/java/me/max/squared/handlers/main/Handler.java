@@ -1,8 +1,8 @@
 package me.max.squared.handlers.main;
 
 import me.max.squared.Game;
-import me.max.squared.objects.GameObject;
 import me.max.squared.enums.ID;
+import me.max.squared.objects.GameObject;
 
 import java.awt.*;
 import java.util.Iterator;
@@ -32,7 +32,7 @@ public class Handler {
                 try {
                     tempObject = object.get(i);
                     tempObject.render(g);
-                } catch (NullPointerException e){
+                } catch (NullPointerException e) {
                     //Do nothing cuz nothing to worry about
                     System.out.println("Another unnecessary nullpointer from handler in render... Ignore it ;).");
                 }
@@ -40,11 +40,11 @@ public class Handler {
         }
     }
 
-    public void clearEnemies(){
+    public void clearEnemies() {
         Iterator<GameObject> i = object.iterator();
-        while (i.hasNext()){
+        while (i.hasNext()) {
             GameObject tempObject = i.next();
-            if (tempObject.getId() != ID.Player && tempObject.getId() != ID.BasicCoin){
+            if (tempObject.getId() != ID.Player && tempObject.getId() != ID.BasicCoin) {
                 i.remove();
             }
         }
